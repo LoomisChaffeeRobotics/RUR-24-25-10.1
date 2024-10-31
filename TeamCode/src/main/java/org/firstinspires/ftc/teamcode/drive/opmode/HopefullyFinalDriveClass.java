@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
@@ -21,10 +21,6 @@ public class HopefullyFinalDriveClass extends OpMode {
     float Clawopen = Clawclose + 0.29F;
     float Armopen = 0.5F;
     float Armclose = Armopen - 0.2F;
-    DcMotor frontLeft;
-    DcMotor frontRight;
-    DcMotor rearLeft;
-    DcMotor rearRight;
     DcMotor linearRight;
     DcMotor linearLeft;
     double x = 0;
@@ -32,6 +28,7 @@ public class HopefullyFinalDriveClass extends OpMode {
     double rx = 0;
     double n = 0;
     double ns = 0;
+    double LRP = 0;
     int cnt = 1;
     int acnt = 1;
 
@@ -48,9 +45,13 @@ public class HopefullyFinalDriveClass extends OpMode {
         Arm = hardwareMap.get(Servo.class, "Arm");
         Arm.setPosition(Armopen);
         Claw = hardwareMap.get(Servo.class, "Claw");
-        Claw.setPosition(Clawopen);
+        Claw.setPosition(Clawclose);
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
+        linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        linearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     @Override
@@ -61,21 +62,42 @@ public class HopefullyFinalDriveClass extends OpMode {
             Arm.setPosition(Armopen);
 
         }
+        if (gamepad1.right_trigger < 0.2) {
+            rtdepressed = 0;
+        }
+            if (gamepad1.right_trigger > 0.2 && gamepad1.x) {
+            Claw.setPosition(Claw.getPosition() - speedfactor);
+            telemetry.addData("Claw Pos:", (Claw.getPosition()));
+        }
+        if (gamepad1.right_trigger > 0.2 && gamepad1.left_bumper) {
+            Claw.setPosition(Claw.getPosition() + speedfactor);
+            telemetry.addData("Claw Pos:", (Claw.getPosition()));
+        }
         if ((gamepad1.right_trigger >= 0.2 && !gamepad1.left_bumper) && cnt == 2 && rtdepressed == 0) {
             Claw.setPosition(Clawopen);
             telemetry.addData("Claw Pos:", (Claw.getPosition()));
             cnt = 1;
             rtdepressed = 1;
-        }
-        else if ((gamepad1.right_trigger >= 0.2 && !gamepad1.left_bumper) && cnt == 1 && rtdepressed == 0) {
+        } else if ((gamepad1.right_trigger >= 0.2 && !gamepad1.left_bumper) && cnt == 1 && rtdepressed == 0) {
             Claw.setPosition(Clawclose);
             telemetry.addData("Claw Pos:", (Claw.getPosition()));
             cnt = 2;
             rtdepressed = 1;
         }
-        if (gamepad1.right_trigger < 0.2) {rtdepressed = 0;}
+        if (gamepad1.right_trigger < 0.2) {
+            rtdepressed = 0;
+        }
 
-        if (gamepad1.right_bumper && gamepad1.a) {
+        if (gamepad1.right_trigger > 0.2 && gamepad1.x) {
+            Claw.setPosition(Claw.getPosition() - speedfactor);
+            telemetry.addData("Claw Pos:", (Claw.getPosition()));
+        }
+        if (gamepad1.right_trigger > 0.2 && gamepad1.left_bumper) {
+            Claw.setPosition(Claw.getPosition() + speedfactor);
+            telemetry.addData("Claw Pos:", (Claw.getPosition()));
+        }
+
+        if (gamepad1.right_bumper && gamepad1.x) {
             Arm.setPosition(Arm.getPosition() - speedfactor);
             telemetry.addData("Arm Pos:", (Arm.getPosition()));
         }
@@ -84,47 +106,67 @@ public class HopefullyFinalDriveClass extends OpMode {
             telemetry.addData("Arm Pos:", (Arm.getPosition()));
         }
 
-        if ((gamepad1.right_bumper && !gamepad1.left_bumper) && acnt == 2 && rbdepressed == 0) {
+        if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 2 && rbdepressed == 0) {
             Arm.setPosition(Armopen);
             telemetry.addData("Arm Pos:", (Arm.getPosition()));
             acnt = 1;
             rbdepressed = 1;
         }
-        else if ((gamepad1.right_bumper && !gamepad1.left_bumper) && acnt == 1 && rbdepressed == 0) {
+        else if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 1 && rbdepressed == 0) {
             Arm.setPosition(Armclose);
             telemetry.addData("Arm Pos:", (Arm.getPosition()));
             acnt = 2;
             rbdepressed = 1;
         }
-        if (gamepad1.right_bumper) {rbdepressed = 0;}
-
-
+        if (!gamepad1.right_bumper) {rbdepressed = 0;}
 
 
         if (gamepad1.left_trigger >= 0.3) {
-            y = (0.3) * gamepad1.left_stick_y;
-        }
-        else if (gamepad1.left_trigger <= 0.3){
-            y = gamepad1.left_stick_y;
+            y = (0.3) * -gamepad1.left_stick_y;
+        } else if (gamepad1.left_trigger <= 0.3) {
+            y = -gamepad1.left_stick_y;
         }
 
         if (gamepad1.left_trigger >= 0.3) {
             x = (0.3) * gamepad1.left_stick_x;
-        }
-        else if (gamepad1.left_trigger <= 0.3){
+        } else if (gamepad1.left_trigger <= 0.3) {
             x = gamepad1.left_stick_x;
         }
-// Second person turns while first person drives//
+
         if (gamepad1.left_trigger >= 0.3) {
-            rx = (0.3) * gamepad2.right_stick_x;
+            rx = (0.3) * gamepad1.right_stick_x;
+        } else if (gamepad1.left_trigger <= 0.3) {
+            rx = gamepad1.right_stick_x;
         }
-        else if (gamepad1.left_trigger <= 0.3){
-            rx = gamepad2.right_stick_x;
+
+        if (gamepad1.y && gamepad1.left_bumper) {
+            LRP = 0.3;
+        } else if (gamepad1.y && !gamepad1.left_bumper) {
+            LRP = 1;
         }
+
+        if (gamepad1.a && gamepad1.left_bumper) {
+            LRP = -0.3;
+        } else if (gamepad1.a && !gamepad1.left_bumper) {
+            LRP = -0.7;
+        }
+
+
+
+        linearRight.setPower(LRP);
+        linearLeft.setPower(LRP);
+        y = 0;
+        x = 0;
+        rx = 0;
+        LRP = 0.1;
+
+
+
+
         //Field-centric//
-        double y = -gamepad1.left_stick_y;
-        double x = gamepad1.left_stick_x * 1.1824943423;
-        double rx = gamepad2.right_stick_x;
+        y = -gamepad1.left_stick_y;
+        x = gamepad1.left_stick_x * 1.1824943423;//CHANGE ASAP//;
+        rx = gamepad2.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
