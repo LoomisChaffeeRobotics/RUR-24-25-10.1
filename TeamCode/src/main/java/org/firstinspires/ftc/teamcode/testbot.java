@@ -6,16 +6,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+
 @TeleOp
 public class testbot extends OpMode {
-
+    IMU imu;
+    SampleMecanumDrive drive;
     Servo Claw;
     Servo Arm;
     float speedfactor = 0.002F;
     float Clawclose = 0.39F;
     float Clawopen = Clawclose + 0.29F;
-    float Armopen = 0.70F;
-    float Armclose = 0.0F;
+    float Armopen = 0.50F;
+    float Armclose = Armopen - 0.2F;
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor rearLeft;
