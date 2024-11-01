@@ -13,9 +13,9 @@ public class testbot extends OpMode {
     Servo Arm;
     float speedfactor = 0.002F;
     float Clawclose = 0.39F;
-    float Clawopen = Clawclose + 0.29F;
-    float Armopen = 0.70F;
-    float Armclose = 0.0F;
+    float Clawopen = 0.75F;
+    float Armopen = 0.8573F;
+    float Armclose = 0.68F;
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor rearLeft;
