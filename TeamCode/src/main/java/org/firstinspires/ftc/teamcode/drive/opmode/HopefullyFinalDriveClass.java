@@ -18,16 +18,14 @@ public class HopefullyFinalDriveClass extends OpMode {
     Servo Arm;
     float speedfactor = 0.002F; //speed at which everything moves
     float Clawclose = 0.39F;
-    float Clawopen = Clawclose + 0.29F;
-    float Armopen = 0.5F;
-    float Armclose = Armopen - 0.2F;
+    float Clawopen = 0.75F;
+    float Armopen = 0.8573F;
+    float Armclose = Armopen - 0.5042F;
     DcMotor linearRight;
     DcMotor linearLeft;
     double x = 0;
     double y = 0;
     double rx = 0;
-    double n = 0;
-    double ns = 0;
     double LRP = 0;
     int cnt = 1;
     int acnt = 1;
