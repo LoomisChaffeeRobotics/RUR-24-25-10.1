@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,11 +12,12 @@ public class testbot extends OpMode {
 
     Servo Claw;
     Servo Arm;
+    CRServo Extender;
     float speedfactor = 0.002F;
     float Clawclose = 0.39F;
     float Clawopen = 0.75F;
-    float Armopen = 0.8573F;
-    float Armclose = 0.5042F;
+    float Armopen = 0.8973F;
+    float Armclose = Armopen - 0.3531F;
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor rearLeft;
@@ -41,6 +43,7 @@ public class testbot extends OpMode {
         Arm.setPosition(Armopen);
         Claw = hardwareMap.get(Servo.class, "Claw");
         Claw.setPosition(Clawclose);
+        Extender = hardwareMap.get(CRServo.class, "Extender");
 
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
@@ -147,6 +150,12 @@ public class testbot extends OpMode {
                 LRP = -0.7;
             }
 
+        if (gamepad1.b) {
+            Extender.setPower(-0.4);
+        }
+        if (gamepad1.x) {
+            Extender.setPower(0.4);
+        }
 
             frontLeft.setPower(y + x + rx);
             rearLeft.setPower(y - x + rx);
@@ -158,7 +167,7 @@ public class testbot extends OpMode {
             x = 0;
             rx = 0;
             LRP = 0.1;
-
+            Extender.setPower(0);
         }
 
 }
