@@ -33,7 +33,7 @@ public class LinearSlidePID extends OpMode {
     @Override
     public void loop() {
         // Elapsed timer class from SDK, please use it, it's epic
-        ElapsedTime timer = new ElapsedTime();
+       ElapsedTime timer = new ElapsedTime();
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
         //test code, might have to change to linearRight if bad stuff happens
@@ -42,8 +42,7 @@ public class LinearSlidePID extends OpMode {
 //            linearLeft.setTargetPosition(maxPossiblePos);
 //        } else if (linearLeft.getCurrentPosition() <= minPossiblePos) {
 //            linearLeft.setTargetPosition(minPossiblePos);
-        }
-
+//        }
 
         while (reference != encoderPosition) {
 
