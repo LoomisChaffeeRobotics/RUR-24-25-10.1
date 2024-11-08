@@ -15,7 +15,7 @@ public class testbot extends OpMode {
     float Clawclose = 0.39F;
     float Clawopen = 0.75F;
     float Armopen = 0.8573F;
-    float Armclose = 0.68F;
+    float Armclose = 0.5042F;
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor rearLeft;
