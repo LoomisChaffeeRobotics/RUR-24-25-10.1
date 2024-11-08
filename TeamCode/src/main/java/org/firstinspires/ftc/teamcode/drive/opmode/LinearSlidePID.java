@@ -8,10 +8,11 @@ public class LinearSlidePID extends OpMode {
     DcMotor linearRight;
     DcMotor linearLeft;
 
-    double Kp = 0;
-    double Ki = 0;
-    double Kd = 0;
-
+    public double Kp = 0;
+    public double Ki = 0;
+    public double Kd = 0;
+    int maxPossiblePos = 0;
+    int minPossiblePos = 0;
     double reference = 0;
 
     double integralSum = 0;
@@ -32,9 +33,16 @@ public class LinearSlidePID extends OpMode {
     @Override
     public void loop() {
         // Elapsed timer class from SDK, please use it, it's epic
-        ElapsedTime timer = new ElapsedTime();
+       ElapsedTime timer = new ElapsedTime();
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
+        //test code, might have to change to linearRight if bad stuff happens
+
+//        if (linearLeft.getCurrentPosition() >= maxPossiblePos) {
+//            linearLeft.setTargetPosition(maxPossiblePos);
+//        } else if (linearLeft.getCurrentPosition() <= minPossiblePos) {
+//            linearLeft.setTargetPosition(minPossiblePos);
+//        }
 
         while (reference != encoderPosition) {
 
@@ -58,6 +66,8 @@ public class LinearSlidePID extends OpMode {
             timer.reset();
 
         }
-
+        telemetry.addData("MotorPosLeft", linearLeft.getCurrentPosition());
+        telemetry.addData("MotorPosRight(temporary)", linearRight.getCurrentPosition());
+        telemetry.addData("error", lastError);
     }
 }
