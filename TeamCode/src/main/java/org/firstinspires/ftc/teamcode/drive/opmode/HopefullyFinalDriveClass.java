@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -16,11 +17,12 @@ public class HopefullyFinalDriveClass extends OpMode {
     SampleMecanumDrive drive;
     Servo Claw;
     Servo Arm;
+    Servo Extender;
     float speedfactor = 0.002F; //speed at which everything moves
     float Clawclose = 0.39F;
     float Clawopen = 0.75F;
     float Armopen = 0.8573F;
-    float Armclose = Armopen - 0.5042F;
+    float Armclose = 0.5252F;
     DcMotor linearRight;
     DcMotor linearLeft;
     double x = 0;
@@ -44,6 +46,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         Arm.setPosition(Armopen);
         Claw = hardwareMap.get(Servo.class, "Claw");
         Claw.setPosition(Clawclose);
+        Extender = hardwareMap.get(Servo.class, "Extender");
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,7 +58,8 @@ public class HopefullyFinalDriveClass extends OpMode {
 
     @Override
     public void loop() {
-        //controls - right trigger = claw, right bumper = arm, left trigger slows drive
+        //controls - right trigger = claw, right bumper = arm, left trigger slows drive, dpad controls extender
+
         if (gamepad1.back) {
             Claw.setPosition(Clawopen);
             Arm.setPosition(Armopen);
@@ -149,7 +153,15 @@ public class HopefullyFinalDriveClass extends OpMode {
         } else if (gamepad1.a && !gamepad1.left_bumper) {
             LRP = -0.7;
         }
-
+        if (gamepad1.dpad_up) {
+            Extender.setPosition(0.3);
+        }
+        if (gamepad1.dpad_down) {
+            Extender.setPosition(0.7);
+        }
+        if (!gamepad1.dpad_up && !gamepad1.dpad_down){
+            Extender.setPosition(0.5);
+        }
 
 
         linearRight.setPower(LRP);
