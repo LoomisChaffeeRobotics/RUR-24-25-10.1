@@ -438,6 +438,7 @@ public class TrajectorySequenceBuilder {
     public TrajectorySequenceBuilder turn(double angle, double maxAngVel, double maxAngAccel) {
         pushPath();
 
+
         MotionProfile turnProfile = MotionProfileGenerator.generateSimpleMotionProfile(
                 new MotionState(lastPose.getHeading(), 0.0, 0.0, 0.0),
                 new MotionState(lastPose.getHeading() + angle, 0.0, 0.0, 0.0),
