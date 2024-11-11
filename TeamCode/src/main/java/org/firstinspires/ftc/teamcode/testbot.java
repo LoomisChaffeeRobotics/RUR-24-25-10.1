@@ -12,12 +12,12 @@ public class testbot extends OpMode {
 
     Servo Claw;
     Servo Arm;
-    CRServo Extender;
+    Servo Extender;
     float speedfactor = 0.002F;
     float Clawclose = 0.39F;
     float Clawopen = 0.75F;
     float Armopen = 0.8973F;
-    float Armclose = Armopen - 0.3531F;
+    float Armclose = 0.5252F;
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor rearLeft;
@@ -43,7 +43,7 @@ public class testbot extends OpMode {
         Arm.setPosition(Armopen);
         Claw = hardwareMap.get(Servo.class, "Claw");
         Claw.setPosition(Clawclose);
-        Extender = hardwareMap.get(CRServo.class, "Extender");
+        Extender = hardwareMap.get(Servo.class, "Extender");
 
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
@@ -150,12 +150,16 @@ public class testbot extends OpMode {
                 LRP = -0.7;
             }
 
-        if (gamepad1.b) {
-            Extender.setPower(-0.4);
+        if (gamepad1.dpad_up) {
+            Extender.setPosition(0.3);
         }
-        if (gamepad1.x) {
-            Extender.setPower(0.4);
+        if (gamepad1.dpad_down) {
+            Extender.setPosition(0.7);
         }
+        if (!gamepad1.dpad_up && !gamepad1.dpad_down){
+            Extender.setPosition(0.5);
+        }
+
 
             frontLeft.setPower(y + x + rx);
             rearLeft.setPower(y - x + rx);
@@ -167,7 +171,7 @@ public class testbot extends OpMode {
             x = 0;
             rx = 0;
             LRP = 0.1;
-            Extender.setPower(0);
+
         }
 
 }
