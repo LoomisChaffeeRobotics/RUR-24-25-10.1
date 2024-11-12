@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
+import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -16,7 +18,8 @@ public class HopefullyFinalDriveClass extends OpMode {
     IMU imu;
     SampleMecanumDrive drive;
     Servo Claw;
-    Servo Arm;
+    Servo ArmR;
+    Servo ArmL;
     Servo Extender;
     float speedfactor = 0.002F; //speed at which everything moves
     float Clawclose = 0.39F;
@@ -42,8 +45,11 @@ public class HopefullyFinalDriveClass extends OpMode {
         //init//
         imu = hardwareMap.get(IMU.class, "imu");
         drive = new SampleMecanumDrive(hardwareMap);
-        Arm = hardwareMap.get(Servo.class, "Arm");
-        Arm.setPosition(Armopen);
+        ArmR = hardwareMap.get(Servo.class, "ArmR");
+        ArmR.setPosition(Armopen);
+        ArmR = hardwareMap.get(Servo.class, "ArmR");
+        ArmL.setPosition(Armopen);
+        ArmR.setDirection(REVERSE);
         Claw = hardwareMap.get(Servo.class, "Claw");
         Claw.setPosition(Clawclose);
         Extender = hardwareMap.get(Servo.class, "Extender");
@@ -62,7 +68,10 @@ public class HopefullyFinalDriveClass extends OpMode {
 
         if (gamepad1.back) {
             Claw.setPosition(Clawopen);
-            Arm.setPosition(Armopen);
+            ArmR.setPosition(Armopen);
+            ArmL.setPosition(Armopen);
+
+
 
         }
         if (gamepad1.right_trigger < 0.2) {
@@ -101,23 +110,27 @@ public class HopefullyFinalDriveClass extends OpMode {
         }
 
         if (gamepad1.right_bumper && gamepad1.x) {
-            Arm.setPosition(Arm.getPosition() - speedfactor);
-            telemetry.addData("Arm Pos:", (Arm.getPosition()));
+            ArmR.setPosition(ArmR.getPosition() - speedfactor);
+            ArmL.setPosition(ArmL.getPosition() - speedfactor);
+            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
         }
         if (gamepad1.right_bumper && gamepad1.left_bumper) {
-            Arm.setPosition(Arm.getPosition() + speedfactor);
-            telemetry.addData("Arm Pos:", (Arm.getPosition()));
+            ArmR.setPosition(ArmR.getPosition() + speedfactor);
+            ArmL.setPosition(ArmL.getPosition() + speedfactor);
+            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
         }
 
         if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 2 && rbdepressed == 0) {
-            Arm.setPosition(Armopen);
-            telemetry.addData("Arm Pos:", (Arm.getPosition()));
+            ArmR.setPosition(Armopen);
+            ArmL.setPosition(Armopen);
+            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
             acnt = 1;
             rbdepressed = 1;
         }
         else if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 1 && rbdepressed == 0) {
-            Arm.setPosition(Armclose);
-            telemetry.addData("Arm Pos:", (Arm.getPosition()));
+            ArmR.setPosition(Armclose);
+            ArmL.setPosition(Armclose);
+            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
             acnt = 2;
             rbdepressed = 1;
         }
