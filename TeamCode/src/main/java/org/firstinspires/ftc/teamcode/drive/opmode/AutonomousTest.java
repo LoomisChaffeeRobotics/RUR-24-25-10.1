@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -50,15 +49,47 @@ public class AutonomousTest extends OpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory Auto1 = drive.trajectoryBuilder(new Pose2d())
-                .forward(5)
-                .strafeLeft(5)
-                .back(5)
+                .forward(30)
                 .build();
         drive.followTrajectory(Auto1);
-        Trajectory SplineTest = drive.trajectoryBuilder(new Pose2d())
-                .splineTo(new Vector2d(5,5), Math.toRadians(90))
+        Trajectory Auto2 = drive.trajectoryBuilder(new Pose2d())
+                .addDisplacementMarker(30, () -> {
+                    // this is to copy paste some code for auto test
+                })
+                .strafeRight(36)
+                .forward(24)
+                .strafeRight(12)
+                .back(30)
+                .forward(30)
+                .strafeRight(9)
+                .back(30)
+                .forward(30)
+                .strafeRight(3)
+                .back(30)
                 .build();
-        drive.followTrajectory(SplineTest);
+        Trajectory Auto3 = drive.trajectoryBuilder(new Pose2d())
+                .addDisplacementMarker(30, () -> {
+                    // this is to copy paste the samem code for auto test
+
+                })
+                .strafeLeft(36)
+                .forward(24)
+                .strafeLeft(12)
+                .back(60)
+                .forward(60)
+                .strafeLeft(12)
+                .back(60)
+                .forward(60)
+                .strafeLeft(12)
+                .back(60)
+                .build();
+
+
+
+        drive.followTrajectory(Auto1);
+
+        drive.followTrajectory(Auto2);
+
         drive.turn(Math.toRadians(1234));
 
 
