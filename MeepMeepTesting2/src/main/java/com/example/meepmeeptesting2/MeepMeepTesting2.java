@@ -17,15 +17,18 @@ public class MeepMeepTesting2 {
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -36, Math.toRadians(90)))
                         .strafeLeft(36) //we appreciate not vandalizing the field
-                        .forward(24)
+                        .forward(33.3) //change to adapt
                         .strafeLeft(12)
-                        .back(48) //we also don't want a card
+                        .turn(Math.toRadians(180))
+                        .addDisplacementMarker(72, () -> {
+                            // something like Arm.movedown(), claw.open(), claw.close(), arm.moveup()
+                        })
                         .forward(48)
-                        .strafeLeft(9)
-                        .back(45)
-                        .forward(45)
-                        .strafeLeft(3)
-                        .back(45)
+                        .turn(Math.toRadians(-45))
+                        .addDisplacementMarker(72, () -> {
+                            // something like linearslide.moveup(), arm.movedown(), claw.open(), claw.close(), arm.moveup(), linearslide.movedown();
+                            //use extender as needed
+                        })
                         .build());
 
 

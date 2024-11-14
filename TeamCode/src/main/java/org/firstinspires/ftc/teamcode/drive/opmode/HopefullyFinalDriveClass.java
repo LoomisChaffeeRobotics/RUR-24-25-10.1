@@ -46,7 +46,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         drive = new SampleMecanumDrive(hardwareMap);
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmR.setPosition(Armopen);
-        ArmR = hardwareMap.get(Servo.class, "ArmR");
+        ArmL = hardwareMap.get(Servo.class, "ArmL");
         ArmL.setPosition(Armopen);
         ArmR.setDirection(REVERSE);
         Claw = hardwareMap.get(Servo.class, "Claw");
