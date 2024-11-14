@@ -22,12 +22,12 @@ public class MeepMeepTesting2 {
                         .turn(Math.toRadians(180))
                         .addDisplacementMarker(72, () -> {
                             // something like Arm.movedown(), claw.open(), claw.close(), arm.moveup()
-
                         })
                         .forward(48)
                         .turn(Math.toRadians(-45))
                         .addDisplacementMarker(72, () -> {
                             // something like linearslide.moveup(), arm.movedown(), claw.open(), claw.close(), arm.moveup(), linearslide.movedown();
+                            //use extender as needed
                         })
                         .build());
 

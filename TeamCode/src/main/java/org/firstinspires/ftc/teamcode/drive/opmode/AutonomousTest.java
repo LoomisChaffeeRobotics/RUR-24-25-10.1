@@ -53,9 +53,6 @@ public class AutonomousTest extends OpMode {
                 .build();
         drive.followTrajectory(Auto1);
         Trajectory Auto2 = drive.trajectoryBuilder(new Pose2d())
-                .addDisplacementMarker(30, () -> {
-                    // this is to copy paste some code for auto test
-                })
                 .strafeRight(36)
                 .forward(24)
                 .strafeRight(12)
@@ -68,29 +65,24 @@ public class AutonomousTest extends OpMode {
                 .back(30)
                 .build();
         Trajectory Auto3 = drive.trajectoryBuilder(new Pose2d())
-                .addDisplacementMarker(30, () -> {
-                    // This is completely
-
+                .strafeRight(36) //we appreciate not vandalizing the field
+                .back(33.3) //change to adapt
+                .strafeRight(12)
+                .addDisplacementMarker(81.3, () -> {
+                    // something like Arm.movedown(), claw.open(), claw.close(), arm.moveup()
                 })
-                .strafeLeft(36)
-                .forward(24)
-                .strafeLeft(12)
-                .back(60)
-                .forward(60)
-                .strafeLeft(12)
-                .back(60)
-                .forward(60)
-                .strafeLeft(12)
-                .back(60)
+                .back(48)
                 .build();
 
 
 
         drive.followTrajectory(Auto1);
+        //motor1.turn(something)
+//        drive.followTrajectory(Auto2);
+        drive.followTrajectory(Auto3);
+        drive.turn(Math.toRadians(-45));
+        //motor1/2/3.turn(something)
 
-        drive.followTrajectory(Auto2);
-
-        drive.turn(Math.toRadians(1234));
 
 
     }
