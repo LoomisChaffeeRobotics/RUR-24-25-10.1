@@ -69,7 +69,7 @@ public class AutonomousTest extends OpMode {
                 .build();
         Trajectory Auto3 = drive.trajectoryBuilder(new Pose2d())
                 .addDisplacementMarker(30, () -> {
-                    // this is to copy paste the samem code for auto test
+                    // This is completely
 
                 })
                 .strafeLeft(36)
