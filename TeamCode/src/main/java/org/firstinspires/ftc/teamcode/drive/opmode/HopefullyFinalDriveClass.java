@@ -136,26 +136,26 @@ public class HopefullyFinalDriveClass extends OpMode {
         if (!gamepad1.right_bumper) {rbdepressed = 0;}
 
 
-        if (gamepad1.left_trigger >= 0.3) {
-            y = (0.3) * -gamepad1.left_stick_y;
-        } else if (gamepad1.left_trigger <= 0.3) {
-            y = -gamepad1.left_stick_y;
-        }
+//        if (gamepad1.left_trigger >= 0.3) {
+//            y = (0.3) * -gamepad1.left_stick_y;
+//        } else if (gamepad1.left_trigger <= 0.3) {
+//            y = -gamepad1.left_stick_y;
+//        }
 
-        if (gamepad1.left_trigger >= 0.3) {
-            x = (0.3) * gamepad1.left_stick_x;
-        } else if (gamepad1.left_trigger <= 0.3) {
-            x = gamepad1.left_stick_x;
-        }
+//        if (gamepad1.left_trigger >= 0.3) {
+//            x = (0.3) * gamepad1.left_stick_x;
+//        } else if (gamepad1.left_trigger <= 0.3) {
+//            x = gamepad1.left_stick_x;
+//        }
 
-        if (gamepad1.left_trigger >= 0.3) {
-            rx = (0.3) * gamepad1.right_stick_x;
-        } else if (gamepad1.left_trigger <= 0.3) {
-            rx = gamepad1.right_stick_x;
-        }
+//        if (gamepad1.left_trigger >= 0.3) {
+//            rx = (0.3) * gamepad1.right_stick_x;
+//        } else if (gamepad1.left_trigger <= 0.3) {
+//            rx = gamepad1.right_stick_x;
+//        }
 
         if (gamepad1.y && gamepad1.left_bumper) {
-            LRP = 0.3;
+            LRP = 0.3;  // LRP is linear slide thing i think. idk Millen did it
         } else if (gamepad1.y && !gamepad1.left_bumper) {
             LRP = 1;
         }
@@ -178,9 +178,7 @@ public class HopefullyFinalDriveClass extends OpMode {
 
         linearRight.setPower(LRP);
         linearLeft.setPower(LRP);
-        y = 0;
-        x = 0;
-        rx = 0;
+
         LRP = 0.1;
 
 
@@ -188,8 +186,8 @@ public class HopefullyFinalDriveClass extends OpMode {
 
         //Field-centric//
         y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x * 1.1824943423;//CHANGE ASAP//;
-        rx = gamepad2.right_stick_x;
+        x = gamepad1.left_stick_x;//CHANGE ASAP//;
+        rx = gamepad1.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);

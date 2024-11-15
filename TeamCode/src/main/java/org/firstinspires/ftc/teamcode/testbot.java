@@ -44,9 +44,9 @@ public class testbot extends OpMode {
 
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmR.setDirection(Servo.Direction.REVERSE);
-        ArmR.setPosition(Armopen);
+        //ArmR.setPosition(Armopen);
         ArmL = hardwareMap.get(Servo.class, "ArmL");
-        ArmL.setPosition(Armopen);
+        //ArmL.setPosition(Armopen);
         Claw = hardwareMap.get(Servo.class, "Claw");
         Claw.setPosition(Clawclose);
         Extender = hardwareMap.get(Servo.class, "Extender");
@@ -73,7 +73,7 @@ public class testbot extends OpMode {
     public void loop() {
         if (gamepad1.back) {
             Claw.setPosition(Clawopen);
-            ArmR.setPosition(1-Armopen);
+            //ArmR.setPosition(1-Armopen);
             //ArmL.setPosition((Armopen));
 
         }
@@ -103,31 +103,31 @@ public class testbot extends OpMode {
             telemetry.addData("Claw Pos:", (Claw.getPosition()));
         }
 
-        if (gamepad1.right_bumper && gamepad1.x) {
-            ArmR.setPosition(ArmR.getPosition() + speedfactor);
-            ArmL.setPosition(ArmL.getPosition() - speedfactor);
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-        }
-        if (gamepad1.right_bumper && gamepad1.left_bumper) {
-            ArmR.setPosition(ArmR.getPosition() - speedfactor);
-            ArmL.setPosition(ArmL.getPosition() + speedfactor);
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-        }
+        //if (gamepad1.right_bumper && gamepad1.x) {
+           // ArmR.setPosition(ArmR.getPosition() + speedfactor);
+            ///ArmL.setPosition(ArmL.getPosition() - speedfactor);
+           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+        //}
+        //if (gamepad1.right_bumper && gamepad1.left_bumper) {
+         //   ArmR.setPosition(ArmR.getPosition() - speedfactor);
+           // ArmL.setPosition(ArmL.getPosition() + speedfactor);
+           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+        //}
 
-        if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 2 && rbdepressed == 0) {
-            ArmR.setPosition(Armopen);
-            ArmL.setPosition(Armopen);
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-            acnt = 1;
-            rbdepressed = 1;
-        }
-        else if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 1 && rbdepressed == 0) {
-            ArmR.setPosition(Armclose);
-            ArmL.setPosition(Armclose);
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-            acnt = 2;
-            rbdepressed = 1;
-        }
+        //if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 2 && rbdepressed == 0) {
+           // ArmR.setPosition(Armopen);
+          //  ArmL.setPosition(Armopen);
+           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+            //acnt = 1;
+          //  rbdepressed = 1;
+        //}
+        //else if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 1 && rbdepressed == 0) {
+            //ArmR.setPosition(Armclose);
+           // ArmL.setPosition(Armclose);
+           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+            //acnt = 2;
+            //rbdepressed = 1;
+        //}
             if (!gamepad1.right_bumper) {rbdepressed = 0;}
 
 
