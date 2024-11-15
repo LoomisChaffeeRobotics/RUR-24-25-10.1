@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -42,8 +43,13 @@ public class servoWork extends OpMode{
 
     @Override
     public void loop() {
-        telemetry.addData("ArmL pos: ", servo3.getPosition());
-        telemetry.addData("Extender pos: ", servo4.getPosition());
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        imu.initialize(parameters);
+//        telemetry.addData("ArmL pos: ", servo3.getPosition());
+//        telemetry.addData("Extender pos: ", servo4.getPosition());
 //        if (gamepad1.x){
 //            rightFront.setPower(1);
 //        } else {
@@ -67,23 +73,19 @@ public class servoWork extends OpMode{
 //                    .setPower(0);
 //        }
 
-        telemetry.addData("RR", rightRear.getCurrentPosition());
-        telemetry.addData("LR", leftRear.getCurrentPosition());
-        telemetry.addData("RF", rightFront.getCurrentPosition());
-        telemetry.addData("LF", leftFront.getCurrentPosition());
 
         double y = -gamepad1.left_stick_y;
-        double x = gamepad1.left_stick_x * 1.1824943423;//CHANGE ASAP//;
+        double x = gamepad1.left_stick_x;//CHANGE ASAP//;
         double rx = gamepad1.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        rotX = rotX * 1.1824943423;
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
         leftFront.setPower((rotY + rotX + rx) / denominator);
         leftRear.setPower((rotY - rotX + rx) / denominator);
         rightFront.setPower((rotY - rotX - rx) / denominator);
         rightRear.setPower((rotY + rotX - rx)/ denominator);
-        telemetry.addData("LFP:", (rotY + rotX + rx) / denominator);
         // options = start button
 
         if (gamepad1.options) {
@@ -92,6 +94,10 @@ public class servoWork extends OpMode{
         if (gamepad2.options) {
             imu.resetYaw();
         }
+        telemetry.addData("RR power", rightRear.getPower());
+        telemetry.addData("LR power", leftRear.getPower());
+        telemetry.addData("RF power", rightFront.getPower());
+        telemetry.addData("LF power", leftFront.getPower());
 
 
     }
