@@ -48,7 +48,7 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 2.04724; // in
     public static double GEAR_RATIO = 1.0096; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 17.69; // in
+    public static double TRACK_WIDTH = 16.2; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -94,8 +94,8 @@ public class DriveConstants {
             RevHubOrientationOnRobot.UsbFacingDirection.UP;
     public static double MAX_VEL = 56.855292234154874;
     public static double MAX_ACCEL = 56.855292234154874;
-    public static double MAX_ANG_VEL = Math.toRadians(18.00000391599022);
-    public static double MAX_ANG_ACCEL = Math.toRadians(18.00000391599022);
+    public static double MAX_ANG_VEL = Math.toRadians(15);
+    public static double MAX_ANG_ACCEL = Math.toRadians(15);
 
 
     public static double encoderTicksToInches(double ticks) {
