@@ -186,11 +186,12 @@ public class HopefullyFinalDriveClass extends OpMode {
 
         //Field-centric//
         y = -gamepad1.left_stick_y;
-        x = gamepad1.left_stick_x * 1.0952;
+        x = gamepad1.left_stick_x;
         rx = gamepad1.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+        rotX = rotX * 1.10134867899;
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY - rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator);
         // options = start button

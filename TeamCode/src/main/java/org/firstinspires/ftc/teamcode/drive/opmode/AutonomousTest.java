@@ -61,10 +61,11 @@ public class AutonomousTest extends OpMode {
                 .strafeRight(9)
                 .back(30)
                 .forward(30)
-                .strafeRight(3)
+                .strafeRight(4)
                 .back(30)
                 .build();
         Trajectory Auto3 = drive.trajectoryBuilder(new Pose2d())
+                //if we start on left, picking up and depositing one sample
                 .strafeRight(36) //we appreciate not vandalizing the field
                 .back(33.3) //change to adapt
                 .strafeRight(12)
@@ -77,7 +78,11 @@ public class AutonomousTest extends OpMode {
 
 
         drive.followTrajectory(Auto1);
-        //motor1.turn(something)
+        //linearslide.moveUp
+        //arm.moveUp());
+        //extender.moveDown());
+        //claw.open());
+
 //        drive.followTrajectory(Auto2);
         drive.followTrajectory(Auto3);
         drive.turn(Math.toRadians(-45));

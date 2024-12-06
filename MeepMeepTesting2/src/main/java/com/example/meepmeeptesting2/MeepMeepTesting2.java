@@ -16,19 +16,16 @@ public class MeepMeepTesting2 {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -36, Math.toRadians(90)))
-                        .strafeLeft(36) //we appreciate not vandalizing the field
-                        .forward(33.3) //change to adapt
-                        .strafeLeft(12)
-                        .turn(Math.toRadians(180))
-                        .addDisplacementMarker(72, () -> {
-                            // something like Arm.movedown(), claw.open(), claw.close(), arm.moveup()
-                        })
-                        .forward(48)
-                        .turn(Math.toRadians(-45))
-                        .addDisplacementMarker(72, () -> {
-                            // something like linearslide.moveup(), arm.movedown(), claw.open(), claw.close(), arm.moveup(), linearslide.movedown();
-                            //use extender as needed
-                        })
+                        .strafeRight(36)
+                        .forward(24)
+                        .strafeRight(12)
+                        .back(30)
+                        .forward(30)
+                        .strafeRight(9)
+                        .back(30)
+                        .forward(30)
+                        .strafeRight(4)
+                        .back(30)
                         .build());
 
 
