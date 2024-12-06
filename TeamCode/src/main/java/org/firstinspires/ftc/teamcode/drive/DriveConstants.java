@@ -47,8 +47,8 @@ public class DriveConstants {
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 2.04724; // in
-    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 15.4; // in
+    public static double GEAR_RATIO = 1.016; // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 17.69; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -89,13 +89,13 @@ public class DriveConstants {
 
      */
     public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
-            RevHubOrientationOnRobot.LogoFacingDirection.UP;
+            RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
     public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
-            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+            RevHubOrientationOnRobot.UsbFacingDirection.UP;
     public static double MAX_VEL = 56.855292234154874;
     public static double MAX_ACCEL = 56.855292234154874;
     public static double MAX_ANG_VEL = Math.toRadians(18.00000391599022);
-    public static double MAX_ANG_ACCEL = Math.toRadians(211.53040831168826);
+    public static double MAX_ANG_ACCEL = Math.toRadians(18.00000391599022);
 
 
     public static double encoderTicksToInches(double ticks) {

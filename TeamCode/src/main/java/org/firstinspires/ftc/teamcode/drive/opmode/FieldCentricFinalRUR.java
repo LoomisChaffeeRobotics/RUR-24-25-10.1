@@ -22,7 +22,7 @@ public class FieldCentricFinalRUR extends OpMode {
     @Override
     public void loop() {
         double y = -gamepad1.left_stick_y;
-        double x = gamepad1.left_stick_x * 1.1824943423;
+        double x = gamepad1.left_stick_x * 1.0952;
         double rx = gamepad2.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
