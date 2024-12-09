@@ -10,10 +10,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.servoWork;
 
 @TeleOp
 
 public class HopefullyFinalDriveClass extends OpMode {
+    servoWork servoWork;
     IMU imu;
     SampleMecanumDrive drive;
     Servo Claw;
@@ -21,10 +23,6 @@ public class HopefullyFinalDriveClass extends OpMode {
     Servo ArmL;
     Servo Extender;
     float speedfactor = 0.002F; //speed at which everything moves
-    float Clawclose = 0.39F;
-    float Clawopen = 0.75F;
-    float Armopen = 0.8573F;
-    float Armclose = 0.5252F;
     DcMotor linearRight;
     DcMotor linearLeft;
     double x = 0;
@@ -42,15 +40,14 @@ public class HopefullyFinalDriveClass extends OpMode {
     @Override
     public void init() {
         //init//
+        servoWork = new servoWork();
         imu = hardwareMap.get(IMU.class, "imu");
         drive = new SampleMecanumDrive(hardwareMap);
         ArmR = hardwareMap.get(Servo.class, "ArmR");
-        ArmR.setPosition(Armopen);
         ArmL = hardwareMap.get(Servo.class, "ArmL");
-        ArmL.setPosition(Armopen);
-        ArmR.setDirection(REVERSE);
+        servoWork.armUp();
         Claw = hardwareMap.get(Servo.class, "Claw");
-        Claw.setPosition(Clawclose);
+        servoWork.clawClosed();
         Extender = hardwareMap.get(Servo.class, "Extender");
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
@@ -66,9 +63,8 @@ public class HopefullyFinalDriveClass extends OpMode {
         //controls - right trigger = claw, right bumper = arm, left trigger slows drive, dpad controls extender
 
         if (gamepad1.back) {
-            Claw.setPosition(Clawopen);
-            ArmR.setPosition(Armopen);
-            ArmL.setPosition(Armopen);
+            servoWork.clawOpen();
+            servoWork.armUp();
 
 
 
@@ -85,12 +81,12 @@ public class HopefullyFinalDriveClass extends OpMode {
             telemetry.addData("Claw Pos:", (Claw.getPosition()));
         }
         if ((gamepad1.right_trigger >= 0.2 && !gamepad1.left_bumper) && cnt == 2 && rtdepressed == 0) {
-            Claw.setPosition(Clawopen);
+            servoWork.clawOpen();
             telemetry.addData("Claw Pos:", (Claw.getPosition()));
             cnt = 1;
             rtdepressed = 1;
         } else if ((gamepad1.right_trigger >= 0.2 && !gamepad1.left_bumper) && cnt == 1 && rtdepressed == 0) {
-            Claw.setPosition(Clawclose);
+            servoWork.clawClosed();
             telemetry.addData("Claw Pos:", (Claw.getPosition()));
             cnt = 2;
             rtdepressed = 1;
@@ -120,15 +116,13 @@ public class HopefullyFinalDriveClass extends OpMode {
         }
 
         if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 2 && rbdepressed == 0) {
-            ArmR.setPosition(Armopen);
-            ArmL.setPosition(Armopen);
+            servoWork.armUp();
             telemetry.addData("Arm Pos:", (ArmL.getPosition()));
             acnt = 1;
             rbdepressed = 1;
         }
         else if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 1 && rbdepressed == 0) {
-            ArmR.setPosition(Armclose);
-            ArmL.setPosition(Armclose);
+            servoWork.armDown();
             telemetry.addData("Arm Pos:", (ArmL.getPosition()));
             acnt = 2;
             rbdepressed = 1;
@@ -138,7 +132,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         }
 
         if (gamepad1.y && gamepad1.left_bumper) {
-            LRP = 0.3;  // LRP is linear slide thing i think. idk Millen did it
+            LRP = 0.3;  // LRP is linear slide power
         } else if (gamepad1.y && !gamepad1.left_bumper) {
             LRP = 1;
         }
@@ -149,13 +143,13 @@ public class HopefullyFinalDriveClass extends OpMode {
             LRP = -0.7;
         }
         if (gamepad1.dpad_up) {
-            Extender.setPosition(0.3);
+            servoWork.extenderBack();
         }
         if (gamepad1.dpad_down) {
-            Extender.setPosition(0.7);
+            servoWork.extenderForward();
         }
         if (!gamepad1.dpad_up && !gamepad1.dpad_down){
-            Extender.setPosition(0.5);
+            servoWork.extenderNeutral();
         }
 
 
@@ -174,11 +168,9 @@ public class HopefullyFinalDriveClass extends OpMode {
         if (gamepad1.left_trigger >= 0.3) {
             y = (0.3) * y;
         }
-
         if (gamepad1.left_trigger >= 0.3) {
             x = (0.3) * x;
         }
-
         if (gamepad1.left_trigger >= 0.3) {
             rx = (0.3) * rx;
         }

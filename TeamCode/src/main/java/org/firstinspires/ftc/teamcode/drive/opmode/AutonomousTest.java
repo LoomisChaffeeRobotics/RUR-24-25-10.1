@@ -9,9 +9,10 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.servoWork;
 
 public class AutonomousTest extends OpMode {
-
+    servoWork servoWork;
     IMU imu;
     SampleMecanumDrive drive;
     Servo Claw;
@@ -30,6 +31,7 @@ public class AutonomousTest extends OpMode {
 
         imu = hardwareMap.get(IMU.class, "imu");
         drive = new SampleMecanumDrive(hardwareMap);
+        servoWork = new servoWork();
         Arm = hardwareMap.get(Servo.class, "Arm");
         Arm.setPosition(Armopen);
         Claw = hardwareMap.get(Servo.class, "Claw");
@@ -71,6 +73,10 @@ public class AutonomousTest extends OpMode {
                 .strafeRight(12)
                 .addDisplacementMarker(81.3, () -> {
                     // something like Arm.movedown(), claw.open(), claw.close(), arm.moveup()
+                    servoWork.armDown();
+                    servoWork.clawOpen();
+                    servoWork.clawClosed();
+                    servoWork.armUp();
                 })
                 .back(48)
                 .build();
@@ -87,6 +93,7 @@ public class AutonomousTest extends OpMode {
         drive.followTrajectory(Auto3);
         drive.turn(Math.toRadians(-45));
         //motor1/2/3.turn(something)
+
 
 
 
