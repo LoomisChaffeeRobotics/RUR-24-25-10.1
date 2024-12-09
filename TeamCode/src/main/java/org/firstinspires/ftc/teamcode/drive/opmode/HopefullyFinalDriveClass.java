@@ -133,26 +133,9 @@ public class HopefullyFinalDriveClass extends OpMode {
             acnt = 2;
             rbdepressed = 1;
         }
-        if (!gamepad1.right_bumper) {rbdepressed = 0;}
-
-
-//        if (gamepad1.left_trigger >= 0.3) {
-//            y = (0.3) * -gamepad1.left_stick_y;
-//        } else if (gamepad1.left_trigger <= 0.3) {
-//            y = -gamepad1.left_stick_y;
-//        }
-
-//        if (gamepad1.left_trigger >= 0.3) {
-//            x = (0.3) * gamepad1.left_stick_x;
-//        } else if (gamepad1.left_trigger <= 0.3) {
-//            x = gamepad1.left_stick_x;
-//        }
-
-//        if (gamepad1.left_trigger >= 0.3) {
-//            rx = (0.3) * gamepad1.right_stick_x;
-//        } else if (gamepad1.left_trigger <= 0.3) {
-//            rx = gamepad1.right_stick_x;
-//        }
+        if (!gamepad1.right_bumper) {
+            rbdepressed = 0;
+        }
 
         if (gamepad1.y && gamepad1.left_bumper) {
             LRP = 0.3;  // LRP is linear slide thing i think. idk Millen did it
@@ -188,6 +171,17 @@ public class HopefullyFinalDriveClass extends OpMode {
         y = -gamepad1.left_stick_y;
         x = gamepad1.left_stick_x;
         rx = gamepad1.right_stick_x;
+        if (gamepad1.left_trigger >= 0.3) {
+            y = (0.3) * y;
+        }
+
+        if (gamepad1.left_trigger >= 0.3) {
+            x = (0.3) * x;
+        }
+
+        if (gamepad1.left_trigger >= 0.3) {
+            rx = (0.3) * rx;
+        }
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
