@@ -47,7 +47,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         ArmL = hardwareMap.get(Servo.class, "ArmL");
         servoWork.armUp();
         Claw = hardwareMap.get(Servo.class, "Claw");
-        servoWork.clawClosed();
+//        servoWork.clawClosed();
         Extender = hardwareMap.get(Servo.class, "Extender");
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
@@ -134,13 +134,15 @@ public class HopefullyFinalDriveClass extends OpMode {
         if (gamepad1.y && gamepad1.left_bumper) {
             LRP = 0.3;  // LRP is linear slide power
         } else if (gamepad1.y && !gamepad1.left_bumper) {
-            LRP = 1;
+//            LRP = 1;
+            servoWork.linearUpHigh();
         }
 
         if (gamepad1.a && gamepad1.left_bumper) {
             LRP = -0.3;
         } else if (gamepad1.a && !gamepad1.left_bumper) {
-            LRP = -0.7;
+//            LRP = -0.7;
+            servoWork.linearDownFull();
         }
         if (gamepad1.dpad_up) {
             servoWork.extenderBack();

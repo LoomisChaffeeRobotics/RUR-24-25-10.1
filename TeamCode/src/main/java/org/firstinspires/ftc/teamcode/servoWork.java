@@ -9,14 +9,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import java.sql.Time;
+import java.util.Timer;
 
 @TeleOp
 public class servoWork extends OpMode{
+    ElapsedTime elapsedTime;
     Servo Claw;
     Servo ArmR;
     Servo ArmL;
@@ -31,6 +34,7 @@ public class servoWork extends OpMode{
 
     @Override
     public void init() {
+        elapsedTime = new ElapsedTime();
         drive = new SampleMecanumDrive(hardwareMap);
         imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
@@ -75,7 +79,8 @@ public class servoWork extends OpMode{
         LRP = 0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        if (getRuntime()>= 0.8) {
+        elapsedTime.reset();
+        if (elapsedTime.time() >= 0.8) {
             linearLeft.setPower(0);
             linearRight.setPower(0);
         }
@@ -84,21 +89,22 @@ public class servoWork extends OpMode{
         LRP = 0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        if (getRuntime() >= 0.5) {
+        elapsedTime.reset();
+        if (elapsedTime.time() >= 0.5) {
             linearLeft.setPower(0);
             linearRight.setPower(0);
         }
-    }
+        }
     public void linearDownFull(){
         LRP = -0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        if (getRuntime() >= 0.5) {
+        elapsedTime.reset();
+        if (elapsedTime.time() >= 0.5) {
             linearLeft.setPower(0);
             linearRight.setPower(0);
         }
     }
-
     public void clawOpen(){
         Claw.setPosition(0.75);
         clawTogged = true;
@@ -107,7 +113,6 @@ public class servoWork extends OpMode{
         Claw.setPosition(0.39);
         clawTogged = false;
     }
-
     public void extenderForward(){
         Extender.setPosition(0.7);
     }
@@ -117,6 +122,5 @@ public class servoWork extends OpMode{
     public void extenderNeutral(){
         Extender.setPosition(0.5);
     }
-
 
 }
