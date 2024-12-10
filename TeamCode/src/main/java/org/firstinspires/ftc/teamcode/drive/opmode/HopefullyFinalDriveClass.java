@@ -5,6 +5,7 @@ import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,7 +14,6 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.servoWork;
 
 @TeleOp
-
 public class HopefullyFinalDriveClass extends OpMode {
     servoWork servoWork;
     IMU imu;
@@ -45,7 +45,8 @@ public class HopefullyFinalDriveClass extends OpMode {
         drive = new SampleMecanumDrive(hardwareMap);
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmL = hardwareMap.get(Servo.class, "ArmL");
-        servoWork.armUp();
+        servoWork.init(hardwareMap);
+         servoWork.armUp();
         Claw = hardwareMap.get(Servo.class, "Claw");
 //        servoWork.clawClosed();
         Extender = hardwareMap.get(Servo.class, "Extender");
@@ -104,27 +105,21 @@ public class HopefullyFinalDriveClass extends OpMode {
             telemetry.addData("Claw Pos:", (Claw.getPosition()));
         }
 
-        if (gamepad1.right_bumper && gamepad1.x) {
-            ArmR.setPosition(ArmR.getPosition() - speedfactor);
-            ArmL.setPosition(ArmL.getPosition() - speedfactor);
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-        }
-        if (gamepad1.right_bumper && gamepad1.left_bumper) {
-            ArmR.setPosition(ArmR.getPosition() + speedfactor);
-            ArmL.setPosition(ArmL.getPosition() + speedfactor);
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-        }
+//        if (gamepad1.right_bumper && gamepad1.x) {
+//            ArmR.setPosition(ArmR.getPosition() - speedfactor);
+//            ArmL.setPosition(ArmL.getPosition() - speedfactor);
+//            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+//        }
+//        if (gamepad1.right_bumper && gamepad1.left_bumper) {
+//            ArmR.setPosition(ArmR.getPosition() + speedfactor);
+//            ArmL.setPosition(ArmL.getPosition() + speedfactor);
+//            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+//        }
 
-        if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 2 && rbdepressed == 0) {
-            servoWork.armUp();
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-            acnt = 1;
-            rbdepressed = 1;
-        }
-        else if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 1 && rbdepressed == 0) {
-            servoWork.armDown();
-            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-            acnt = 2;
+        if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x)) {
+            servoWork.armToggle();
+            telemetry.addData("ArmR pos,", ArmR.getPosition());
+            telemetry.addData("ArmL pos,", ArmL.getPosition());
             rbdepressed = 1;
         }
         if (!gamepad1.right_bumper) {

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.qualcomm.robotcore.hardware.Servo.Direction.FORWARD;
 import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -17,8 +19,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import java.sql.Time;
 import java.util.Timer;
 
-@TeleOp
-public class servoWork extends OpMode{
+public class servoWork {
     ElapsedTime elapsedTime;
     Servo Claw;
     Servo ArmR;
@@ -27,48 +28,47 @@ public class servoWork extends OpMode{
     DcMotor linearRight;
     DcMotor linearLeft;
     boolean armTogged = true;
+    boolean armTouched;
     boolean clawTogged = true;
+    boolean linearToggedHigh = true;
+    boolean linearToggedMedium = true;
     double LRP = 0; //linear slide power, LRP because Millen named that
     IMU imu;
-    SampleMecanumDrive drive;
-
-    @Override
-    public void init() {
+//    SampleMecanumDrive drive;
+    public void init(HardwareMap hardwareMap) {
         elapsedTime = new ElapsedTime();
-        drive = new SampleMecanumDrive(hardwareMap);
+//        drive = new SampleMecanumDrive(hardwareMap);
         imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmR.setDirection(REVERSE);
         ArmL = hardwareMap.get(Servo.class, "ArmL");
+        ArmL.setDirection(FORWARD);
         Extender = hardwareMap.get(Servo.class, "Extender");
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         linearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
-
-    @Override
-    public void loop() {
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
-
     }
+
     public void armUp(){
-        ArmL.setPosition(.3);
-        ArmR.setPosition(.86);
+//        ArmL.setPosition(.3);
+        ArmR.setPosition(.70);
         armTogged = false;
     }
     public void armDown(){
-        ArmL.setPosition(.7);
-        ArmR.setPosition(.53);
+//        ArmL.setPosition(.7);
+        ArmR.setPosition(.38);
         armTogged = true;
     }
     public void armToggle(){
+
         if(armTogged){
             armUp();
         } else{
@@ -80,10 +80,8 @@ public class servoWork extends OpMode{
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
         elapsedTime.reset();
-        if (elapsedTime.time() >= 0.8) {
-            linearLeft.setPower(0);
-            linearRight.setPower(0);
-        }
+        linearRight.setTargetPosition(30);
+        linearLeft.setTargetPosition(-30);
     }
     public void linearUpSubmersible(){
         LRP = 0.7;
