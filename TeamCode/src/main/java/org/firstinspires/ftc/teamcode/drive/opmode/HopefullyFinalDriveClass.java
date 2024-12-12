@@ -116,7 +116,7 @@ public class HopefullyFinalDriveClass extends OpMode {
 //            telemetry.addData("Arm Pos:", (ArmL.getPosition()));
 //        }
 
-        if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x)) {
+        if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x && rbdepressed != 1)) {
             servoWork.armToggle();
             telemetry.addData("ArmR pos,", ArmR.getPosition());
             telemetry.addData("ArmL pos,", ArmL.getPosition());
@@ -136,7 +136,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         if (gamepad1.a && gamepad1.left_bumper) {
             LRP = -0.3;
         } else if (gamepad1.a && !gamepad1.left_bumper) {
-//            LRP = -0.7;
+//             LRP = -0.7;
             servoWork.linearDownFull();
         }
         if (gamepad1.dpad_up) {
@@ -162,21 +162,12 @@ public class HopefullyFinalDriveClass extends OpMode {
         y = -gamepad1.left_stick_y;
         x = gamepad1.left_stick_x;
         rx = gamepad1.right_stick_x;
-        if (gamepad1.left_trigger >= 0.3) {
-            y = (0.3) * y;
-        }
-        if (gamepad1.left_trigger >= 0.3) {
-            x = (0.3) * x;
-        }
-        if (gamepad1.left_trigger >= 0.3) {
-            rx = (0.3) * rx;
-        }
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
         rotX = rotX * 1.10134867899;
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY - rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator);
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+        drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator,(rotY - rotX + rx) / denominator);
         // options = start button
         if (gamepad1.options) {
             imu.resetYaw();
