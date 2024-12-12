@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -104,62 +101,64 @@ public class testbot extends OpMode {
         }
 
         //if (gamepad1.right_bumper && gamepad1.x) {
-           // ArmR.setPosition(ArmR.getPosition() + speedfactor);
-            ///ArmL.setPosition(ArmL.getPosition() - speedfactor);
-           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+        // ArmR.setPosition(ArmR.getPosition() + speedfactor);
+        ///ArmL.setPosition(ArmL.getPosition() - speedfactor);
+        // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
         //}
         //if (gamepad1.right_bumper && gamepad1.left_bumper) {
-         //   ArmR.setPosition(ArmR.getPosition() - speedfactor);
-           // ArmL.setPosition(ArmL.getPosition() + speedfactor);
-           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+        //   ArmR.setPosition(ArmR.getPosition() - speedfactor);
+        // ArmL.setPosition(ArmL.getPosition() + speedfactor);
+        // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
         //}
 
         //if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 2 && rbdepressed == 0) {
-           // ArmR.setPosition(Armopen);
-          //  ArmL.setPosition(Armopen);
-           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-            //acnt = 1;
-          //  rbdepressed = 1;
+        // ArmR.setPosition(Armopen);
+        //  ArmL.setPosition(Armopen);
+        // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+        //acnt = 1;
+        //  rbdepressed = 1;
         //}
         //else if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x) && acnt == 1 && rbdepressed == 0) {
-            //ArmR.setPosition(Armclose);
-           // ArmL.setPosition(Armclose);
-           // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
-            //acnt = 2;
-            //rbdepressed = 1;
+        //ArmR.setPosition(Armclose);
+        // ArmL.setPosition(Armclose);
+        // telemetry.addData("Arm Pos:", (ArmL.getPosition()));
+        //acnt = 2;
+        //rbdepressed = 1;
         //}
-            if (!gamepad1.right_bumper) {rbdepressed = 0;}
+        if (!gamepad1.right_bumper) {
+            rbdepressed = 0;
+        }
 
 
-            if (gamepad1.left_trigger >= 0.3) {
-                y = (0.3) * -gamepad1.left_stick_y;
-            } else if (gamepad1.left_trigger <= 0.3) {
-                y = -gamepad1.left_stick_y;
-            }
+        if (gamepad1.left_trigger >= 0.3) {
+            y = (0.3) * -gamepad1.left_stick_y;
+        } else if (gamepad1.left_trigger <= 0.3) {
+            y = -gamepad1.left_stick_y;
+        }
 
-            if (gamepad1.left_trigger >= 0.3) {
-                x = (0.3) * gamepad1.left_stick_x;
-            } else if (gamepad1.left_trigger <= 0.3) {
-                x = gamepad1.left_stick_x;
-            }
+        if (gamepad1.left_trigger >= 0.3) {
+            x = (0.3) * gamepad1.left_stick_x;
+        } else if (gamepad1.left_trigger <= 0.3) {
+            x = gamepad1.left_stick_x;
+        }
 
-            if (gamepad1.left_trigger >= 0.3) {
-                rx = (0.3) * gamepad1.right_stick_x;
-            } else if (gamepad1.left_trigger <= 0.3) {
-                rx = gamepad1.right_stick_x;
-            }
+        if (gamepad1.left_trigger >= 0.3) {
+            rx = (0.3) * gamepad1.right_stick_x;
+        } else if (gamepad1.left_trigger <= 0.3) {
+            rx = gamepad1.right_stick_x;
+        }
 
-            if (gamepad1.y && gamepad1.left_bumper) {
-                LRP = 0.3;
-            } else if (gamepad1.y && !gamepad1.left_bumper) {
-                LRP = 1;
-            }
+        if (gamepad1.y && gamepad1.left_bumper) {
+            LRP = 0.3;
+        } else if (gamepad1.y && !gamepad1.left_bumper) {
+            LRP = 1;
+        }
 
-            if (gamepad1.a && gamepad1.left_bumper) {
-                LRP = -0.3;
-            } else if (gamepad1.a && !gamepad1.left_bumper) {
-                LRP = -0.7;
-            }
+        if (gamepad1.a && gamepad1.left_bumper) {
+            LRP = -0.3;
+        } else if (gamepad1.a && !gamepad1.left_bumper) {
+            LRP = -0.7;
+        }
 
         if (gamepad1.dpad_up) {
             Extender.setPosition(0.3);
@@ -167,22 +166,21 @@ public class testbot extends OpMode {
         if (gamepad1.dpad_down) {
             Extender.setPosition(0.7);
         }
-        if (!gamepad1.dpad_up && !gamepad1.dpad_down){
+        if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
             Extender.setPosition(0.5);
         }
 
 
-            frontLeft.setPower(y + x + rx);
-            rearLeft.setPower(y - x + rx);
-            frontRight.setPower(y - x - rx);
-            rearRight.setPower(y + x - rx);
-            linearRight.setPower(LRP);
-            linearLeft.setPower(LRP);
-            y = 0;
-            x = 0;
-            rx = 0;
-            LRP = 0.1;
+        frontLeft.setPower(y + x + rx);
+        rearLeft.setPower(y - x + rx);
+        frontRight.setPower(y - x - rx);
+        rearRight.setPower(y + x - rx);
+        linearRight.setPower(LRP);
+        linearLeft.setPower(LRP);
+        y = 0;
+        x = 0;
+        rx = 0;
+        LRP = 0.1;
 
-        }
-
+    }
 }
