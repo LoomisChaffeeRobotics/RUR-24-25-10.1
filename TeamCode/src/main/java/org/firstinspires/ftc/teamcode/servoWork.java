@@ -55,61 +55,6 @@ public class servoWork {
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
-<<<<<<< Updated upstream
-=======
-//        telemetry.addData("ArmL pos: ", servo3.getPosition());
-//        telemetry.addData("Extender pos: ", servo4.getPosition());
-//        if (gamepad1.x){
-//            rightFront.setPower(1);
-//        } else {
-//            rightFront.setPower(0);
-//
-//        }
-//        if (gamepad1.b) {
-//            leftFront.setPower(1);
-//        } else {
-//            leftFront.setPower(0);
-//        }
-//        if (gamepad1.y){
-//            leftRear.setPower(1);
-//        } else {
-//            leftRear.setPower(0);
-//        }
-//        if (gamepad1.a){
-//            rightRear.setPower(1);
-//        } else {
-//            rightRear
-//                    .setPower(0);
-//        }
-
-
-        double y = -gamepad1.left_stick_y;
-        double x = gamepad1.left_stick_x;//CHANGE ASAP//;
-        double rx = gamepad1.right_stick_x;
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        rotX = rotX * 1.1824943423;
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        leftFront.setPower((y + x + rx) / denominator);
-        leftRear.setPower((y - x + rx) / denominator);
-        rightFront.setPower((y - x - rx) / denominator);
-        rightRear.setPower((y + x - rx)/ denominator);
-        // options = start button
-
-        if (gamepad1.options) {
-            imu.resetYaw();
-        }
-        if (gamepad2.options) {
-            imu.resetYaw();
-        }
-        telemetry.addData("RR power", rightRear.getPower());
-        telemetry.addData("LR power", leftRear.getPower());
-        telemetry.addData("RF power", rightFront.getPower());
-        telemetry.addData("LF power", leftFront.getPower());
-
-
->>>>>>> Stashed changes
     }
 
     public void armUp(){
