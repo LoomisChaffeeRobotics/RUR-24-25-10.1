@@ -79,7 +79,7 @@ public class servoWork {
         LRP = 0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        elapsedTime.reset();
+        elapsedTime.reset(); // we are not using time. BAD IDEA TODO: change this
         linearRight.setTargetPosition(30);
         linearLeft.setTargetPosition(-30);
     }
