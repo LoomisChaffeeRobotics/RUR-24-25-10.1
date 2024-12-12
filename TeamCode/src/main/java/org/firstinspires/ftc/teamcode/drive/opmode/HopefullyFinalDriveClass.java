@@ -167,7 +167,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
         rotX = rotX * 1.10134867899;
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator,(rotY - rotX + rx) / denominator);
+        drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY - rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator);
         // options = start button
         if (gamepad1.options) {
             imu.resetYaw();
