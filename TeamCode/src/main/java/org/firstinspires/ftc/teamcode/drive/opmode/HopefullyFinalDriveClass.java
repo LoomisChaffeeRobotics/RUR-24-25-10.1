@@ -129,15 +129,17 @@ public class HopefullyFinalDriveClass extends OpMode {
         if (gamepad1.y && gamepad1.left_bumper) {
             LRP = 0.3;  // LRP is linear slide power
         } else if (gamepad1.y && !gamepad1.left_bumper) {
+            telemetry.addData("Linear Right Pos:", linearRight.getCurrentPosition());
+            telemetry.addData("Linear Left Pos:", linearLeft.getCurrentPosition());
 //            LRP = 1;
-            servoWork.linearUpHigh();
+//            servoWork.linearUpHigh();
         }
 
         if (gamepad1.a && gamepad1.left_bumper) {
             LRP = -0.3;
         } else if (gamepad1.a && !gamepad1.left_bumper) {
 //             LRP = -0.7;
-            servoWork.linearDownFull();
+//            servoWork.linearDownFull();
         }
         if (gamepad1.dpad_up) {
             servoWork.extenderBack();

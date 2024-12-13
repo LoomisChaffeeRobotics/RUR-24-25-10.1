@@ -58,13 +58,9 @@ public class servoWork {
     }
 
     public void armUp(){
-        ArmL.setPosition(.59);
-        ArmR.setPosition(.70);
         armTogged = false;
     }
     public void armDown(){
-        ArmL.setPosition(.87);
-        ArmR.setPosition(.36);
         armTogged = true;
     }
     public void armToggle(){
