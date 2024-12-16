@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
 
+import com.acmerobotics.roadrunner.util.Angle;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -52,7 +53,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmL = hardwareMap.get(Servo.class, "ArmL");
         servoWork.init(hardwareMap);
-         servoWork.armUp();
+//         servoWork.armUp();
         Claw = hardwareMap.get(Servo.class, "Claw");
 //        servoWork.clawClosed();
         Extender = hardwareMap.get(Servo.class, "Extender");
@@ -71,7 +72,7 @@ public class HopefullyFinalDriveClass extends OpMode {
 
         if (gamepad1.back) {
             servoWork.clawOpen();
-            servoWork.armUp();
+//            servoWork.armUp();
 
 
 
@@ -124,12 +125,12 @@ public class HopefullyFinalDriveClass extends OpMode {
 
         if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x && rbdepressed != 1)) {
             if (armTogged == 1) {
-                ArmR.setPosition(0.36);
-                ArmL.setPosition(.87);
+//                servoWork.armUp();
                 armTogged = 0;
             } else {
                 ArmR.setPosition(0.70);
                 ArmL.setPosition(0.59);
+                armTogged = 1;
             }
             telemetry.addData("ArmR pos,", ArmR.getPosition());
             telemetry.addData("ArmL pos,", ArmL.getPosition());
@@ -169,7 +170,7 @@ public class HopefullyFinalDriveClass extends OpMode {
         linearRight.setPower(LRP);
         linearLeft.setPower(LRP);
 
-        LRP = 0.1;
+
 
 
 
@@ -179,20 +180,30 @@ public class HopefullyFinalDriveClass extends OpMode {
         x = gamepad1.left_stick_x;
         rx = gamepad1.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+        double rotX = (x * Math.cos(-botHeading)) - (y * Math.sin(-botHeading));
+        double rotY = (x * Math.sin(-botHeading)) + (y * Math.cos(-botHeading));
         rotX = rotX * 1.10134867899;
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
         drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY - rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator);
         // options = start button
-        if (gamepad1.options) {
+        if (gamepad1.back) {
             imu.resetYaw();
         }
-        if (gamepad2.options) {
+        if (gamepad2.back) {
             imu.resetYaw();
         }
         telemetry.addData("Linear Right Pos:", linearRight.getCurrentPosition());
         telemetry.addData("Linear Left Pos:", linearLeft.getCurrentPosition());
+        telemetry.addData("heading", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        telemetry.addData("Y joystick value", y);
+        telemetry.addData("X joystick value", x);
+        telemetry.addData("RX joystick value", rx);
+        telemetry.addData("rotated X value", rotX);
+        telemetry.addData("rotated Y value", rotY);
+        telemetry.addData("leftFront power", (rotY+rotX+rx)/denominator);
+        telemetry.addData("leftRear power", (rotY-rotX+rx)/denominator);
+        telemetry.addData("rightRear power", (rotY+rotX-rx)/denominator);
+        telemetry.addData("rightFront power", (rotY-rotX-rx)/denominator);
         telemetry.update();
 
 
