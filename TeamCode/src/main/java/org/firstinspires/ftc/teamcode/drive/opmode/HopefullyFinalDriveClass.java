@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -31,6 +32,7 @@ public class HopefullyFinalDriveClass extends OpMode {
     double LRP = 0;
     int cnt = 1;
     int acnt = 1;
+    int armTogged = 1;
 
     int rtdepressed = 0;
     int rbdepressed = 0;
@@ -42,6 +44,10 @@ public class HopefullyFinalDriveClass extends OpMode {
         //init//
         servoWork = new servoWork();
         imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP));
+        imu.initialize(parameters);
         drive = new SampleMecanumDrive(hardwareMap);
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmL = hardwareMap.get(Servo.class, "ArmL");
@@ -117,7 +123,14 @@ public class HopefullyFinalDriveClass extends OpMode {
 //        }
 
         if ((gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.x && rbdepressed != 1)) {
-            servoWork.armToggle();
+            if (armTogged == 1) {
+                ArmR.setPosition(0.36);
+                ArmL.setPosition(.87);
+                armTogged = 0;
+            } else {
+                ArmR.setPosition(0.70);
+                ArmL.setPosition(0.59);
+            }
             telemetry.addData("ArmR pos,", ArmR.getPosition());
             telemetry.addData("ArmL pos,", ArmL.getPosition());
             rbdepressed = 1;
