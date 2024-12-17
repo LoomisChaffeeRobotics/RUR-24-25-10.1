@@ -50,8 +50,6 @@ public class servoWork {
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         linearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
@@ -82,7 +80,9 @@ public class servoWork {
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
         linearRight.setTargetPosition(60);
-        linearLeft.setTargetPosition(-30);
+        linearLeft.setTargetPosition(60);
+//        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
     public void linearUpSubmersible(){
@@ -90,7 +90,10 @@ public class servoWork {
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
         elapsedTime.reset();
+        linearRight.setTargetPosition(50);
         linearLeft.setTargetPosition(50);
+//        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
     public void linearDownFull(){
@@ -99,6 +102,9 @@ public class servoWork {
         linearRight.setPower(LRP);
         elapsedTime.reset();
         linearLeft.setTargetPosition(4);
+        linearRight.setTargetPosition(4);
+//        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void clawOpen(){
         Claw.setPosition(0.339);
@@ -119,7 +125,7 @@ public class servoWork {
         Claw.setPosition(Claw.getPosition()+amount);
     }
     public void extenderForward(){
-        Extender.setPosition(0.7);
+        Extender.setPosition(1.5);
     }
     public void extenderBack(){
         Extender.setPosition(0.3);
