@@ -128,8 +128,7 @@ public class HopefullyFinalDriveClass extends OpMode {
 //                servoWork.armUp();
                 armTogged = 0;
             } else {
-                ArmR.setPosition(0.70);
-                ArmL.setPosition(0.59);
+                servoWork.armDown();
                 armTogged = 1;
             }
             telemetry.addData("ArmR pos,", ArmR.getPosition());
@@ -179,19 +178,18 @@ public class HopefullyFinalDriveClass extends OpMode {
         y = -gamepad1.left_stick_y;
         x = gamepad1.left_stick_x;
         rx = gamepad1.right_stick_x;
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        double rotX = (x * Math.cos(-botHeading)) - (y * Math.sin(-botHeading));
-        double rotY = (x * Math.sin(-botHeading)) + (y * Math.cos(-botHeading));
-        rotX = rotX * 1.10134867899;
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY - rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator);
-        // options = start button
         if (gamepad1.back) {
             imu.resetYaw();
         }
         if (gamepad2.back) {
             imu.resetYaw();
         }
+        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        double rotX = (x * Math.cos(-botHeading)) - (y * Math.sin(-botHeading));
+        double rotY = (x * Math.sin(-botHeading)) + (y * Math.cos(-botHeading));
+        rotX = rotX * 1.10134867899;
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+        drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY - rotX + rx) / denominator,(rotY + rotX - rx) / denominator,(rotY - rotX - rx) / denominator);
         telemetry.addData("Linear Right Pos:", linearRight.getCurrentPosition());
         telemetry.addData("Linear Left Pos:", linearLeft.getCurrentPosition());
         telemetry.addData("heading", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
