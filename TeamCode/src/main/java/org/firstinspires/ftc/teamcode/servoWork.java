@@ -50,6 +50,8 @@ public class servoWork {
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         linearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
@@ -79,36 +81,31 @@ public class servoWork {
         LRP = 0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        elapsedTime.reset(); // we are not using time. BAD IDEA TODO: change this
-        linearRight.setTargetPosition(30);
+        linearRight.setTargetPosition(60);
         linearLeft.setTargetPosition(-30);
+
     }
     public void linearUpSubmersible(){
         LRP = 0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
         elapsedTime.reset();
-        if (elapsedTime.time() >= 0.5) {
-            linearLeft.setPower(0);
-            linearRight.setPower(0);
+        linearLeft.setTargetPosition(50);
         }
-        }
+
     public void linearDownFull(){
         LRP = -0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
         elapsedTime.reset();
-        if (elapsedTime.time() >= 0.5) {
-            linearLeft.setPower(0);
-            linearRight.setPower(0);
-        }
+        linearLeft.setTargetPosition(4);
     }
     public void clawOpen(){
-        Claw.setPosition(0.75);
+        Claw.setPosition(0.339);
         clawTogged = true;
     }
     public void clawClosed(){
-        Claw.setPosition(0.39);
+        Claw.setPosition(0);
         clawTogged = false;
     }
     public void clawToggle(){

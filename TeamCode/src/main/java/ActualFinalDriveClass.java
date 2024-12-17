@@ -48,8 +48,13 @@ public class ActualFinalDriveClass extends OpMode {
 
 
          */
-        if(gamepad1.right_bumper) {
-            telemetry.addLine("rb push");
+        if (gamepad1.y) {
+            servos.extenderForward();
+        }
+        if (gamepad1.a) {
+            servos.extenderBack();
+        }
+        if(gamepad1.left_bumper) {
             if (!rbdepressed){
                 servos.clawToggle();
                 rbdepressed = true;
@@ -85,10 +90,6 @@ public class ActualFinalDriveClass extends OpMode {
 
         drive.setMotorPowers(frontLeftPower,backLeftPower,backRightPower,frontRightPower);
 
-    telemetry.addData("inited: ", inited);
-    telemetry.addData("yaw",imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)) ;
-    telemetry.addData("pitch",imu.getRobotYawPitchRollAngles().getPitch(AngleUnit.RADIANS));
-    telemetry.addData("roll",imu.getRobotYawPitchRollAngles().getRoll(AngleUnit.RADIANS));
     telemetry.update();
     }
 }
