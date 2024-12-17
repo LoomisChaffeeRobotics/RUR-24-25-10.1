@@ -29,7 +29,7 @@ public class servoWork {
     DcMotor linearLeft;
     boolean armTogged = true;
     boolean armTouched;
-    boolean clawTogged = true;
+    boolean clawTogged = false;
     boolean linearToggedHigh = true;
     boolean linearToggedMedium = true;
     double LRP = 0; //linear slide power, LRP because Millen named that
@@ -110,6 +110,16 @@ public class servoWork {
     public void clawClosed(){
         Claw.setPosition(0.39);
         clawTogged = false;
+    }
+    public void clawToggle(){
+        if (clawTogged){
+            clawClosed();
+        } else{
+            clawOpen();
+        }
+    }
+    public void clawManual(double amount){
+        Claw.setPosition(Claw.getPosition()+amount);
     }
     public void extenderForward(){
         Extender.setPosition(0.7);

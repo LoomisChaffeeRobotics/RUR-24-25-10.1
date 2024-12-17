@@ -5,45 +5,72 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.servoWork;
 
 @TeleOp
 public class ActualFinalDriveClass extends OpMode {
+    servoWork servos;
     IMU imu;
     boolean inited = false;
-    DcMotor leftFront;
-    DcMotor rightFront;
-    DcMotor leftRear;
-    DcMotor rightRear;
+    SampleMecanumDrive drive;
+    boolean rbdepressed = false;
 
     @Override
     public void init() {
+        servos = new servoWork();
+        servos.init(hardwareMap); // init servos
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
-        if (imu.initialize(parameters)){
-            inited = true;
-        }
-        leftFront = hardwareMap.get(DcMotorEx.class, "frontLeft");
-        leftRear = hardwareMap.get(DcMotorEx.class, "rearLeft");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rearRight");
-        rightFront = hardwareMap.get(DcMotorEx.class, "frontRight");
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        imu.initialize(parameters);
+        drive = new SampleMecanumDrive(hardwareMap);
 
     }
 
     @Override
     public void loop() {
-        if(gamepad1.a){
+        /*
+        Gmpd1:
+            START: resetYaw();
+            LStick: moving FC
+
+        Gmpd2:
+            START: resetYaw();
+            RStick: Turning
+            Rbumper: arm
+            LBumber: claw
+
+
+
+         */
+        if(gamepad1.right_bumper) {
+            telemetry.addLine("rb push");
+            if (!rbdepressed){
+                servos.clawToggle();
+                rbdepressed = true;
+            }
+        } else {
+            rbdepressed = false;
+        }
+        if(gamepad1.start){
             imu.resetYaw();
         }
+        if (gamepad1.dpad_up){
+            servos.clawManual( -0.01);
+        }
+        if (gamepad1.dpad_down){
+            servos.clawManual(0.01);
+        }
+
 
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double rx = gamepad1.right_stick_x; //Change to Gmpd2 later
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
         // Rotate the movement direction counter to the bot's rotation
@@ -56,10 +83,7 @@ public class ActualFinalDriveClass extends OpMode {
         double frontRightPower = (rotY - rotX - rx) / denominator;
         double backRightPower = (rotY + rotX - rx) / denominator;
 
-        leftFront.setPower(frontLeftPower);
-        leftRear.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightRear.setPower(backRightPower);
+        drive.setMotorPowers(frontLeftPower,backLeftPower,backRightPower,frontRightPower);
 
     telemetry.addData("inited: ", inited);
     telemetry.addData("yaw",imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)) ;

@@ -50,10 +50,11 @@ public class HopefullyFinalDriveClass extends OpMode {
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         imu.initialize(parameters);
         drive = new SampleMecanumDrive(hardwareMap);
-        ArmR = hardwareMap.get(Servo.class, "ArmR");
-        ArmL = hardwareMap.get(Servo.class, "ArmL");
         servoWork.init(hardwareMap);
 //         servoWork.armUp();
+        ArmR = hardwareMap.get(Servo.class, "ArmR");
+        ArmL = hardwareMap.get(Servo.class, "ArmL");
+
         Claw = hardwareMap.get(Servo.class, "Claw");
 //        servoWork.clawClosed();
         Extender = hardwareMap.get(Servo.class, "Extender");
