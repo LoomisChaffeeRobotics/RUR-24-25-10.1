@@ -18,6 +18,8 @@ public class ActualFinalDriveClass extends OpMode {
     boolean inited = false;
     SampleMecanumDrive drive;
     boolean rbdepressed = false;
+    double armLPos;
+    boolean dpdupdepressesed = false;
 
     @Override
     public void init() {
@@ -54,7 +56,7 @@ public class ActualFinalDriveClass extends OpMode {
         if (gamepad1.a) {
             servos.extenderBack();
         }
-        if(gamepad1.left_bumper) {
+        if(gamepad1.right_bumper) {
             if (!rbdepressed){
                 servos.clawToggle();
                 rbdepressed = true;
@@ -66,10 +68,16 @@ public class ActualFinalDriveClass extends OpMode {
             imu.resetYaw();
         }
         if (gamepad1.dpad_up){
-            servos.clawManual( -0.01);
+            if (!dpdupdepressesed){
+                servos.armToggle();
+                dpdupdepressesed= true;
+            }
+
+        } else{
+            dpdupdepressesed= false;
         }
         if (gamepad1.dpad_down){
-            servos.clawManual(0.01);
+            servos.armSpecimen();
         }
 
 
@@ -89,7 +97,8 @@ public class ActualFinalDriveClass extends OpMode {
         double backRightPower = (rotY + rotX - rx) / denominator;
 
         drive.setMotorPowers(frontLeftPower,backLeftPower,backRightPower,frontRightPower);
-
+    telemetry.addData("ArmLpos:", armLPos);
+    telemetry.addData("akljt",rbdepressed);
     telemetry.update();
     }
 }

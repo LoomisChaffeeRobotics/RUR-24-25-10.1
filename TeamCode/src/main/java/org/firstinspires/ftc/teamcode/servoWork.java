@@ -58,13 +58,18 @@ public class servoWork {
     }
 
     public void armUp(){
-        ArmL.setPosition(0.59);
-        ArmR.setPosition(.70);
+        ArmL.setPosition(0.73);
+        ArmR.setPosition(.68);
         armTogged = false;
     }
     public void armDown(){
-        ArmL.setPosition(.87);
-        ArmR.setPosition(0.36);
+        ArmL.setPosition(.39);
+        ArmR.setPosition(0.34);
+        armTogged = true;
+    }
+    public void armSpecimen(){
+        ArmL.setPosition(0.43);
+        ArmR.setPosition(0.38);
         armTogged = true;
     }
     public void armToggle(){
@@ -75,6 +80,11 @@ public class servoWork {
             armDown();
         }
     }
+    public double armLeftManual(double amount){
+        ArmR.setPosition(ArmR.getPosition()+amount);
+        return ArmR.getPosition();
+    }
+
     public void linearUpHigh(){
         LRP = 0.7;
         linearLeft.setPower(LRP);
@@ -121,6 +131,7 @@ public class servoWork {
             clawOpen();
         }
     }
+
     public void clawManual(double amount){
         Claw.setPosition(Claw.getPosition()+amount);
     }
@@ -133,5 +144,6 @@ public class servoWork {
     public void extenderNeutral(){
         Extender.setPosition(0.5);
     }
+
 
 }
