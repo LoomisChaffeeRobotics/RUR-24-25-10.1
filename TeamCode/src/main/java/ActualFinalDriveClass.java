@@ -54,9 +54,13 @@ public class ActualFinalDriveClass extends OpMode {
          */
         if (gamepad1.y) {
                 servos.extenderForward();
+        } else{
+            servos.extenderNeutral();
         }
         if (gamepad1.a) {
                 servos.extenderBack();
+        } else{
+            servos.extenderNeutral();
         }
         if(gamepad1.right_bumper) {
             if (!rbdepressed){
