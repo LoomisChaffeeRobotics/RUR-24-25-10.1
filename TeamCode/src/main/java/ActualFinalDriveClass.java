@@ -53,15 +53,13 @@ public class ActualFinalDriveClass extends OpMode {
 
          */
         if (gamepad1.y) {
-                servos.extenderForward();
-        } else{
+            servos.extenderForward();
+        } else if (gamepad1.a) {
+            servos.extenderBack();
+        } else {
             servos.extenderNeutral();
         }
-        if (gamepad1.a) {
-                servos.extenderBack();
-        } else{
-            servos.extenderNeutral();
-        }
+
         if(gamepad1.right_bumper) {
             if (!rbdepressed){
                 servos.clawToggle();
@@ -85,7 +83,7 @@ public class ActualFinalDriveClass extends OpMode {
         if (gamepad1.dpad_down){
             servos.armSpecimen();
         }
-
+        servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger);
 
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x;

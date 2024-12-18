@@ -132,15 +132,19 @@ public class servoWork {
             clawOpen();
         }
     }
+    public void liftLift(double power){
+        linearLeft.setPower(power);
+        linearRight.setPower(power);
+    }
 
     public void clawManual(double amount){
         Claw.setPosition(Claw.getPosition()+amount);
     }
     public void extenderForward(){
-        Extender.setPower(-0.5);
+        Extender.setPower(1);
     }
     public void extenderBack(){
-        Extender.setPower(0.2);
+        Extender.setPower(-1);
     }
     public void extenderNeutral(){
         Extender.setPower(0);
