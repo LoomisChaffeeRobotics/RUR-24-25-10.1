@@ -20,6 +20,8 @@ public class ActualFinalDriveClass extends OpMode {
     boolean rbdepressed = false;
     double armLPos;
     boolean dpdupdepressesed = false;
+    boolean ydepressed = false;
+    boolean adepressed = false;
 
     @Override
     public void init() {
@@ -51,10 +53,10 @@ public class ActualFinalDriveClass extends OpMode {
 
          */
         if (gamepad1.y) {
-            servos.extenderForward();
+                servos.extenderForward();
         }
         if (gamepad1.a) {
-            servos.extenderBack();
+                servos.extenderBack();
         }
         if(gamepad1.right_bumper) {
             if (!rbdepressed){

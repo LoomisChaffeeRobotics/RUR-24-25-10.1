@@ -6,6 +6,7 @@ import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -24,7 +25,7 @@ public class servoWork {
     Servo Claw;
     Servo ArmR;
     Servo ArmL;
-    Servo Extender;
+    CRServo Extender;
     DcMotor linearRight;
     DcMotor linearLeft;
     boolean armTogged = true;
@@ -44,7 +45,7 @@ public class servoWork {
         ArmR.setDirection(REVERSE);
         ArmL = hardwareMap.get(Servo.class, "ArmL");
         ArmL.setDirection(FORWARD);
-        Extender = hardwareMap.get(Servo.class, "Extender");
+        Extender = hardwareMap.get(CRServo.class, "Extender");
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -136,13 +137,13 @@ public class servoWork {
         Claw.setPosition(Claw.getPosition()+amount);
     }
     public void extenderForward(){
-        Extender.setPosition(1.5);
+        Extender.setPower(-0.5);
     }
     public void extenderBack(){
-        Extender.setPosition(0.3);
+        Extender.setPower(0.2);
     }
     public void extenderNeutral(){
-        Extender.setPosition(0.5);
+        Extender.setPower(0);
     }
 
 
