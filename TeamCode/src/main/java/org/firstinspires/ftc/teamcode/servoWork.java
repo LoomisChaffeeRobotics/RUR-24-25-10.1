@@ -25,6 +25,7 @@ public class servoWork {
     Servo Claw;
     Servo ArmR;
     Servo ArmL;
+//    DcMotor Tilter;
     CRServo Extender;
     DcMotor linearRight;
     DcMotor linearLeft;
@@ -51,6 +52,7 @@ public class servoWork {
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         linearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        Tilter = hardwareMap.get(DcMotor.class, "Tilter");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
@@ -69,8 +71,8 @@ public class servoWork {
         armTogged = true;
     }
     public void armSpecimen(){
-        ArmL.setPosition(0.43);
-        ArmR.setPosition(0.38);
+        ArmL.setPosition(0.41);
+        ArmR.setPosition(0.36);
         armTogged = true;
     }
     public void armToggle(){
@@ -81,17 +83,11 @@ public class servoWork {
             armDown();
         }
     }
-    public double armLeftManual(double amount){
-        ArmR.setPosition(ArmR.getPosition()+amount);
-        return ArmR.getPosition();
-    }
 
-    public void linearUpHigh(){
-        LRP = 0.7;
+    public void linearUpHigh(double amnt){
+        LRP = amnt;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        linearRight.setTargetPosition(60);
-        linearLeft.setTargetPosition(60);
 //        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -100,9 +96,6 @@ public class servoWork {
         LRP = 0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        elapsedTime.reset();
-        linearRight.setTargetPosition(50);
-        linearLeft.setTargetPosition(50);
 //        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
@@ -111,11 +104,15 @@ public class servoWork {
         LRP = -0.7;
         linearLeft.setPower(LRP);
         linearRight.setPower(LRP);
-        elapsedTime.reset();
-        linearLeft.setTargetPosition(4);
-        linearRight.setTargetPosition(4);
 //        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+    public void linearNeutral(){
+        LRP = 0.1;
+        linearLeft.setPower(LRP);
+        linearRight.setPower(LRP);
+
     }
     public void clawOpen(){
         Claw.setPosition(0.339);
@@ -149,6 +146,11 @@ public class servoWork {
     public void extenderNeutral(){
         Extender.setPower(0);
     }
-
+//    public void tilterUp() {
+//        Tilter.setPower(0.5);
+//    }
+//    public void tilterDown() {
+//        Tilter.setPower(-0.5);
+//    }
 
 }
