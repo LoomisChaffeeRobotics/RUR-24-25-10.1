@@ -46,7 +46,7 @@ public class ActualFinalDriveClass extends OpMode {
 
 
          */
-        servos.clawOpen();
+        servos.clawClosed();
         if (gamepad1.y) {
             servos.extenderForward();
         } else if (gamepad1.a) {
@@ -58,7 +58,6 @@ public class ActualFinalDriveClass extends OpMode {
         if(gamepad1.right_bumper) {
             if (!rbdepressed){
                 servos.clawToggle();
-                telemetry.addData("portnubmer", servos.clawPort());
                 rbdepressed = true;
             }
         } else {
@@ -70,7 +69,7 @@ public class ActualFinalDriveClass extends OpMode {
         if (gamepad1.dpad_up){
             if (!dpadupdepressed){
 //                servos.armToggle();
-                telemetry.addData("armLpos", servos.armUp());
+                servos.armUp();
                 dpadupdepressed = true;
             }
 
@@ -80,7 +79,7 @@ public class ActualFinalDriveClass extends OpMode {
         if (gamepad1.dpad_down){
 //            servos.armSpecimen();
             if (!dpaddowndepressed){
-                telemetry.addData("armLpos", servos.armDown());
+                servos.armDown();
                 dpaddowndepressed = true;
             }
         } else { dpaddowndepressed = false;}
@@ -104,6 +103,8 @@ public class ActualFinalDriveClass extends OpMode {
         drive.setMotorPowers(frontLeftPower,backLeftPower,backRightPower,frontRightPower);
     telemetry.addData("ArmLpos:", armLPos);
     telemetry.addData("akljt",rbdepressed);
+    telemetry.addData("ClawPort", servos.clawPort());
+    telemetry.addData("ClawPos", servos.Claw.getPosition());
     telemetry.update();
     }
 }

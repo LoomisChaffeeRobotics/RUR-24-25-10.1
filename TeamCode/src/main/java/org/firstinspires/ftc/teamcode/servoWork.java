@@ -22,7 +22,7 @@ import java.util.Timer;
 
 public class servoWork {
     ElapsedTime elapsedTime;
-    Servo Claw;
+    public Servo Claw;
     Servo ArmR;
     Servo ArmL;
 //    DcMotor Tilter;
