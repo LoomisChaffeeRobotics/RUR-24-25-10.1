@@ -22,9 +22,9 @@ import java.util.Timer;
 
 public class servoWork {
     ElapsedTime elapsedTime;
-    Servo Claw;
-    Servo ArmR;
-    Servo ArmL;
+    public Servo Claw;
+    public Servo ArmR;
+    public Servo ArmL;
     CRServo Extender;
     DcMotor linearRight;
     DcMotor linearLeft;
@@ -81,9 +81,13 @@ public class servoWork {
             armDown();
         }
     }
-    public double armLeftManual(double amount){
+    public double armRightManual(double amount){
         ArmR.setPosition(ArmR.getPosition()+amount);
         return ArmR.getPosition();
+    }
+    public double armLeftManual(double amount){
+        ArmL.setPosition(ArmL.getPosition()+amount);
+        return ArmL.getPosition();
     }
 
     public void linearUpHigh(){
