@@ -59,18 +59,18 @@ public class servoWork {
     }
 
     public void armUp(){
-        ArmL.setPosition(0.73);
-        ArmR.setPosition(.68);
+        ArmL.setPosition(0.2961);
+        ArmR.setPosition(0.3461);
         armTogged = false;
     }
     public void armDown(){
-        ArmL.setPosition(.39);
-        ArmR.setPosition(0.34);
+        ArmL.setPosition(.6556);
+        ArmR.setPosition(0.6994);
         armTogged = true;
     }
     public void armSpecimen(){
-        ArmL.setPosition(0.43);
-        ArmR.setPosition(0.38);
+        ArmL.setPosition(0.6367);
+        ArmR.setPosition(0.6878);
         armTogged = true;
     }
     public void armToggle(){
@@ -122,11 +122,11 @@ public class servoWork {
 //        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void clawOpen(){
-        Claw.setPosition(0.339);
+        Claw.setPosition(0.37);
         clawTogged = true;
     }
     public void clawClosed(){
-        Claw.setPosition(0);
+        Claw.setPosition(0.0);
         clawTogged = false;
     }
     public void clawToggle(){

@@ -24,15 +24,15 @@ public class ServoStuffTestingClass extends OpMode {
         }
 
         if(gamepad1.x){
-            servos.armLeftManual(0.001);
+            servos.armRightManual(0.001);
         }
         if(gamepad1.y) {
-            servos.armLeftManual(-0.001);
+            servos.armRightManual(-0.001);
         }
 
 
         telemetry.addData("clawServo", servos.Claw.getPosition());
-        telemetry.addData("armL", servos.ArmL);
+        telemetry.addData("armR", servos.ArmR.getPosition());
         telemetry.update();
     }
 }
