@@ -16,7 +16,7 @@ public class ActualFinalDriveClass extends OpMode {
     boolean rbdepressed = false;
     double armLPos;
     boolean dpadupdepressed = false;
-    boolean dpaddowndepressed = false;
+
     @Override
     public void init() {
         servos = new servoWork();
@@ -41,12 +41,11 @@ public class ActualFinalDriveClass extends OpMode {
             START: resetYaw();
             RStick: Turning
             Rbumper: arm
-            LBump er: claw
+            LBumber: claw
 
 
 
          */
-        servos.clawOpen();
         if (gamepad1.y) {
             servos.extenderForward();
         } else if (gamepad1.a) {
@@ -58,7 +57,6 @@ public class ActualFinalDriveClass extends OpMode {
         if(gamepad1.right_bumper) {
             if (!rbdepressed){
                 servos.clawToggle();
-                telemetry.addData("portnubmer", servos.clawPort());
                 rbdepressed = true;
             }
         } else {
@@ -69,8 +67,7 @@ public class ActualFinalDriveClass extends OpMode {
         }
         if (gamepad1.dpad_up){
             if (!dpadupdepressed){
-//                servos.armToggle();
-                telemetry.addData("armLpos", servos.armUp());
+                servos.armToggle();
                 dpadupdepressed = true;
             }
 
@@ -78,12 +75,8 @@ public class ActualFinalDriveClass extends OpMode {
             dpadupdepressed = false;
         }
         if (gamepad1.dpad_down){
-//            servos.armSpecimen();
-            if (!dpaddowndepressed){
-                telemetry.addData("armLpos", servos.armDown());
-                dpaddowndepressed = true;
-            }
-        } else { dpaddowndepressed = false;}
+            servos.armSpecimen();
+        }
         servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger);
 
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed

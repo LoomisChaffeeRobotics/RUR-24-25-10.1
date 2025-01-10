@@ -60,19 +60,15 @@ public class servoWork {
         imu.initialize(parameters);
     }
 
-    public double armUp(){
-        ArmL.setPosition(ArmL.getPosition()+0.001);
-//        ArmL.setPosition(0.34);
-//        ArmR.setPosition(.68);
+    public void armUp(){
+        ArmL.setPosition(0.73);
+        ArmR.setPosition(.68);
         armTogged = false;
-        return ArmL.getPosition();
     }
-    public double armDown(){
-        ArmL.setPosition(ArmL.getPosition()-0.001);
-//        ArmL.setPosition(0.8);
-//        ArmR.setPosition(0.34);
+    public void armDown(){
+        ArmL.setPosition(.39);
+        ArmR.setPosition(0.34);
         armTogged = true;
-        return ArmL.getPosition();
     }
     public void armSpecimen(){
         ArmL.setPosition(0.41);
@@ -119,7 +115,7 @@ public class servoWork {
 
     }
     public void clawOpen(){
-        Claw.setPosition(1);
+        Claw.setPosition(0.339);
         clawTogged = true;
     }
     public void clawClosed(){
@@ -132,10 +128,6 @@ public class servoWork {
         } else{
             clawOpen();
         }
-    }
-    public int clawPort(){
-        Claw.getPortNumber();
-        return Claw.getPortNumber();
     }
     public void liftLift(double power){
         linearLeft.setPower(power);
