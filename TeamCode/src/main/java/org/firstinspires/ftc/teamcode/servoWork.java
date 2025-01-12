@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.apache.commons.math3.stat.descriptive.rank.Max;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
@@ -35,6 +36,9 @@ public class servoWork {
     boolean linearToggedMedium = true;
     double LRP = 0; //linear slide power, LRP because Millen named that
     IMU imu;
+    public double armDownPercent;
+    boolean armDowning = false;
+
 //    SampleMecanumDrive drive;
     public void init(HardwareMap hardwareMap) {
         elapsedTime = new ElapsedTime();
@@ -59,34 +63,43 @@ public class servoWork {
     }
 
     public void armUp(){
-        ArmL.setPosition(0.2961);
-        ArmR.setPosition(0.3461);
+        armDowning = false;
         armTogged = false;
     }
     public void armDown(){
-        ArmL.setPosition(.6556);
-        ArmR.setPosition(0.6994);
+        armDowning = true;
         armTogged = true;
     }
+    public void armUpdate(){
+        if (armDowning){
+            armDownPercent = Math.min(armDownPercent+0.02,1);
+        } else{
+            armDownPercent = Math.max(armDownPercent-0.02,0);
+        }
+        ArmL.setPosition(0.255*(1-armDownPercent)+(.5656*armDownPercent));
+        ArmR.setPosition((0.315*armDownPercent)); // down is zero so i didn;t write it.
+
+    }
     public void armSpecimen(){
-        ArmL.setPosition(0.6367);
-        ArmR.setPosition(0.6878);
+        ArmL.setPosition(.6367);
+        ArmR.setPosition(0.3206);
         armTogged = true;
     }
     public void armToggle(){
 
         if(armTogged){
-            armUp();
+             armUp();
         } else{
-            armDown();
+             armDown();
         }
     }
+
     public double armRightManual(double amount){
         ArmR.setPosition(ArmR.getPosition()+amount);
         return ArmR.getPosition();
     }
     public double armLeftManual(double amount){
-        ArmL.setPosition(ArmL.getPosition()+amount);
+        ArmL.setPosition(amount);
         return ArmL.getPosition();
     }
 
@@ -122,11 +135,11 @@ public class servoWork {
 //        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void clawOpen(){
-        Claw.setPosition(0.37);
+        Claw.setPosition(1);
         clawTogged = true;
     }
     public void clawClosed(){
-        Claw.setPosition(0.0);
+        Claw.setPosition(0.3817);
         clawTogged = false;
     }
     public void clawToggle(){
@@ -152,6 +165,10 @@ public class servoWork {
     }
     public void extenderNeutral(){
         Extender.setPower(0);
+    }
+    public void armDoubleManual(double amount) {
+        ArmL.setPosition(ArmL.getPosition()+amount);
+        ArmR.setPosition(ArmR.getPosition()+amount);
     }
 
 

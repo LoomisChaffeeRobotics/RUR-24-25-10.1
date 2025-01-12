@@ -8,30 +8,47 @@ import org.firstinspires.ftc.teamcode.servoWork;
 @TeleOp
 public class ServoStuffTestingClass extends OpMode {
     org.firstinspires.ftc.teamcode.servoWork servos;
+    double armLposition = 0;
 
     @Override
     public void init() {
         servos = new servoWork();
         servos.init(hardwareMap);
-    }
+        servos.armUp();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
+        servos.armUpdate();
 
+    }
+// (.368-servo.getposition())/.368
     @Override
     public void loop() {
-        if(gamepad1.a){
-            servos.clawManual(0.001);
-        } else if (gamepad1.b){
-            servos.clawManual(-0.001);
-        }
+
+//        if(gamepad1.a){
+//            servos.armRightManual(0.001);
+//        } else if (gamepad1.b){
+//            servos.armRightManual(-0.001);
+//        }
 
         if(gamepad1.x){
-            servos.armRightManual(0.001);
+            servos.armDoubleManual(0.001);
         }
         if(gamepad1.y) {
-            servos.armRightManual(-0.001);
+            servos.armDoubleManual(-0.001);
         }
+        ;
 
 
-        telemetry.addData("clawServo", servos.Claw.getPosition());
+        telemetry.addData("armL", servos.ArmL.getPosition());
         telemetry.addData("armR", servos.ArmR.getPosition());
         telemetry.update();
     }
