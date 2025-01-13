@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import static com.qualcomm.robotcore.hardware.Servo.Direction.FORWARD;
 import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -20,7 +21,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import java.sql.Time;
 import java.util.Timer;
-
+@Config
 public class servoWork {
     ElapsedTime elapsedTime;
     public Servo Claw;
@@ -37,12 +38,16 @@ public class servoWork {
     double LRP = 0; //linear slide power, LRP because Millen named that
     IMU imu;
     public double armDownPercent;
+    public static double armLdown;
+    public static double armRdown;
     boolean armDowning = false;
 
 //    SampleMecanumDrive drive;
     public void init(HardwareMap hardwareMap) {
         elapsedTime = new ElapsedTime();
 //        drive = new SampleMecanumDrive(hardwareMap);
+        armLdown = 0.63;
+        armRdown = 0.43;
         imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
         ArmR = hardwareMap.get(Servo.class, "ArmR");
@@ -76,13 +81,13 @@ public class servoWork {
         } else{
             armDownPercent = Math.max(armDownPercent-0.02,0);
         }
-        ArmL.setPosition(0.255*(1-armDownPercent)+(.5656*armDownPercent));
-        ArmR.setPosition((0.315*armDownPercent)); // down is zero so i didn;t write it.
+        ArmL.setPosition(0.3006*(1-armDownPercent)+(armLdown*armDownPercent));
+        ArmR.setPosition(0.03*(1-armDownPercent)+(armRdown*armDownPercent));
 
     }
     public void armSpecimen(){
-        ArmL.setPosition(.6367);
-        ArmR.setPosition(0.3206);
+        ArmL.setPosition(.5417);
+        ArmR.setPosition(0.3078);
         armTogged = true;
     }
     public void armToggle(){
