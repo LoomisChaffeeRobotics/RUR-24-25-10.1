@@ -47,7 +47,7 @@ public class servoWork {
         elapsedTime = new ElapsedTime();
 //        drive = new SampleMecanumDrive(hardwareMap);
         armLdown = 0.63;
-        armRdown = 0.43;
+        armRdown = 0.3156;
         imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
         ArmR = hardwareMap.get(Servo.class, "ArmR");
