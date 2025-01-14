@@ -15,7 +15,6 @@ public class ActualFinalDriveClass extends OpMode {
     SampleMecanumDrive drive;
     boolean rbdepressed = false;
     double armLPos;
-    boolean dpdupdepressed = false;
     boolean ydepressed = false;
     boolean adepressed = false;
     double ADP;
@@ -71,21 +70,28 @@ public class ActualFinalDriveClass extends OpMode {
             imu.resetYaw();
         }
         if (gamepad1.dpad_up) {
-            if (!dpdupdepressed){
-                servos.armToggle();
+//            if (!dpdupdepressed){
+                servos.armUp();
 
-                dpdupdepressed = true;
-            }
+//                dpdupdepressed = true;
+//            }
 
-        } else{
-            dpdupdepressed = false;
+//        } else{
+//            dpdupdepressed = false;
         }
         servos.armUpdate();
         telemetry.addData("armDownPercent", servos.armDownPercent);
 
             if (gamepad1.dpad_down) {
+                servos.armDown();
+            }
+            if (gamepad1.dpad_right) {
+                servos.arm45();
+            }
+            if (gamepad1.dpad_left){
                 servos.armSpecimen();
             }
+
             servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger);
 
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed

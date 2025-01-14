@@ -37,7 +37,8 @@ public class servoWork {
     double LRP = 0; //linear slide power, LRP because Millen named that
     IMU imu;
     public double armDownPercent;
-    boolean armDowning = false;
+    int armDowning = 0;
+
 
 //    SampleMecanumDrive drive;
     public void init(HardwareMap hardwareMap) {
@@ -63,28 +64,44 @@ public class servoWork {
     }
 
     public void armUp(){
-        armDowning = false;
+        armDowning = 0;
         armTogged = false;
     }
     public void armDown(){
-        armDowning = true;
+        armDowning = 1;
         armTogged = true;
     }
     public void armUpdate(){
-        if (armDowning){
+        if (armDowning == 1){
             armDownPercent = Math.min(armDownPercent+0.02,1);
-        } else{
+        } else if (armDowning == 0){
             armDownPercent = Math.max(armDownPercent-0.02,0);
+        } else if (armDowning == 2) { // speciman
+            if(armDownPercent <= .5){
+                armDownPercent = Math.min(0.5,armDownPercent+0.02);
+            } else {
+                armDownPercent = Math.max(0.5,armDownPercent-0.02);
+            }
+        } else {
+            if(armDownPercent <= .9){
+                armDownPercent = Math.min(0.9,armDownPercent+0.02);
+            } else {
+                armDownPercent = Math.max(0.9,armDownPercent-0.02);
+            }
         }
         ArmL.setPosition(0.255*(1-armDownPercent)+(.5656*armDownPercent));
         ArmR.setPosition((0.315*armDownPercent)); // down is zero so i didn;t write it.
 
     }
     public void armSpecimen(){
-        ArmL.setPosition(.6367);
-        ArmR.setPosition(0.3206);
+        armDowning=3;
         armTogged = true;
+
     }
+    public void arm45(){
+        armDowning = 2;
+    }
+
     public void armToggle(){
 
         if(armTogged){
