@@ -19,6 +19,7 @@ import java.util.Timer;
 public class servoWork {
     ElapsedTime elapsedTime;
     public Servo Claw;
+    public Servo Tilter;
     public Servo ArmR;
     public Servo ArmL;
     CRServo Extender;
@@ -41,6 +42,7 @@ public class servoWork {
 //        drive = new SampleMecanumDrive(hardwareMap);
         imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
+        Tilter = hardwareMap.get(Servo.class, "Tilter");
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmR.setDirection(REVERSE);
         ArmL = hardwareMap.get(Servo.class, "ArmL");
@@ -57,7 +59,9 @@ public class servoWork {
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
     }
-
+    public void TilterHangMoment() {
+        Tilter.setPosition(1.5);
+    }
     public void armUp(){
         armDowning = 0;
         armTogged = false;

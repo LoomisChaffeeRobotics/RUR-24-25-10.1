@@ -33,11 +33,13 @@ public class ActualFinalDriveClass extends OpMode {
         Gmpd1:
             START: resetYaw();
             LStick: moving FC
+            RStick: Turning
         Gmpd2:
             START: resetYaw();
-            RStick: Turning
-            Rbumper: arm
-            LBumber: claw
+            RStick: Turning (Low speed)
+            Dpad: arm
+            RBumper: claw
+            Triggers: Linear Slide
          */
         if (gamepad1.y) {
             servos.extenderForward();
