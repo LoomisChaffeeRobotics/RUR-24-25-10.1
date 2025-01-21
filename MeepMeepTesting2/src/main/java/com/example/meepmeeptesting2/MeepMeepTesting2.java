@@ -13,19 +13,28 @@ public class MeepMeepTesting2 {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 10)
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -36, Math.toRadians(90)))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -60, Math.toRadians(90)))
+                        .forward(31)
+                        .addDisplacementMarker(31, () -> {
+                            //servoWork.linearup();
+                        })
+                        .forward(2)
+                        .addDisplacementMarker(33, () -> {
+                            //servoWork.linearDown();
+//                            servoWork.clawOpen();
+                        })
                         .strafeRight(36)
                         .forward(24)
                         .strafeRight(12)
-                        .back(30)
-                        .forward(30)
+                        .back(57)
+                        .forward(57)
                         .strafeRight(9)
-                        .back(30)
-                        .forward(30)
+                        .back(57)
+                        .forward(57)
                         .strafeRight(4)
-                        .back(30)
+                        .back(57)
                         .build());
 
 
