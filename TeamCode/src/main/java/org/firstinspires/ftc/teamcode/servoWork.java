@@ -33,7 +33,9 @@ public class servoWork {
     double LRP = 0; //linear slide power, LRP because Millen named that
     IMU imu;
     public double armDownPercent;
-    int armDowning = 0;
+     double aDPBefore;
+    public int armDowning = 0;
+
 
 
     //    SampleMecanumDrive drive;
@@ -71,6 +73,7 @@ public class servoWork {
         armTogged = true;
     }
     public void armUpdate(){
+
         if (armDowning == 1){
             armDownPercent = Math.min(armDownPercent+0.02,1);
         } else if (armDowning == 0){
@@ -81,15 +84,22 @@ public class servoWork {
             } else {
                 armDownPercent = Math.max(0.5,armDownPercent-0.02);
             }
-        } else {
+        } else if (armDowning == 3){
             if(armDownPercent <= .9){
                 armDownPercent = Math.min(0.9,armDownPercent+0.02);
             } else {
                 armDownPercent = Math.max(0.9,armDownPercent-0.02);
             }
         }
-        ArmL.setPosition(0.255*(1-armDownPercent)+(.5656*armDownPercent));
-        ArmR.setPosition((0.315*armDownPercent)); // down is zero so i didn;t write it.
+        if(aDPBefore == armDownPercent){  // hopefully stops overheating issue
+            return;
+        }
+        aDPBefore = armDownPercent;
+
+        ArmL.setPosition(0.6744 *(1-armDownPercent)+(0.2576 *armDownPercent));
+        ArmR.setPosition(0.7356 *(1-armDownPercent)+(0.335  *armDownPercent));
+        // down is zero so i didn;t write it.
+        // its not zero anymore
 
     }
     public void armSpecimen(){
@@ -181,4 +191,8 @@ public class servoWork {
         ArmL.setPosition(ArmL.getPosition()+amount);
         ArmR.setPosition(ArmR.getPosition()+amount);
     }
+    public void tiltTilt(double amount){
+        Tilter.setPosition(Tilter.getPosition()+amount);
+    }
+
 }
