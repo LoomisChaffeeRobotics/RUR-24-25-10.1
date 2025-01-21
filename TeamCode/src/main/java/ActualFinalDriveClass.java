@@ -81,6 +81,13 @@ public class ActualFinalDriveClass extends OpMode {
         if (gamepad1.dpad_left){
             servos.armSpecimen();
         }
+        if (gamepad1.x){
+            servos.tiltTilt(1d);
+        } else if (gamepad1.b){
+            servos.tiltTilt(-1d);
+        } else {
+            servos.tiltTilt(0d);
+        }
 
         servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger);
 

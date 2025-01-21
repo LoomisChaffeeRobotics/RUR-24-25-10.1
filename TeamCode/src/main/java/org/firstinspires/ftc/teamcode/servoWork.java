@@ -19,7 +19,7 @@ import java.util.Timer;
 public class servoWork {
     ElapsedTime elapsedTime;
     public Servo Claw;
-    public Servo Tilter;
+    public CRServo Tilter;
     public Servo ArmR;
     public Servo ArmL;
     CRServo Extender;
@@ -192,7 +192,7 @@ public class servoWork {
         ArmR.setPosition(ArmR.getPosition()+amount);
     }
     public void tiltTilt(double amount){
-        Tilter.setPosition(Tilter.getPosition()+amount);
+        Tilter.setPower(amount);
     }
 
 }
