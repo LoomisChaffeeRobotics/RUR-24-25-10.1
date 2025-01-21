@@ -88,12 +88,12 @@ public class servoWork {
                 armDownPercent = Math.max(0.9,armDownPercent-0.02);
             }
         }
-        ArmL.setPosition(0.255*(1-armDownPercent)+(.5656*armDownPercent));
-        ArmR.setPosition((0.315*armDownPercent)); // down is zero so i didn;t write it.
+        ArmL.setPosition(0.5533*(1-armDownPercent)+(.5656*armDownPercent));
+        ArmR.setPosition(0.3656*(1-armDownPercent)+(0.3434*armDownPercent)); // down is zero so i didn;t write it.
 
     }
     public void armSpecimen(){
-        armDowning=3;
+        armDowning = 3;
         armTogged = true;
 
     }

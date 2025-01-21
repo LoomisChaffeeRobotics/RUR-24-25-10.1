@@ -49,6 +49,9 @@ public class AutonomousTest extends OpMode {
                     //servoWork.linearDown();
                     servoWork.clawOpen();
                 })
+                .back(5)
+                .build();
+        Trajectory Auto2 = drive.trajectoryBuilder(new Pose2d())
                 .strafeRight(36)
                 .forward(24)
                 .strafeRight(12)
@@ -67,6 +70,7 @@ public class AutonomousTest extends OpMode {
                 .back(33.3) //change to adapt
                 .addDisplacementMarker(81.3, () -> {
                     // something like Arm.movedown(), claw.open(), claw.close(), arm.moveup()
+                    drive.turn(Math.toRadians(-135));
                     servoWork.armDown();
                     servoWork.clawOpen();
                     servoWork.clawClosed();
@@ -78,14 +82,9 @@ public class AutonomousTest extends OpMode {
 
 
         drive.followTrajectory(Auto1);
-
+        drive.followTrajectory(Auto2);
 //        drive.followTrajectory(Auto2);
         drive.followTrajectory(Auto3);
-        drive.turn(Math.toRadians(-45));
-        servoWork.armDown();
-        servoWork.clawOpen();
-        servoWork.clawClosed();
-        servoWork.armUp();
         //motor1/2/3.turn(something)
 
 

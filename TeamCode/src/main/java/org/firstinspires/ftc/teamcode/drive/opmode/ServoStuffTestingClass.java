@@ -34,12 +34,12 @@ public class ServoStuffTestingClass extends OpMode {
             servos.armRightManual(-0.001);
         }
 
-//        if(gamepad1.x){
-//            servos.armDoubleManual(0.001);
-//        }
-//        if(gamepad1.y) {
-//            servos.armDoubleManual(-0.001);
-//        }
+        if(gamepad1.x){
+            servos.armDoubleManual(0.001);
+        }
+        if(gamepad1.y) {
+            servos.armDoubleManual(-0.001);
+        }
         ;
 
 
