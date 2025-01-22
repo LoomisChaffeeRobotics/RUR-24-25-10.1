@@ -29,17 +29,17 @@ public class ServoStuffTestingClass extends OpMode {
     public void loop() {
 
         if(gamepad1.a){
-            servos.armRightManual(0.001);
-        } else if (gamepad1.b){
-            servos.armRightManual(-0.001);
-        }
-
-        if(gamepad1.x){
             servos.armDoubleManual(0.001);
-        }
-        if(gamepad1.y) {
+        } else if (gamepad1.b){
             servos.armDoubleManual(-0.001);
         }
+
+//        if(gamepad1.x){
+//            servos.armDoubleManual(0.001);
+//        }
+//        if(gamepad1.y) {
+//            servos.armDoubleManual(-0.001);
+//        }
         ;
 
 

@@ -42,11 +42,11 @@ public class servoWork {
 //        drive = new SampleMecanumDrive(hardwareMap);
         imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
-        Tilter = hardwareMap.get(Servo.class, "Tilter");
+        Tilter = hardwareMap.get(CRServo.class, "Tilter");
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmR.setDirection(REVERSE);
         ArmL = hardwareMap.get(Servo.class, "ArmL");
-        ArmL.setDirection(FORWARD);
+        ArmL.setDirection(REVERSE);
         Extender = hardwareMap.get(CRServo.class, "Extender");
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
@@ -60,7 +60,7 @@ public class servoWork {
         imu.initialize(parameters);
     }
     public void TilterHangMoment() {
-        Tilter.setPosition(1.5);
+        Tilter.setPower(1.5);
     }
     public void armUp(){
         armDowning = 0;
@@ -82,14 +82,14 @@ public class servoWork {
                 armDownPercent = Math.max(0.5,armDownPercent-0.02);
             }
         } else {
-            if(armDownPercent <= .9){
-                armDownPercent = Math.min(0.9,armDownPercent+0.02);
+            if(armDownPercent <= .95){
+                armDownPercent = Math.min(0.95,armDownPercent+0.02);
             } else {
-                armDownPercent = Math.max(0.9,armDownPercent-0.02);
+                armDownPercent = Math.max(0.95,armDownPercent-0.02);
             }
         }
-        ArmL.setPosition(0.5533*(1-armDownPercent)+(.5656*armDownPercent));
-        ArmR.setPosition(0.3656*(1-armDownPercent)+(0.3434*armDownPercent)); // down is zero so i didn;t write it.
+        ArmL.setPosition(0.556*(1-armDownPercent)+(.84*armDownPercent));
+        ArmR.setPosition(0.6339*(1-armDownPercent)+(0.36*armDownPercent));
 
     }
     public void armSpecimen(){
