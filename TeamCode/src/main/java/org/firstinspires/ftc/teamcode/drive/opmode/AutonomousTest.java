@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
+import static java.lang.Math.PI;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -39,8 +41,8 @@ public class AutonomousTest extends OpMode {
         Pose2d startPose = new Pose2d(0,0,Math.toRadians(0));
         drive.setPoseEstimate(startPose);
 
-        Trajectory Auto1 = drive.trajectoryBuilder(new Pose2d())
-                .forward(24)
+        Trajectory SpecimenHang = drive.trajectoryBuilder(new Pose2d())
+                .forward(24) //will have to change based off robot size
                 .addDisplacementMarker(24, () -> {
                     //servoWork.linearup();
                 })
@@ -64,27 +66,34 @@ public class AutonomousTest extends OpMode {
                 .build();
 
         Trajectory Auto3 = drive.trajectoryBuilder(new Pose2d())
-                //if we start on left, picking up and depositing one sample
-                .strafeLeft(36) //we appreciate not vandalizing the field
-                .back(33.3) //change to adapt
-                .addDisplacementMarker(81.3, () -> {
-                    // something like Arm.movedown(), claw.open(), claw.close(), arm.moveup()
-                    drive.turn(Math.toRadians(-135));
-                    servoWork.armDown();
+                .strafeLeft(30)
+                .back(10) // again, change based off how far the arm extends out
+                .strafeLeft(18)
+                .addDisplacementMarker(84, () -> {
                     servoWork.clawOpen();
+                    servoWork.armDown();
                     servoWork.clawClosed();
                     servoWork.armUp();
                 })
-                .back(48)
+                .back(10) // change such that it goes 20 inches back total in auto3
+                .addDisplacementMarker(94, () -> {
+                    drive.turn(135); //test whether it goes 135 or -135 degrees
+                })
+                .strafeRight(3) //important
+                .addDisplacementMarker(97, () -> {
+                    //servowork.linearuphigh();
+                    servoWork.arm45();
+                    servoWork.clawOpen();
+                    servoWork.armUp();
+                    //servoWork.lineardownfull();
+                })
                 .build();
 
 
 
-        drive.followTrajectory(Auto1);
-        drive.followTrajectory(Auto2);
+        drive.followTrajectory(SpecimenHang);
 //        drive.followTrajectory(Auto2);
-        drive.followTrajectory(Auto3);
-        //motor1/2/3.turn(something)
+//        drive.followTrajectory(Auto3);
 
 
 

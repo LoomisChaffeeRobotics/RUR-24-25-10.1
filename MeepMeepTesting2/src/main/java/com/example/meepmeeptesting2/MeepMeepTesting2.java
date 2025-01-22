@@ -25,11 +25,18 @@ public class MeepMeepTesting2 {
                         .forward(2)
                         .addDisplacementMarker(26, () -> {
                             //servoWork.linearDown();
+                            //servoork.clawopen();
                         })
-                        .strafeLeft(36) //we appreciate not vandalizing the field
-                        .back(33.3) //change to adapt
-                        .turn(-3*PI/4)
-                        .addDisplacementMarker(119.3, () -> {
+                        .strafeLeft(30) //we appreciate not vandalizing the field
+                        .back(10)
+                        .strafeLeft(18)
+                        .addDisplacementMarker(84, () -> {
+                            //armdown,clawopen,close,armup
+                        })
+                        .back(10) //change to adapt
+                        .turn(3*PI/4)
+                        .strafeRight(3)
+                        .addDisplacementMarker(97, () -> {
 
                         })
                         .build());
