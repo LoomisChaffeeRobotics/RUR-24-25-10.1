@@ -40,28 +40,27 @@ public class AutonomousTest extends OpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory Auto1 = drive.trajectoryBuilder(new Pose2d())
-                .forward(30)
-                .addDisplacementMarker(30, () -> {
+                .forward(24)
+                .addDisplacementMarker(24, () -> {
                     //servoWork.linearup();
                 })
-                .forward(5)
-                .addDisplacementMarker(35, () -> {
+                .forward(2)
+                .addDisplacementMarker(26, () -> {
                     //servoWork.linearDown();
                     servoWork.clawOpen();
                 })
-                .back(5)
                 .build();
         Trajectory Auto2 = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(36)
-                .forward(24)
+                .strafeRight(35)
+                .forward(30)
                 .strafeRight(12)
-                .back(30)
-                .forward(30)
+                .back(55)
+                .forward(55)
                 .strafeRight(9)
-                .back(30)
-                .forward(30)
+                .back(55)
+                .forward(55)
                 .strafeRight(4)
-                .back(30)
+                .back(55)
                 .build();
 
         Trajectory Auto3 = drive.trajectoryBuilder(new Pose2d())

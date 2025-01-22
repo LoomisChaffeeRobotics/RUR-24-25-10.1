@@ -1,5 +1,7 @@
 package com.example.meepmeeptesting2;
 
+import static java.lang.Math.PI;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 
@@ -16,25 +18,20 @@ public class MeepMeepTesting2 {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 10)
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -60, Math.toRadians(90)))
-                        .forward(31)
-                        .addDisplacementMarker(31, () -> {
+                        .forward(24)
+                        .addDisplacementMarker(24, () -> {
                             //servoWork.linearup();
                         })
                         .forward(2)
-                        .addDisplacementMarker(33, () -> {
+                        .addDisplacementMarker(26, () -> {
                             //servoWork.linearDown();
-//                            servoWork.clawOpen();
                         })
-                        .strafeRight(36)
-                        .forward(24)
-                        .strafeRight(12)
-                        .back(57)
-                        .forward(57)
-                        .strafeRight(9)
-                        .back(57)
-                        .forward(57)
-                        .strafeRight(4)
-                        .back(57)
+                        .strafeLeft(36) //we appreciate not vandalizing the field
+                        .back(33.3) //change to adapt
+                        .turn(-3*PI/4)
+                        .addDisplacementMarker(119.3, () -> {
+
+                        })
                         .build());
 
 
