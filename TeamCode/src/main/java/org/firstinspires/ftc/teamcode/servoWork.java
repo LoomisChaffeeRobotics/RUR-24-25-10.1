@@ -185,5 +185,5 @@ public class servoWork {
     public void tiltTilt(double amount){
         Tilter.setPower(amount);
     }
-    
+
 }
