@@ -59,17 +59,15 @@ public class ActualFinalDriveClass extends OpMode {
         if (gamepad1.start) {
             imu.resetYaw();
         }
-        if (gamepad1.dpad_up) {
-//            if (!dpdupdepressed){
-            servos.armUp();
-
-//                dpdupdepressed = true;
-//            }
-
-//        } else{
-//            dpdupdepressed = false;
+        if (gamepad2.start) {
+            imu.resetYaw();
         }
+        if (gamepad1.dpad_up) {
+            servos.armUp();
+        }
+
         servos.armUpdate();
+
         telemetry.addData("armDownPercent", servos.armDownPercent);
 
         if (gamepad1.dpad_down) {
@@ -92,8 +90,9 @@ public class ActualFinalDriveClass extends OpMode {
         servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger);
 
         double y = -gamepad2.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad2.left_stick_x;
-        double rx = (gamepad1.right_stick_x + gamepad2.right_stick_x)/2; //Change to Gmpd2 later
+        double x = gamepad2.left_stick_x; //dylan is my bf
+        //Colin is hot
+        double rx = gamepad1.right_stick_x + gamepad2.right_stick_x; //Change to Gmpd2 later
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
@@ -104,8 +103,8 @@ public class ActualFinalDriveClass extends OpMode {
         double frontRightPower = (rotY - rotX - rx) / denominator;
         double backRightPower = (rotY + rotX - rx) / denominator;
         drive.setMotorPowers(frontLeftPower, backLeftPower, backRightPower, frontRightPower);
-        telemetry.addData("ArmLpos:", armLPos);
-        telemetry.addData("akljt", rbdepressed);
+        telemetry.addData("thing that Dylan wants: ", gamepad1.right_trigger - gamepad1.left_trigger);
         telemetry.update();
     }
 }
+//

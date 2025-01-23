@@ -83,9 +83,9 @@ public class servoWork {
             }
         } else {
             if(armDownPercent <= .95){
-                armDownPercent = Math.min(0.95,armDownPercent+0.02);
+                armDownPercent = Math.min(0.93,armDownPercent+0.02);
             } else {
-                armDownPercent = Math.max(0.95,armDownPercent-0.02);
+                armDownPercent = Math.max(0.93,armDownPercent-0.02);
             }
         }
         ArmL.setPosition(0.556*(1-armDownPercent)+(.84*armDownPercent));

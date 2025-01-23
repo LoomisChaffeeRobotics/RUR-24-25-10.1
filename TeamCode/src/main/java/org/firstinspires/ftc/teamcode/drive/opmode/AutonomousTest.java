@@ -44,11 +44,11 @@ public class AutonomousTest extends OpMode {
         Trajectory SpecimenHang = drive.trajectoryBuilder(new Pose2d())
                 .forward(24) //will have to change based off robot size
                 .addDisplacementMarker(24, () -> {
-                    //servoWork.linearup();
+                    servoWork.linearUpSubmersible();
                 })
                 .forward(2)
                 .addDisplacementMarker(26, () -> {
-                    //servoWork.linearDown();
+                    servoWork.linearDownFullFromSubmersible();
                     servoWork.clawOpen();
                 })
                 .build();
@@ -81,11 +81,11 @@ public class AutonomousTest extends OpMode {
                 })
                 .strafeRight(3) //important
                 .addDisplacementMarker(97, () -> {
-                    //servowork.linearuphigh();
+                    servoWork.linearUpHigh();
                     servoWork.arm45();
                     servoWork.clawOpen();
                     servoWork.armUp();
-                    //servoWork.lineardownfull();
+                    servoWork.linearDownFullFromHigh();
                 })
                 .build();
 
