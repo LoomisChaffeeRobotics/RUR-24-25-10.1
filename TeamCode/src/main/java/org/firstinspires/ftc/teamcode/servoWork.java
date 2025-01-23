@@ -117,34 +117,47 @@ public class servoWork {
         ArmL.setPosition(amount);
         return ArmL.getPosition();
     }
-    public void linearUpHigh(){
-        LRP = 0.7;
-        linearLeft.setPower(LRP);
-        linearRight.setPower(LRP);
-        linearRight.setTargetPosition(60);
-        linearLeft.setTargetPosition(60);
-//        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
     public void linearUpSubmersible(){
         LRP = 0.7;
-        linearLeft.setPower(LRP);
-        linearRight.setPower(LRP);
         elapsedTime.reset();
-        linearRight.setTargetPosition(50);
-        linearLeft.setTargetPosition(50);
-//        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        if(elapsedTime.time() < 1.0) {
+            linearLeft.setPower(1);
+            linearRight.setPower(1);
+        } else {
+            linearLeft.setPower(0);
+            linearRight.setPower(0);
+        }
     }
-    public void linearDownFull(){
-        LRP = -0.7;
-        linearLeft.setPower(LRP);
-        linearRight.setPower(LRP);
+    public void linearUpHigh(){
+        LRP = 1;
         elapsedTime.reset();
-        linearLeft.setTargetPosition(4);
-        linearRight.setTargetPosition(4);
-//        linearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        linearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        if(elapsedTime.time() < 2.5) {
+            linearLeft.setPower(1);
+            linearRight.setPower(1);
+        } else {
+            linearLeft.setPower(0.1);
+            linearRight.setPower(0.1);
+        }
+    }
+    public void linearDownFullFromSubmersible(){
+        elapsedTime.reset();
+        if(elapsedTime.time() < 0.6) {
+            linearLeft.setPower(-1);
+            linearRight.setPower(-1);
+        } else {
+            linearLeft.setPower(0);
+            linearRight.setPower(0);
+        }
+    }
+    public void linearDownFullFromHigh(){
+        elapsedTime.reset();
+        if(elapsedTime.time() < 1.6) {
+            linearLeft.setPower(-1);
+            linearRight.setPower(-1);
+        } else {
+            linearLeft.setPower(0);
+            linearRight.setPower(0);
+        }
     }
     public void clawOpen(){
         Claw.setPosition(1);
