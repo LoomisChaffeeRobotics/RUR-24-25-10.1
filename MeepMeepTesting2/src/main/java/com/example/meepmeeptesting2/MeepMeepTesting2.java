@@ -27,18 +27,23 @@ public class MeepMeepTesting2 {
                             //servoWork.linearDown();
                             //servoork.clawopen();
                         })
-                        .strafeLeft(30) //we appreciate not vandalizing the field
-                        .back(10)
-                        .strafeLeft(18)
-                        .addDisplacementMarker(84, () -> {
-                            //armdown,clawopen,close,armup
+                        .strafeRight(35)
+                        .forward(30)
+                        .strafeRight(12)
+                        .forward(10)
+                        .addDisplacementMarker(113, () -> {
+//                            servoWork.clawOpen();
+//                            servoWork.armDown();
+//                            servoWork.clawClosed();
+//                            servoWork.armUp();
                         })
-                        .back(10) //change to adapt
-                        .turn(3*PI/4)
-                        .strafeRight(3)
-                        .addDisplacementMarker(97, () -> {
-
-                        })
+                        .back(65)
+                        .forward(55)
+                        .strafeRight(9)
+                        .back(55)
+                        .forward(55)
+                        .strafeRight(4)
+                        .back(55)
                         .build());
 
 
