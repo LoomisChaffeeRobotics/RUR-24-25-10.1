@@ -52,11 +52,18 @@ public class AutonomousTest extends OpMode {
                     servoWork.clawOpen();
                 })
                 .build();
-        Trajectory Auto2 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory RightSideSamples = drive.trajectoryBuilder(new Pose2d())
                 .strafeRight(35)
                 .forward(30)
                 .strafeRight(12)
-                .back(55)
+                .forward(10)
+                .addDisplacementMarker(113, () -> {
+                    servoWork.clawOpen();
+                    servoWork.armDown();
+                    servoWork.clawClosed();
+                    servoWork.armUp();
+                })
+                .back(65)
                 .forward(55)
                 .strafeRight(9)
                 .back(55)
@@ -65,7 +72,7 @@ public class AutonomousTest extends OpMode {
                 .back(55)
                 .build();
 
-        Trajectory Auto3 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory LeftSideSamples = drive.trajectoryBuilder(new Pose2d())
                 .strafeLeft(30)
                 .back(10) // again, change based off how far the arm extends out
                 .strafeLeft(18)
@@ -74,7 +81,7 @@ public class AutonomousTest extends OpMode {
                     servoWork.armDown();
                     servoWork.clawClosed();
                     servoWork.armUp();
-                })
+                })1`````````````````````````````````````````````````````````````````````````````                                        `                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       `
                 .back(10) // change such that it goes 20 inches back total in auto3
                 .addDisplacementMarker(94, () -> {
                     drive.turn(135); //test whether it goes 135 or -135 degrees
