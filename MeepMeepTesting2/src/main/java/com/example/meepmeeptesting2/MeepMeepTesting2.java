@@ -18,27 +18,29 @@ public class MeepMeepTesting2 {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 10)
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -60, Math.toRadians(90)))
-                        .forward(24)
+                        .forward(24) //will have to change based off robot size
                         .addDisplacementMarker(24, () -> {
-                            //servoWork.linearup();
+//                            servoWork.linearUpSubmersible();
                         })
                         .forward(2)
                         .addDisplacementMarker(26, () -> {
-                            //servoWork.linearDown();
-                            //servoork.clawopen();
+//                            servoWork.linearDownFullFromSubmersible();
+//                            servoWork.clawOpen();
                         })
-                        .strafeLeft(30) //we appreciate not vandalizing the field
-                        .back(10)
-                        .strafeLeft(18)
-                        .addDisplacementMarker(84, () -> {
-                            //armdown,clawopen,close,armup
+                        .strafeRight(35)
+                        .forward(30)
+                        .strafeRight(12)
+                        .forward(10)
+                        .addDisplacementMarker(113, () -> {
+                            //servowork.clawopen,armdown,clawclosed,armup
                         })
-                        .back(10) //change to adapt
-                        .turn(3*PI/4)
-                        .strafeRight(3)
-                        .addDisplacementMarker(97, () -> {
-
-                        })
+                        .back(65)
+                        .forward(55)
+                        .strafeRight(9)
+                        .back(55)
+                        .forward(55)
+                        .strafeRight(4)
+                        .back(55)
                         .build());
 
 
