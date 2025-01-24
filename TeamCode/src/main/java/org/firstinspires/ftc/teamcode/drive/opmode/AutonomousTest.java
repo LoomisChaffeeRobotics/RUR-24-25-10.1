@@ -69,18 +69,18 @@ public class AutonomousTest extends OpMode {
                 .strafeLeft(30)
                 .back(10) // again, change based off how far the arm extends out
                 .strafeLeft(18)
-                .addDisplacementMarker(58, () -> {
+                .addDisplacementMarker(84, () -> {
                     servoWork.clawOpen();
                     servoWork.armDown();
                     servoWork.clawClosed();
                     servoWork.armUp();
                 })
                 .back(10) // change such that it goes 20 inches back total in auto3
-                .addDisplacementMarker(68, () -> {
+                .addDisplacementMarker(94, () -> {
                     drive.turn(135); //test whether it goes 135 or -135 degrees
                 })
                 .strafeRight(3) //important
-                .addDisplacementMarker(71, () -> {
+                .addDisplacementMarker(97, () -> {
                     servoWork.linearUpHigh();
                     servoWork.arm45();
                     servoWork.clawOpen();

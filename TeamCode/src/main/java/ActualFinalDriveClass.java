@@ -87,10 +87,12 @@ public class ActualFinalDriveClass extends OpMode {
             servos.tiltTilt(0d);
         }
 
-        servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger);
+        servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger+0.12);
+
+        double speedFactor = Math.min(1.3 - gamepad2.right_trigger, 1); // so driver can slow down
 
         double y = -gamepad2.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad2.left_stick_x; //dylan is my bf
+        double x = gamepad2.left_stick_x; //dylan is my bf // If your going to write my name, bother to capitalize it. - Dylan
         //Colin is hot
         double rx = gamepad1.right_stick_x + gamepad2.right_stick_x; //Change to Gmpd2 later
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
@@ -98,12 +100,12 @@ public class ActualFinalDriveClass extends OpMode {
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
+        double frontLeftPower = speedFactor * (rotY + rotX + rx) / denominator;
+        double backLeftPower = speedFactor * (rotY - rotX + rx) / denominator;
+        double frontRightPower = speedFactor * (rotY - rotX - rx) / denominator;
+        double backRightPower = speedFactor * (rotY + rotX - rx) / denominator;
         drive.setMotorPowers(frontLeftPower, backLeftPower, backRightPower, frontRightPower);
-        telemetry.addData("thing that Dylan wants: ", gamepad1.right_trigger - gamepad1.left_trigger);
+        telemetry.addData("thing that Dylan wants: ", speedFactor);
         telemetry.update();
     }
 }
