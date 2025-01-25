@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -11,17 +10,13 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.servoWork;
 
-@Config
-public class AutonomousTest extends OpMode {
-    org.firstinspires.ftc.teamcode.servoWork servoWork;
+public class AutonomousFinal extends OpMode {
+    servoWork servoWork;
     IMU imu;
     SampleMecanumDrive drive;
     DcMotor linearRight;
     DcMotor linearLeft;
-    public static double specimenForwardFirst;
-    public static double specimenForwardSecond;
-    public static double specimenLeft;
-    public static double specimenRight;
+
 
     @Override
     public void init() {
@@ -43,21 +38,18 @@ public class AutonomousTest extends OpMode {
         Pose2d startPose = new Pose2d(0,0,Math.toRadians(0));
         drive.setPoseEstimate(startPose);
 
-        Trajectory SpecimenHangTest = drive.trajectoryBuilder(new Pose2d())
-                .strafeLeft(specimenLeft)
-                .forward(specimenForwardFirst) //will have to change based off robot size
+        Trajectory SpecimenHang = drive.trajectoryBuilder(new Pose2d())
+                .forward(24) //will have to change based off robot size
                 .addDisplacementMarker(24, () -> {
                     servoWork.linearUpSubmersible();
                 })
-                .forward(specimenForwardSecond)
+                .forward(2)
                 .addDisplacementMarker(26, () -> {
                     servoWork.linearDownFullFromSubmersible();
                     servoWork.clawOpen();
                 })
-                .back(specimenForwardFirst + specimenForwardSecond)
-                .strafeRight(specimenRight)
                 .build();
-        Trajectory RightSideSamplesTest = drive.trajectoryBuilder(new Pose2d())
+        Trajectory RightSideSamples = drive.trajectoryBuilder(new Pose2d())
                 .strafeRight(35)
                 .forward(30)
                 .strafeRight(12)
@@ -77,7 +69,7 @@ public class AutonomousTest extends OpMode {
                 .back(55)
                 .build();
 
-        Trajectory LeftSideSamplesTest = drive.trajectoryBuilder(new Pose2d())
+        Trajectory LeftSideSamples = drive.trajectoryBuilder(new Pose2d())
                 .strafeLeft(30)
                 .back(10) // again, change based off how far the arm extends out
                 .strafeLeft(18)
@@ -103,7 +95,7 @@ public class AutonomousTest extends OpMode {
 
 
 
-        drive.followTrajectory(SpecimenHangTest);
+        drive.followTrajectory(SpecimenHang);
 //        drive.followTrajectory(Auto2);
 //        drive.followTrajectory(Auto3);
 
