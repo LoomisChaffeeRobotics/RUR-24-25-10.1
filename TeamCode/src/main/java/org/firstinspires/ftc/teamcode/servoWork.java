@@ -19,7 +19,7 @@ import java.util.Timer;
 public class servoWork {
     ElapsedTime elapsedTime;
     public Servo Claw;
-    public CRServo Tilter;
+    public DcMotor Tilter;
     public Servo ArmR;
     public Servo ArmL;
     CRServo Extender;
@@ -42,7 +42,7 @@ public class servoWork {
 //        drive = new SampleMecanumDrive(hardwareMap);
         imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
-        Tilter = hardwareMap.get(CRServo.class, "Tilter");
+        Tilter = hardwareMap.get(DcMotor.class, "Tilter");
         ArmR = hardwareMap.get(Servo.class, "ArmR");
         ArmR.setDirection(REVERSE);
         ArmL = hardwareMap.get(Servo.class, "ArmL");
@@ -60,7 +60,7 @@ public class servoWork {
         imu.initialize(parameters);
     }
     public void TilterHangMoment() {
-        Tilter.setPower(1.5);
+        Tilter.setPower(1);
     }
     public void armUp(){
         armDowning = 0;
@@ -76,13 +76,13 @@ public class servoWork {
         } else if (armDowning == 0){
             armDownPercent = Math.max(armDownPercent-0.02,0);
         } else if (armDowning == 2) { // speciman
-            if(armDownPercent <= .75){
-                armDownPercent = Math.min(0.75,armDownPercent+0.02);
+            if(armDownPercent <= .45){
+                armDownPercent = Math.min(0.45,armDownPercent+0.02);
             } else {
-                armDownPercent = Math.max(0.75,armDownPercent-0.02);
+                armDownPercent = Math.max(0.45,armDownPercent-0.02);
             }
         } else {
-            if(armDownPercent <= .95){
+            if(armDownPercent <= .94){
                 armDownPercent = Math.min(0.94,armDownPercent+0.02);
             } else {
                 armDownPercent = Math.max(0.94,armDownPercent-0.02);

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
+import static java.lang.Math.PI;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -39,14 +41,66 @@ public class AutonomousTest extends OpMode {
         drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
+    public void start() {
+        Trajectory linearTest = drive.trajectoryBuilder(new Pose2d())
+                .forward(5)
+                .addDisplacementMarker(5, () -> {
+                    drive.turn(PI/2);
+                })
+                .forward(10)
+                .addDisplacementMarker(15, () -> {
+                    servoWork.armSpecimen();
+                    servoWork.armUpdate();
+                    servoWork.clawClosed();
+                    servoWork.armUp();
+                })
+                .strafeLeft(15)
+                .back(10)
+                .addDisplacementMarker(40, () -> {
+                    drive.turn(-PI/2);
+                    servoWork.linearUpSubmersible();
+                })
+                .forward(3)
+                .addDisplacementMarker(43, () -> {
+                    servoWork.linearDownALittleBit();
+                    servoWork.clawOpen();
+                    servoWork.linearDownFullFromSubmersible();
+                })
+                .back(10)
+                .addDisplacementMarker(53, () -> {
+                    drive.turn(PI/2);
+                })
+                .forward(15)
+                .addDisplacementMarker(57, () -> {
+                    servoWork.armSpecimen();
+                    servoWork.armUpdate();
+                    servoWork.clawClosed();
+                    servoWork.armUp();
+                })
+                .back(10)
+                .addDisplacementMarker(67, () -> {
+                    drive.turn(-PI/2);
+                })
+                .forward(7)
+                .addDisplacementMarker(74, () -> {
+                    servoWork.linearUpSubmersible();
+
+                })
+                .forward(3)
+                .addDisplacementMarker(77, () -> {
+                    servoWork.linearDownALittleBit();
+                    servoWork.clawOpen();
+                    servoWork.linearDownFullFromSubmersible();
+                })
+                .build();
+        drive.followTrajectory(linearTest);
+    }
     @Override
     public void loop() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(0,0,Math.toRadians(0));
         drive.setPoseEstimate(startPose);
-        Trajectory moveRight = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(27)
-                .build();
+
 //        Trajectory SpecimenHangTest = drive.trajectoryBuilder(new Pose2d())
 //                .strafeLeft(specimenLeft)
 //                .forward(specimenForwardFirst) //will have to change based off robot size
@@ -107,7 +161,8 @@ public class AutonomousTest extends OpMode {
 
 
 
-        drive.followTrajectory(moveRight);
+
+
 //        drive.followTrajectory(Auto2);
 //        drive.followTrajectory(Auto3);
 

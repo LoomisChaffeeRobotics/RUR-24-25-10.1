@@ -17,33 +17,60 @@ public class MeepMeepTesting2 {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 10)
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -60, Math.toRadians(90)))
-                        .forward(24)
-                        .addDisplacementMarker(24, () -> {
-                            //servoWork.linearup();
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24 , -60, Math.toRadians(90)))
+                        .forward(3)
+                        .turn(-PI/2)
+                        .addDisplacementMarker(3, () -> {
+//                            drive.turn(PI/2);
                         })
-                        .forward(2)
-                        .addDisplacementMarker(26, () -> {
-                            //servoWork.linearDown();
-                            //servoork.clawopen();
-                        })
-                        .strafeRight(35)
-                        .forward(30)
-                        .strafeRight(12)
                         .forward(10)
-                        .addDisplacementMarker(113, () -> {
-//                            servoWork.clawOpen();
-//                            servoWork.armDown();
+                        .addDisplacementMarker(13, () -> {
+//                            servoWork.armSpecimen();
+//                            servoWork.armUpdate();
 //                            servoWork.clawClosed();
 //                            servoWork.armUp();
                         })
-                        .back(65)
-                        .forward(55)
-                        .strafeRight(9)
-                        .back(55)
-                        .forward(55)
-                        .strafeRight(4)
-                        .back(55)
+                        .strafeLeft(21)
+                        .back(33)
+                        .turn(PI/2)
+                        .addDisplacementMarker(37, () -> {
+//                            drive.turn(-PI/2);
+//                            servoWork.linearUpSubmersible();
+                        })
+                        .forward(3)
+                        .addDisplacementMarker(40, () -> {
+//                            servoWork.linearDownALittleBit();
+//                            servoWork.clawOpen();
+//                            servoWork.linearDownFullFromSubmersible();
+                        })
+                        .back(25)
+                        .turn(-PI/2)
+                        .addDisplacementMarker(50, () -> {
+//                            drive.turn(PI/2);
+                        })
+                        .forward(36)
+                        .addDisplacementMarker(65, () -> {
+//                            servoWork.armSpecimen();
+//                            servoWork.armUpdate();
+//                            servoWork.clawClosed();
+//                            servoWork.armUp();
+                        })
+                        .back(36)
+                        .turn(PI/2)
+                        .addDisplacementMarker(75, () -> {
+//                            drive.turn(-PI/2);
+                        })
+                        .forward(24)
+                        .addDisplacementMarker(82, () -> {
+//                            servoWork.linearUpSubmersible();
+
+                        })
+                        .forward(3)
+                        .addDisplacementMarker(85, () -> {
+//                            servoWork.linearDownALittleBit();
+//                            servoWork.clawOpen();
+//                            servoWork.linearDownFullFromSubmersible();
+                        })
                         .build());
 
 

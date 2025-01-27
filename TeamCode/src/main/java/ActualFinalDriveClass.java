@@ -92,9 +92,8 @@ public class ActualFinalDriveClass extends OpMode {
         double speedFactor = Math.min(1.3 - gamepad2.left_trigger, 1); // so driver can slow down
 
         double y = -gamepad2.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad2.left_stick_x; //dylan is my bf // If your going to write my name, bother to capitalize it. - Dylan
-        //Colin is hot
-        double rx = gamepad1.right_stick_x *.3 + gamepad2.right_stick_x; //Change to Gmpd2 later
+        double x = gamepad2.left_stick_x; //dylan is my bf // If your going to write my name, bother to capitalize it. - Dylan // It's "you're" not "your" - Colin
+        double rx = gamepad1.right_stick_x *.3 + gamepad2.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
