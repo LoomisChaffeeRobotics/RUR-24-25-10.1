@@ -21,7 +21,7 @@ import java.util.List;
 @TeleOp
 public class DoNothingWithCameraOn {
     private Position cameraPosition = new Position(DistanceUnit.INCH,
-            0, 0, 0, 0);
+            4.5, -6.5, 5.5, 0);
     private YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
             180, -90, 0, 0);
     IMU imu;
