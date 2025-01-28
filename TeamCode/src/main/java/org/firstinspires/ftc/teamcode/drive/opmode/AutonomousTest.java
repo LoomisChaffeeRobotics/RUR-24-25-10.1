@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.servoWork;
 @Autonomous
 public class AutonomousTest extends OpMode {
     org.firstinspires.ftc.teamcode.servoWork servoWork;
+    DoNothingWithCameraOn cameraStuff;
     IMU imu;
     SampleMecanumDrive drive;
     DcMotor linearRight;
@@ -44,8 +45,11 @@ public class AutonomousTest extends OpMode {
     public void start() {
        for (int i = 0; i < 15000; i++){
            servoWork.armUpdate();
+           cameraStuff.cameraPoseUpdate();
        }
-        Trajectory linearTest = drive.trajectoryBuilder(new Pose2d())
+       for (int i = 0; i < 15000; i++){
+       }
+        Trajectory specimenSide = drive.trajectoryBuilder(new Pose2d())
                 .forward(3)
                 .addDisplacementMarker(3, () -> {
                             drive.turn(PI/2);
@@ -96,7 +100,7 @@ public class AutonomousTest extends OpMode {
 //                            servoWork.linearDownFullFromSubmersible();
                 })
                 .build();
-        drive.followTrajectory(linearTest);
+        drive.followTrajectory(specimenSide);
     }
     @Override
     public void loop() {
