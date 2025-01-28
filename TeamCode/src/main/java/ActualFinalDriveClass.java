@@ -67,7 +67,6 @@ public class ActualFinalDriveClass extends OpMode {
         }
 
         servos.armUpdate();
-
         telemetry.addData("armDownPercent", servos.armDownPercent);
 
         if (gamepad1.dpad_down) {

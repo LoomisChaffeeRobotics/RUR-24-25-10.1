@@ -81,11 +81,15 @@ public class servoWork {
             } else {
                 armDownPercent = Math.max(0.45,armDownPercent-0.02);
             }
-        } else {
+        } else if (armDowning == 3) {
             if(armDownPercent <= .94){
                 armDownPercent = Math.min(0.94,armDownPercent+0.02);
             } else {
                 armDownPercent = Math.max(0.94,armDownPercent-0.02);
+            }
+        } else if (armDowning == 4) {
+            if(armDownPercent <= -.15){
+                armDownPercent = Math.min(-0.15,armDownPercent-0.01);
             }
         }
         ArmL.setPosition(0.09*(1-armDownPercent)+(.3967*armDownPercent));
@@ -100,7 +104,9 @@ public class servoWork {
     public void arm45(){
         armDowning = 2;
     }
-
+    public void armHang() {
+        armDowning = 4;
+    }
     public void armToggle(){
 
         if(armTogged){

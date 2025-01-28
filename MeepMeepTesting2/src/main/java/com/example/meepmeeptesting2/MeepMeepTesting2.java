@@ -23,8 +23,8 @@ public class MeepMeepTesting2 {
                         .addDisplacementMarker(3, () -> {
 //                            drive.turn(PI/2);
                         })
-                        .forward(10)
-                        .addDisplacementMarker(13, () -> {
+                        .forward(5)
+                        .addDisplacementMarker(8, () -> {
 //                            servoWork.armSpecimen();
 //                            servoWork.armUpdate();
 //                            servoWork.clawClosed();
@@ -33,23 +33,23 @@ public class MeepMeepTesting2 {
                         .strafeLeft(21)
                         .back(33)
                         .turn(PI/2)
-                        .addDisplacementMarker(37, () -> {
+                        .addDisplacementMarker(62, () -> {
 //                            drive.turn(-PI/2);
 //                            servoWork.linearUpSubmersible();
                         })
                         .forward(3)
-                        .addDisplacementMarker(40, () -> {
+                        .addDisplacementMarker(65, () -> {
 //                            servoWork.linearDownALittleBit();
 //                            servoWork.clawOpen();
 //                            servoWork.linearDownFullFromSubmersible();
                         })
-                        .back(25)
+                        .back(24)
                         .turn(-PI/2)
-                        .addDisplacementMarker(50, () -> {
+                        .addDisplacementMarker(89, () -> {
 //                            drive.turn(PI/2);
                         })
-                        .forward(36)
-                        .addDisplacementMarker(65, () -> {
+                        .forward(33)
+                        .addDisplacementMarker(122, () -> {
 //                            servoWork.armSpecimen();
 //                            servoWork.armUpdate();
 //                            servoWork.clawClosed();
@@ -57,16 +57,16 @@ public class MeepMeepTesting2 {
                         })
                         .back(36)
                         .turn(PI/2)
-                        .addDisplacementMarker(75, () -> {
+                        .addDisplacementMarker(158, () -> {
 //                            drive.turn(-PI/2);
                         })
-                        .forward(24)
-                        .addDisplacementMarker(82, () -> {
+                        .forward(21)
+                        .addDisplacementMarker(179, () -> {
 //                            servoWork.linearUpSubmersible();
 
                         })
                         .forward(3)
-                        .addDisplacementMarker(85, () -> {
+                        .addDisplacementMarker(182, () -> {
 //                            servoWork.linearDownALittleBit();
 //                            servoWork.clawOpen();
 //                            servoWork.linearDownFullFromSubmersible();

@@ -42,55 +42,58 @@ public class AutonomousTest extends OpMode {
 
     }
     public void start() {
+       for (int i = 0; i < 15000; i++){
+           servoWork.armUpdate();
+       }
         Trajectory linearTest = drive.trajectoryBuilder(new Pose2d())
+                .forward(3)
+                .addDisplacementMarker(3, () -> {
+                            drive.turn(PI/2);
+                })
                 .forward(5)
-                .addDisplacementMarker(5, () -> {
-                    drive.turn(PI/2);
+                .addDisplacementMarker(8, () -> {
+//                            servoWork.armSpecimen();
+//                            servoWork.armUpdate();
+//                            servoWork.clawClosed();
+//                            servoWork.armUp();
                 })
-                .forward(10)
-                .addDisplacementMarker(15, () -> {
-                    servoWork.armSpecimen();
-                    servoWork.armUpdate();
-                    servoWork.clawClosed();
-                    servoWork.armUp();
-                })
-                .strafeLeft(15)
-                .back(10)
-                .addDisplacementMarker(40, () -> {
-                    drive.turn(-PI/2);
-                    servoWork.linearUpSubmersible();
+                .strafeLeft(21)
+                .back(33)
+                .addDisplacementMarker(62, () -> {
+                            drive.turn(-PI/2);
+//                            servoWork.linearUpSubmersible();
                 })
                 .forward(3)
-                .addDisplacementMarker(43, () -> {
-                    servoWork.linearDownALittleBit();
-                    servoWork.clawOpen();
-                    servoWork.linearDownFullFromSubmersible();
+                .addDisplacementMarker(65, () -> {
+//                            servoWork.linearDownALittleBit();
+//                            servoWork.clawOpen();
+//                            servoWork.linearDownFullFromSubmersible();
                 })
-                .back(10)
-                .addDisplacementMarker(53, () -> {
-                    drive.turn(PI/2);
+                .back(24)
+                .addDisplacementMarker(89, () -> {
+                            drive.turn(PI/2);
                 })
-                .forward(15)
-                .addDisplacementMarker(57, () -> {
-                    servoWork.armSpecimen();
-                    servoWork.armUpdate();
-                    servoWork.clawClosed();
-                    servoWork.armUp();
+                .forward(33)
+                .addDisplacementMarker(122, () -> {
+//                            servoWork.armSpecimen();
+//                            servoWork.armUpdate();
+//                            servoWork.clawClosed();
+//                            servoWork.armUp();
                 })
-                .back(10)
-                .addDisplacementMarker(67, () -> {
-                    drive.turn(-PI/2);
+                .back(36)
+                .addDisplacementMarker(158, () -> {
+                            drive.turn(-PI/2);
                 })
-                .forward(7)
-                .addDisplacementMarker(74, () -> {
-                    servoWork.linearUpSubmersible();
+                .forward(21)
+                .addDisplacementMarker(179, () -> {
+//                            servoWork.linearUpSubmersible();
 
                 })
                 .forward(3)
-                .addDisplacementMarker(77, () -> {
-                    servoWork.linearDownALittleBit();
-                    servoWork.clawOpen();
-                    servoWork.linearDownFullFromSubmersible();
+                .addDisplacementMarker(182, () -> {
+//                            servoWork.linearDownALittleBit();
+//                            servoWork.clawOpen();
+//                            servoWork.linearDownFullFromSubmersible();
                 })
                 .build();
         drive.followTrajectory(linearTest);
@@ -100,6 +103,7 @@ public class AutonomousTest extends OpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(0,0,Math.toRadians(0));
         drive.setPoseEstimate(startPose);
+        servoWork.armUpdate();
 
 //        Trajectory SpecimenHangTest = drive.trajectoryBuilder(new Pose2d())
 //                .strafeLeft(specimenLeft)
