@@ -23,10 +23,6 @@ public class AutonomousTest extends OpMode {
     SampleMecanumDrive drive;
     DcMotor linearRight;
     DcMotor linearLeft;
-    public static double specimenForwardFirst = 3;
-    public static double specimenForwardSecond = 20;
-    public static double specimenLeft = 24;
-    public static double specimenRight = 40;
 
     @Override
     public void init() {
