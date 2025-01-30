@@ -1,12 +1,16 @@
-package org.firstinspires.ftc.teamcode.drive.opmode;
+package org.firstinspires.ftc.teamcode.drive.CameraStuff;
+
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import android.util.Size;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -17,17 +21,24 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+
+
 import java.util.List;
+
 @TeleOp
-public class DoNothingWithCameraOn {
+public class CameraCalibrationTest extends OpMode {
     private Position cameraPosition = new Position(DistanceUnit.INCH,
-            4.5, -6.5, 5.5, 0);
+            5, -5, 5.5, 0);
     private YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
             180, -90, 0, 0);
     IMU imu;
     VisionPortal myVisionPortal;
     AprilTagProcessor myAprilTagProcessor;
     SampleMecanumDrive drive;
+
+
+    @Override
     public void init() {
         drive = new SampleMecanumDrive(hardwareMap);
         imu = hardwareMap.get(IMU.class, "imu");
@@ -50,6 +61,12 @@ public class DoNothingWithCameraOn {
         myVisionPortal = myVisionPortalBuilder.build();
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+    @Override
+    public void loop() {
+        cameraPoseUpdate();
+    }
+
     public Pose2d cameraPoseUpdate() {
         List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
         Pose2d poseRobot = new Pose2d(0,0,0);

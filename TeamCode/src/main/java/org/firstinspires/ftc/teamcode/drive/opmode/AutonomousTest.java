@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.servoWork;
 @Autonomous
 public class AutonomousTest extends OpMode {
     org.firstinspires.ftc.teamcode.servoWork servoWork;
-    DoNothingWithCameraOn cameraStuff;
+//    DoNothingWithCameraOn cameraStuff;
     IMU imu;
     SampleMecanumDrive drive;
     DcMotor linearRight;
@@ -39,9 +39,9 @@ public class AutonomousTest extends OpMode {
 
     }
     public void start() {
-       for (int i = 0; i < 15000; i++){
+       for (int i = 0; i < 15; i++){
            servoWork.armUpdate();
-           cameraStuff.cameraPoseUpdate();
+//           cameraStuff.cameraPoseUpdate();
        }
        for (int i = 0; i < 15000; i++){
        }
