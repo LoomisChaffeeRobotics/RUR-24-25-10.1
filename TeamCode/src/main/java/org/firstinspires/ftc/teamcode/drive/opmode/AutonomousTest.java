@@ -4,13 +4,16 @@ import static java.lang.Math.PI;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.teamcode.DoNothingWithCameraOn;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.servoWork;
 
@@ -18,11 +21,12 @@ import org.firstinspires.ftc.teamcode.servoWork;
 @Autonomous
 public class AutonomousTest extends OpMode {
     org.firstinspires.ftc.teamcode.servoWork servoWork;
-    DoNothingWithCameraOn cameraStuff;
+//    DoNothingWithCameraOn cameraStuff;
     IMU imu;
     SampleMecanumDrive drive;
     DcMotor linearRight;
     DcMotor linearLeft;
+    public double distance2Spec = 10d;
 
     @Override
     public void init() {
@@ -30,6 +34,7 @@ public class AutonomousTest extends OpMode {
         imu = hardwareMap.get(IMU.class, "imu");
         drive = new SampleMecanumDrive(hardwareMap);
         servoWork = new servoWork();
+        servoWork.init(hardwareMap);
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -39,70 +44,126 @@ public class AutonomousTest extends OpMode {
 
     }
     public void start() {
-       for (int i = 0; i < 15000; i++){
-           servoWork.armUpdate();
-           cameraStuff.cameraPoseUpdate();
-       }
-       for (int i = 0; i < 15000; i++){
-       }
-        Trajectory specimenSide = drive.trajectoryBuilder(new Pose2d())
-                .forward(3)
-                .addDisplacementMarker(3, () -> {
-                            drive.turn(PI/2);
-                })
-                .forward(5)
-                .addDisplacementMarker(8, () -> {
-//                            servoWork.armSpecimen();
-//                            servoWork.armUpdate();
-//                            servoWork.clawClosed();
-//                            servoWork.armUp();
-                })
-                .strafeLeft(21)
-                .back(33)
-                .addDisplacementMarker(62, () -> {
-                            drive.turn(-PI/2);
-//                            servoWork.linearUpSubmersible();
-                })
-                .forward(3)
-                .addDisplacementMarker(65, () -> {
-//                            servoWork.linearDownALittleBit();
-//                            servoWork.clawOpen();
-//                            servoWork.linearDownFullFromSubmersible();
-                })
-                .back(24)
-                .addDisplacementMarker(89, () -> {
-                            drive.turn(PI/2);
-                })
-                .forward(33)
-                .addDisplacementMarker(122, () -> {
-//                            servoWork.armSpecimen();
-//                            servoWork.armUpdate();
-//                            servoWork.clawClosed();
-//                            servoWork.armUp();
-                })
-                .back(36)
-                .addDisplacementMarker(158, () -> {
-                            drive.turn(-PI/2);
-                })
-                .forward(21)
-                .addDisplacementMarker(179, () -> {
-//                            servoWork.linearUpSubmersible();
-
-                })
-                .forward(3)
-                .addDisplacementMarker(182, () -> {
-//                            servoWork.linearDownALittleBit();
-//                            servoWork.clawOpen();
-//                            servoWork.linearDownFullFromSubmersible();
-                })
+//       for (int i = 0; i < 15000; i++){
+//           servoWork.armUpdate();
+////           cameraStuff.cameraPoseUpdate();
+//       }
+       Pose2d specimenStartPose = new Pose2d(24,-64,Math.toRadians(-90));
+        Trajectory specimenSide = drive.trajectoryBuilder(specimenStartPose)
+                .strafeLeft(1)
                 .build();
+//                .addDisplacementMarker(3, () -> {
+////                            drive.turn(PI/2);
+//                })
+////                .forward(5)
+//                .addDisplacementMarker(8, () -> {
+////                            servoWork.armSpecimen();
+////                            servoWork.armUpdate();
+////                            servoWork.clawClosed();
+////                            servoWork.armUp();
+//                })
+//                .splineTo(new Vector2d(5,-33), Math.toRadians(-90))
+//                .addDisplacementMarker(() -> {
+//                            drive.turn(-PI/2);
+////                            servoWork.linearUpSubmersible();
+//                })
+//                .forward(3)
+//                .addDisplacementMarker(() -> {
+////                            servoWork.linearDownALittleBit();
+////                            servoWork.clawOpen();
+////                            servoWork.linearDownFullFromSubmersible();
+//                })
+//                .splineTo(new Vector2d(24,-60), Math.toRadians(180))
+//                .addDisplacementMarker( () -> {
+////                            servoWork.armSpecimen();
+////                            servoWork.armUpdate();
+////                            servoWork.clawClosed();
+////                            servoWork.armUp();
+//                })
+//                .splineTo(new Vector2d(-5,-33), Math.toRadians(90))
+//                .addDisplacementMarker( () -> {
+////                            servoWork.linearUpSubmersible();
+//
+//                })
+//                .forward(3)
+//                .addDisplacementMarker( () -> {
+////                            servoWork.linearDownALittleBit();
+////                            servoWork.clawOpen();
+////                            servoWork.linearDownFullFromSubmersible();
+//                })
         drive.followTrajectory(specimenSide);
+//        Trajectory sampleSide = drive.trajectoryBuilder(new Pose2d())
+//                .forward(3)
+//                .strafeLeft(25)
+//                .forward(distance2Spec)
+//                .addDisplacementMarker(28+distance2Spec, () -> {
+//                    //servoWork.armDown();
+//                    //servoWork.clawClosed();
+//                    //servoWork.armUp();
+//                    drive.turn(3*PI/4);
+//                })
+//                .forward(distance2Spec)
+//                .addDisplacementMarker(28+2*distance2Spec, () -> {
+//                    //servoWork.linearUpHigh();
+//                    //servoWork.arm45();
+//                    //servoWork.clawOpen();
+//                    //servoWork.clawClosed();
+//                    //servoWork.armUp();
+//                    //servoWork.linearDownFullFromHigh();
+//                })
+//                .back(distance2Spec)
+//                .addDisplacementMarker(28+3*distance2Spec, () -> {
+//
+//                })
+//                .strafeLeft(6)
+//                .addDisplacementMarker(40 + 4*distance2Spec, () -> {
+//                    //servoWork.armDown();
+//                    //servoWork.clawClosed();
+//                    //servoWork.armUp();
+//                })
+//                .strafeRight(6)
+//                .addDisplacementMarker(46+4*distance2Spec, () -> {
+//                    drive.turn(3*PI/4);
+//                })
+//                .forward(distance2Spec)
+//                .addDisplacementMarker(52+6*distance2Spec, () -> {
+//                    //servoWork.linearUpHigh();
+//                    //servoWork.arm45();
+//                    //servoWork.clawOpen();
+//                    //servoWork.clawClosed();
+//                    //servoWork.armUp();
+//                    //servoWork.linearDownFullFromHigh();
+//                })
+//                .back(distance2Spec)
+//                .strafeRight(6)
+//                .addDisplacementMarker(58+7*distance2Spec, () -> {
+//                    drive.turn(-PI/2);
+//                })
+//                .forward(3)
+//                .addDisplacementMarker(61 + 7*distance2Spec, () -> {
+//                    //servoWork.armDown();
+//                    //servoWork.clawClosed();
+//                    //servoWork.armUp();f
+//                })
+//                .back(3)
+////                .turn(PI/2)
+//                .strafeLeft(6)
+//                .forward(distance2Spec)
+//                .addDisplacementMarker(70+8*distance2Spec, () -> {
+//                    //servoWork.linearUpHigh();
+//                    //servoWork.arm45();
+//                    //servoWork.clawOpen();
+//                    //servoWork.clawClosed();
+//                    //servoWork.armUp();
+//                    //servoWork.linearDownFullFromHigh();
+//                })
+//
+//                .build();
     }
+
     @Override
     public void loop() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(0,0,Math.toRadians(0));
-        drive.setPoseEstimate(startPose);
         servoWork.armUpdate();
 
 //        Trajectory SpecimenHangTest = drive.trajectoryBuilder(new Pose2d())

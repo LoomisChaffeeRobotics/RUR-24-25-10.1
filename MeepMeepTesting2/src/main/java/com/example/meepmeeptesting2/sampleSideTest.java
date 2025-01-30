@@ -23,16 +23,61 @@ public class sampleSideTest {
                         .forward(3)
                         .strafeLeft(25)
                         .forward(distance2Spec)
-                        .addDisplacementMarker(() -> {
-
+                        .addDisplacementMarker(28+distance2Spec, () -> {
+                            //servoWork.armDown();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
                         })
                         .turn(3*PI/4)
                         .forward(distance2Spec)
-                        .addDisplacementMarker(() -> {
-
+                        .addDisplacementMarker(28+2*distance2Spec, () -> {
+                            //servoWork.linearUpHigh();
+                            //servoWork.arm45();
+                            //servoWork.clawOpen();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                            //servoWork.linearDownFullFromHigh();
                         })
-                        .turn()
-
+                        .back(distance2Spec)
+                        .turn(-3*PI/4)
+                        .strafeLeft(6)
+                        .addDisplacementMarker(40 + 4*distance2Spec, () -> {
+                            //servoWork.armDown();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                        })
+                        .strafeRight(6)
+                        .turn(3*PI/4)
+                        .forward(distance2Spec)
+                        .addDisplacementMarker(52+6*distance2Spec, () -> {
+                            //servoWork.linearUpHigh();
+                            //servoWork.arm45();
+                            //servoWork.clawOpen();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                            //servoWork.linearDownFullFromHigh();
+                        })
+                        .back(distance2Spec)
+                        .strafeRight(6)
+                        .turn(-PI/2)
+                        .forward(3)
+                        .addDisplacementMarker(61 + 7*distance2Spec, () -> {
+                            //servoWork.armDown();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();f
+                        })
+                        .back(3)
+                        .turn(PI/2)
+                        .strafeLeft(6)
+                        .forward(distance2Spec)
+                        .addDisplacementMarker(70+8*distance2Spec, () -> {
+                            //servoWork.linearUpHigh();
+                            //servoWork.arm45();
+                            //servoWork.clawOpen();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                            //servoWork.linearDownFullFromHigh();
+                        })
 
                         .build());
 
