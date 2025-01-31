@@ -14,14 +14,14 @@ import org.firstinspires.ftc.teamcode.servoWork;
 
 @Config
 @Autonomous
-public class SampleSide extends LinearOpMode {
+public class testhelp extends LinearOpMode {
 
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         servoWork servos;
         servos = new servoWork();
-        Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(24,-64,Math.toRadians(90)))
+        Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d())
 //              .forward(3)
 //                .addDisplacementMarker(3, () -> {
 //                            drive.turn(PI/2);
@@ -33,7 +33,7 @@ public class SampleSide extends LinearOpMode {
 ////                            servoWork.clawClosed();
 ////                            servoWork.armUp();
 //                })
-                .splineTo(new Vector2d(5,-33),Math.toRadians(90))
+                .splineTo(new Vector2d(40,40),Math.toRadians(0))
 //                .back(33)
 //                .addDisplacementMarker(62, () -> {
 //                            drive.turn(-PI/2);
