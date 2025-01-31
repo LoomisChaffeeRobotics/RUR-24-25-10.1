@@ -41,13 +41,13 @@ public class ActualFinalDriveClass extends OpMode {
             RBumper: claw
             Triggers: Linear Slide
          */
-        if (gamepad1.y) {
-            servos.extenderForward();
-        } else if (gamepad1.a) {
-            servos.extenderBack();
-        } else {
-            servos.extenderNeutral();
-        }
+//        if (gamepad1.x) {
+//            servos.extenderForward();
+//        } else if (gamepad1.b) {
+//            servos.extenderBack();
+//        } else {
+//            servos.extenderNeutral();
+//        }
         if (gamepad1.right_bumper) {
             if (!rbdepressed) {
                 servos.clawToggle();
@@ -67,7 +67,7 @@ public class ActualFinalDriveClass extends OpMode {
         }
 
         servos.armUpdate();
-        telemetry.addData("armDownPercent", servos.armDownPercent);
+        telemetry.addData("chicken", servos.armDownPercent);
 
         if (gamepad1.dpad_down) {
             servos.armDown();
@@ -78,9 +78,9 @@ public class ActualFinalDriveClass extends OpMode {
         if (gamepad1.dpad_left){
             servos.armSpecimen();
         }
-        if (gamepad1.a){
+        if (gamepad1.x){
             servos.tiltTilt(1d);
-        } else if (gamepad1.y){
+        } else if (gamepad1.b){
             servos.tiltTilt(-1d);
         } else {
             servos.tiltTilt(0d);
