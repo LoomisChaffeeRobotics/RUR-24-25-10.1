@@ -5,12 +5,14 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 
 import android.util.Size;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -36,11 +38,14 @@ public class CameraCalibrationTest extends OpMode {
     VisionPortal myVisionPortal;
     AprilTagProcessor myAprilTagProcessor;
     SampleMecanumDrive drive;
-
+    FtcDashboard dash;
+    Telemetry telemetry;
 
     @Override
     public void init() {
         drive = new SampleMecanumDrive(hardwareMap);
+        dash = FtcDashboard.getInstance();
+        telemetry = dash.getTelemetry();
         imu = hardwareMap.get(IMU.class, "imu");
         myAprilTagProcessor = new AprilTagProcessor.Builder()
                 .setDrawAxes(true)
@@ -65,6 +70,7 @@ public class CameraCalibrationTest extends OpMode {
     @Override
     public void loop() {
         cameraPoseUpdate();
+
     }
 
     public Pose2d cameraPoseUpdate() {
@@ -86,6 +92,8 @@ public class CameraCalibrationTest extends OpMode {
             drive.setPoseEstimate(poseRobot);
             telemetry.update();
         }
+        telemetry.addData("poseRobot: ", poseRobot);
         return poseRobot;
     }
+
 }
