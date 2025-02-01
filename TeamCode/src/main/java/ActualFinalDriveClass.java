@@ -114,7 +114,7 @@ public class ActualFinalDriveClass extends OpMode {
             servos.armDown();
         }
         if (gamepad1.dpad_right) {
-            servos.arm45();
+            servos.arm75Down();
         }
         if (gamepad1.dpad_left){
             servos.armSpecimen();
