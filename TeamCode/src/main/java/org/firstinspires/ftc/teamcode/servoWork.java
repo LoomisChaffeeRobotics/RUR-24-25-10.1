@@ -76,10 +76,10 @@ public class servoWork {
         } else if (armDowning == 0){
             armDownPercent = Math.max(armDownPercent-0.02,0);
         } else if (armDowning == 2) { // speciman
-            if(armDownPercent <= .45){
-                armDownPercent = Math.min(0.45,armDownPercent+0.02);
+            if(armDownPercent <= .75){
+                armDownPercent = Math.min(0.75,armDownPercent+0.02);
             } else {
-                armDownPercent = Math.max(0.45,armDownPercent-0.02);
+                armDownPercent = Math.max(0.75,armDownPercent-0.02);
             }
         } else if (armDowning == 3) {
             if(armDownPercent <= .94){
@@ -92,8 +92,8 @@ public class servoWork {
                 armDownPercent = Math.min(-0.15,armDownPercent-0.01);
             }
         }
-        ArmL.setPosition(0.09*(1-armDownPercent)+(.3967*armDownPercent));
-        ArmR.setPosition(0.6317*(1-armDownPercent)+(0.3133*armDownPercent));
+        ArmL.setPosition(0.09*(1-armDownPercent)+(.3867*armDownPercent));
+        ArmR.setPosition(0.6317*(1-armDownPercent)+(0.3233*armDownPercent));
 
     }
     public void armSpecimen(){
