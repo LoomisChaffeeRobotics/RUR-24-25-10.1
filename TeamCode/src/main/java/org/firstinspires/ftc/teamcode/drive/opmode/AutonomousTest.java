@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.servoWork;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Config
 @Autonomous
@@ -40,63 +41,45 @@ public class AutonomousTest extends OpMode {
 
     }
     public void start() {
-       for (int i = 0; i < 15; i++){
-           servoWork.armUpdate();
+        for (int i = 0; i < 15; i++) {
+            servoWork.armUpdate();
 //           cameraStuff.cameraPoseUpdate();
-       }
-       for (int i = 0; i < 15000; i++){
-       }
-        Trajectory specimenSide = drive.trajectoryBuilder(new Pose2d())
-                .forward(3)
-                .addDisplacementMarker(3, () -> {
-                            drive.turn(PI/2);
-                })
-                .forward(5)
-                .addDisplacementMarker(8, () -> {
-//                            servoWork.armSpecimen();
-//                            servoWork.armUpdate();
-//                            servoWork.clawClosed();
-//                            servoWork.armUp();
-                })
-                .splineTo(new Vector2d(5,-33),Math.toRadians(-90))
-                .addDisplacementMarker(() -> {
-
-//                            servoWork.linearUpSubmersible();
-                })
-//                .forward(3)
-//                .addDisplacementMarker(65, () -> {
-////                            servoWork.linearDownALittleBit();
-////                            servoWork.clawOpen();
-////                            servoWork.linearDownFullFromSubmersible();
-//                })
-//                .back(24)
-//                .addDisplacementMarker(89, () -> {
-//                            drive.turn(PI/2);
-//                })
-//                .forward(33)
-//                .addDisplacementMarker(122, () -> {
-////                            servoWork.armSpecimen();
-////                            servoWork.armUpdate();
-////                            servoWork.clawClosed();
-////                            servoWork.armUp();
-//                })
-//                .back(36)
-//                .addDisplacementMarker(158, () -> {
-//                            drive.turn(-PI/2);
-//                })
-//                .forward(21)
-//                .addDisplacementMarker(179, () -> {
-////                            servoWork.linearUpSubmersible();
-//
-//                })
-//                .forward(3)
-//                .addDisplacementMarker(182, () -> {
-////                            servoWork.linearDownALittleBit();
-////                            servoWork.clawOpen();
-////                            servoWork.linearDownFullFromSubmersible();
-//                })
-                .build();
-        drive.followTrajectory(specimenSide);
+        }
+        for (int i = 0; i < 15000; i++) {
+        }
+        TrajectorySequence specimenSide = drive.trajectorySequenceBuilder(new Pose2d(24, -60, Math.toRadians(90)))
+                        .forward(3)
+                        .turn(-PI / 2)
+                        .forward(3)
+                        .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(90))
+                        .turn(PI / 2)
+                        .forward(3)
+                        .addDisplacementMarker(() -> {
+                            servoWork.linearUpSubmersible();
+                            servoWork.clawOpen();
+                            servoWork.linearDownFullFromSubmersible();
+                        })
+                        .back(3)
+                        //We might make another trajectory right here in order to re-adjust the pose of the robot
+                        .splineToConstantHeading(new Vector2d(24, -50), Math.toRadians(90))
+                        .turn(-PI / 2)
+                        .strafeRight(5)
+                        .forward(5)
+                        .addDisplacementMarker(() -> {
+                            servoWork.armDown();
+                            servoWork.clawClosed();
+                            servoWork.armUp();
+                        })
+                        .splineToConstantHeading(new Vector2d(-5, -38), Math.toRadians(0))
+                        .turn(PI / 2)
+                        .forward(5)
+                        .addDisplacementMarker(() -> {
+                            servoWork.linearUpSubmersible();
+                            servoWork.clawOpen();
+                            servoWork.linearDownFullFromSubmersible();
+                        })
+                        .build();
+        drive.followTrajectorySequence(specimenSide);
     }
     @Override
     public void loop() {

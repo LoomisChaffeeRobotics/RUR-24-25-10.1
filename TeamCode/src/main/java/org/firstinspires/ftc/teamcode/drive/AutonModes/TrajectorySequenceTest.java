@@ -23,22 +23,6 @@ public class TrajectorySequenceTest extends LinearOpMode {
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                 .forward(3)
-                .turn(PI/2)
-                .forward(3)
-                .splineTo(new Vector2d(5, -33), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
-                    servos.linearUpSubmersible();
-                })
-                .forward(3)
-                .addDisplacementMarker(() -> {
-                    servos.linearDownALittleBit();
-                    servos.clawOpen();
-                })
-                .splineTo(new Vector2d(24,-61), Math.toRadians(180))
-                .addDisplacementMarker(() -> {
-                    //servoWork.pickupthing
-                })
-                .splineTo(new Vector2d(-5,-33), Math.toRadians(90))
                 .build();
 
         waitForStart();
