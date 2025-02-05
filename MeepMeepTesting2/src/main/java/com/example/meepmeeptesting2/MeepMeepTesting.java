@@ -10,17 +10,17 @@ import static java.lang.Math.PI;
 
 
 
-public class sampleSideTest {
+public class MeepMeepTesting {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
         double distance2Spec = 10d;
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 10)
+                .setConstraints(56.85543109255018, 56.85543109255018, 5.12, 3.6680923285425253, 13.46)
 
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24 , -60, Math.toRadians(90)))
-                        .forward(3)
+                        .forward(5)
                         .turn(-PI/2)
                         .forward(3)
                         .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(90))

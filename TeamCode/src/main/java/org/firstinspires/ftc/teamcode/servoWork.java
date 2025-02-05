@@ -124,25 +124,23 @@ public class servoWork {
         return ArmL.getPosition();
     }
     public void linearUpSubmersible(){
-        LRP = 0.7;
         elapsedTime.reset();
         if(elapsedTime.time() < 1.0) {
             linearLeft.setPower(1);
             linearRight.setPower(1);
         } else {
-            linearLeft.setPower(0);
-            linearRight.setPower(0);
+            linearLeft.setPower(0.12);
+            linearRight.setPower(0.12);
         }
     }
     public void linearUpHigh(){
-        LRP = 1;
         elapsedTime.reset();
         if(elapsedTime.time() < 2.5) {
             linearLeft.setPower(1);
             linearRight.setPower(1);
         } else {
-            linearLeft.setPower(0.1);
-            linearRight.setPower(0.1);
+            linearLeft.setPower(0.12);
+            linearRight.setPower(0.12);
         }
     }
     public void linearDownALittleBit(){
@@ -151,8 +149,8 @@ public class servoWork {
             linearLeft.setPower(-1);
             linearRight.setPower(-1);
         } else{
-            linearLeft.setPower(0);
-            linearRight.setPower(0);
+            linearLeft.setPower(0.12);
+            linearRight.setPower(0.12);
         }
     }
     public void linearDownFullFromSubmersible(){
