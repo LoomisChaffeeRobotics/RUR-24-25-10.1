@@ -137,6 +137,7 @@ public class ActualFinalDriveClass extends OpMode {
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        rotX = rotX * 1.096024278; //counteract for imperfect strafing
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
         double frontLeftPower = speedFactor * (rotY + rotX + rx) / denominator;

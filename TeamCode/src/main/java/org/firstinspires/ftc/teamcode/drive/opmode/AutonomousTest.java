@@ -31,7 +31,7 @@ public class AutonomousTest extends OpMode {
 
         imu = hardwareMap.get(IMU.class, "imu");
         drive = new SampleMecanumDrive(hardwareMap);
-        servoWork = new servoWork();
+//        servoWork = new servoWork();
         linearRight = hardwareMap.get(DcMotor.class, "linearRight");
         linearLeft = hardwareMap.get(DcMotor.class, "linearLeft");
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -41,12 +41,7 @@ public class AutonomousTest extends OpMode {
 
     }
     public void start() {
-        for (int i = 0; i < 15; i++) {
-            servoWork.armUpdate();
-//           cameraStuff.cameraPoseUpdate();
-        }
-        for (int i = 0; i < 15000; i++) {
-        }
+
         TrajectorySequence specimenSide = drive.trajectorySequenceBuilder(new Pose2d(24, -60, Math.toRadians(90)))
                         .forward(3)
                         .turn(-PI / 2)
@@ -55,9 +50,9 @@ public class AutonomousTest extends OpMode {
                         .turn(PI / 2)
                         .forward(3)
                         .addDisplacementMarker(() -> {
-                            servoWork.linearUpSubmersible();
-                            servoWork.clawOpen();
-                            servoWork.linearDownFullFromSubmersible();
+//                            servoWork.linearUpSubmersible();
+//                            servoWork.clawOpen();
+//                            servoWork.linearDownFullFromSubmersible();
                         })
                         .back(3)
                         //We might make another trajectory right here in order to re-adjust the pose of the robot
@@ -66,17 +61,17 @@ public class AutonomousTest extends OpMode {
                         .strafeRight(5)
                         .forward(5)
                         .addDisplacementMarker(() -> {
-                            servoWork.armDown();
-                            servoWork.clawClosed();
-                            servoWork.armUp();
+//                            servoWork.armDown();
+//                            servoWork.clawClosed();
+//                            servoWork.armUp();
                         })
                         .splineToConstantHeading(new Vector2d(-5, -38), Math.toRadians(0))
                         .turn(PI / 2)
                         .forward(5)
                         .addDisplacementMarker(() -> {
-                            servoWork.linearUpSubmersible();
-                            servoWork.clawOpen();
-                            servoWork.linearDownFullFromSubmersible();
+//                            servoWork.linearUpSubmersible();
+//                            servoWork.clawOpen();
+//                            servoWork.linearDownFullFromSubmersible();
                         })
                         .build();
         drive.followTrajectorySequence(specimenSide);
