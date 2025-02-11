@@ -19,8 +19,53 @@ public class MeepMeepTesting2 {
                 .setConstraints(56.85543109255018, 56.85543109255018, 5.12, 3.6680923285425253, 13.46)
 
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24 , -60, Math.toRadians(90)))
-                        .forward(3)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24 , -60, Math.toRadians(90)))
+                        .splineToConstantHeading(new Vector2d(-49,-47), Math.toRadians(90))
+                        .addDisplacementMarker(() -> {
+                            //servoWork.armDown();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                        })
+                        .splineTo(new Vector2d(-53,-53), 5*PI/4)
+                        .addDisplacementMarker(() -> {
+                            //servoWork.linearUpHigh();
+                            //servoWork.arm45();
+                            //servoWork.clawOpen();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                            //servoWork.linearDownFullFromHigh();
+                        })
+                        .splineTo(new Vector2d(-55,-47), Math.toRadians(90))
+                        .addDisplacementMarker(() -> {
+                            //servoWork.armDown();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                        })
+                        .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
+                        .addDisplacementMarker(() -> {
+                            //servoWork.linearUpHigh();
+                            //servoWork.arm45();
+                            //servoWork.clawOpen();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                            //servoWork.linearDownFullFromHigh();
+                        })
+                        .splineTo(new Vector2d(-57,-47), Math.toRadians(135))
+                        .addDisplacementMarker(() -> {
+                            //servoWork.armDown();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                        })
+                        .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
+                        .addDisplacementMarker(() -> {
+                            //servoWork.linearUpHigh();
+                            //servoWork.arm45();
+                            //servoWork.clawOpen();
+                            //servoWork.clawClosed();
+                            //servoWork.armUp();
+                            //servoWork.linearDownFullFromHigh();
+                        })
+//
                         .build());
 
 
