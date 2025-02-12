@@ -32,45 +32,46 @@ public class AutonomousFinalSpecimen extends LinearOpMode {
             drive = new SampleMecanumDrive(hardwareMap);
             servos = new servoWork();
             servos.init(hardwareMap);
+            timer = new ElapsedTime();
         }
-
         drive.setPoseEstimate(startPose);
 
         specimenSide = drive.trajectorySequenceBuilder(startPose)
-                .forward(5)
-                .turn(-PI/2)
-                .forward(3)
-                .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(90))
-                .turn(PI/2)
-                .forward(3)
-                .addDisplacementMarker(() -> {
-                    servos.linearUpSubmersible();
-                    servos.clawOpen();
-                })
-                .back(3)
-                .addDisplacementMarker(() -> {
-                    servos.linearDownFullFromSubmersible();
-                })
-
-
-                //We might make another trajectory right here in order to re-adjust the pose of the robot
-                .splineToConstantHeading(new Vector2d(24,-50),Math.toRadians(90))
-                .turn(-PI/2)
-                .strafeRight(5)
-                .forward(5)
-                .addDisplacementMarker(() -> {
-                    servos.armDown();
-                    servos.clawClosed();
-                    servos.armUp();
-                })
-                .splineToConstantHeading(new Vector2d(-5,-38), Math.toRadians(0))
-                .turn(PI/2)
-                .forward(5)
-                .addDisplacementMarker(() -> {
-                    servos.linearUpSubmersible();
-                    servos.clawOpen();
-                    servos.linearDownFullFromSubmersible();
-                })
+//                .forward(5)
+//                .turn(-PI/2)
+//                .forward(3)
+//                .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(90))
+//                .turn(PI/2)
+//                .forward(3)
+//                .addDisplacementMarker(() -> {
+//                    servos.linearUpSubmersible();
+//                    servos.clawOpen();
+//                })
+//                .back(3)
+//                .addDisplacementMarker(() -> {
+//                    servos.linearDownFullFromSubmersible();
+//                })
+//
+//
+//                //We might make another trajectory right here in order to re-adjust the pose of the robot
+//                .splineToConstantHeading(new Vector2d(24,-50),Math.toRadians(90))
+//                .turn(-PI/2)
+//                .strafeRight(5)
+//                .forward(5)
+//                .addDisplacementMarker(() -> {
+//                    servos.armDown();
+//                    servos.clawClosed();
+//                    servos.armUp();
+//                })
+//                .splineToConstantHeading(new Vector2d(-5,-38), Math.toRadians(0))
+//                .turn(PI/2)
+//                .forward(5)
+//                .addDisplacementMarker(() -> {
+//                    servos.linearUpSubmersible();
+//                    servos.clawOpen();
+//                    servos.linearDownFullFromSubmersible();
+//                })
+                .forward(40)
                 .build();
 
 
