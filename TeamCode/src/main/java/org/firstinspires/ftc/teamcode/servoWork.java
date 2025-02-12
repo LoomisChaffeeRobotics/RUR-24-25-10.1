@@ -40,7 +40,6 @@ public class servoWork {
     public void init(HardwareMap hardwareMap) {
         elapsedTime = new ElapsedTime();
 //        drive = new SampleMecanumDrive(hardwareMap);
-        imu = hardwareMap.get(IMU.class,"imu");
         Claw = hardwareMap.get(Servo.class, "Claw");
         Tilter = hardwareMap.get(DcMotor.class, "Tilter");
         ArmR = hardwareMap.get(Servo.class, "ArmR");
@@ -53,11 +52,6 @@ public class servoWork {
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         linearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
-        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
-        imu.initialize(parameters);
     }
     public void TilterHangMoment() {
         Tilter.setPower(1);
@@ -75,13 +69,13 @@ public class servoWork {
             armDownPercent = Math.min(armDownPercent+0.02,1);
         } else if (armDowning == armState.UP){
             armDownPercent = Math.max(armDownPercent-0.02,0);
-        } else if (armDowning == armState.HALF) { // speciman
+        } else if (armDowning == armState.HALF) { // used for getting out of submersible when facing chambers
             if(armDownPercent <= .75){
                 armDownPercent = Math.min(0.75,armDownPercent+0.02);
             } else {
                 armDownPercent = Math.max(0.75,armDownPercent-0.02);
             }
-        } else if (armDowning == armState.SPECIMEN) {
+        } else if (armDowning == armState.SPECIMEN) { //specimen
             if(armDownPercent <= .94){
                 armDownPercent = Math.min(0.94,armDownPercent+0.02);
             } else {

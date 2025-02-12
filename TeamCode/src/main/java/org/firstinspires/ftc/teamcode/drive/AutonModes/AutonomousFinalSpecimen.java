@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -16,11 +17,11 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 
 public class AutonomousFinalSpecimen extends LinearOpMode {
+    IMU imu;
     ElapsedTime timer;
     ElapsedTime timer2;
     SampleMecanumDrive drive;
     servoWork servos;
-    Pose2d startPose = new Pose2d(24,-60,Math.toRadians(90));
     boolean startedDriving = false;
     int parkSide = -1;
     TrajectorySequence specimenSide;
@@ -28,19 +29,21 @@ public class AutonomousFinalSpecimen extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        if (opModeInInit()) {
-            drive = new SampleMecanumDrive(hardwareMap);
-            servos = new servoWork();
-            servos.init(hardwareMap);
-            timer = new ElapsedTime();
-        }
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        Pose2d startPose = new Pose2d(24, -64.5, 0);
+
         drive.setPoseEstimate(startPose);
 
-        specimenSide = drive.trajectorySequenceBuilder(startPose)
-//                .forward(5)
-//                .turn(-PI/2)
-//                .forward(3)
-//                .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(90))
+        waitForStart();
+
+        if (isStopRequested()) return;
+
+        while (!isStopRequested()) {
+            TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
+                .forward(5)
+                .turn(-PI/2)
+                .forward(3)
+                .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(0))
 //                .turn(PI/2)
 //                .forward(3)
 //                .addDisplacementMarker(() -> {
@@ -71,20 +74,9 @@ public class AutonomousFinalSpecimen extends LinearOpMode {
 //                    servos.clawOpen();
 //                    servos.linearDownFullFromSubmersible();
 //                })
-                .forward(40)
-                .build();
-
-
-        waitForStart();
-
-        if (!isStopRequested()) {
-            timer.reset();
-            if (timer.time() > 0.25 && timer.time() < 0.5) {
-                //servoWork.dosomethinglol;
-                //copy paste this for whenever we need it, obviously adjust teh values so it doesn't go crazy after 1/4 of a second
-            }
-            drive.followTrajectorySequence(specimenSide);
-            drive.followTrajectorySequence(specimenSide2);
+                    .build();
+            drive.followTrajectorySequence(trajSeq);
+            requestOpModeStop();
         }
     }
 }
