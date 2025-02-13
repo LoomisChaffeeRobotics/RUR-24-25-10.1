@@ -7,6 +7,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.servoWork;
@@ -15,79 +17,78 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Config
 
 public class AutonomousFinalSample extends LinearOpMode {
+    IMU imu;
+    ElapsedTime timer;
+    ElapsedTime timer2;
     SampleMecanumDrive drive;
     servoWork servos;
-    Pose2d startPose = new Pose2d(-24,-60,Math.toRadians(90));
     boolean startedDriving = false;
+    int parkSide = -1;
     TrajectorySequence specimenSide;
     TrajectorySequence specimenSide2; //post localization
-    TrajectorySequence sampleSide;
-    public static double distance2Spec = 10d; //can be changed, as I predict this will be the variable most needing change
 
     @Override
     public void runOpMode() throws InterruptedException {
-        if (opModeInInit()) {
-            drive = new SampleMecanumDrive(hardwareMap);
-            servos = new servoWork();
-            servos.init(hardwareMap);
-        }
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        Pose2d startPose = new Pose2d(24, -64.5, Math.toRadians(90));
 
         drive.setPoseEstimate(startPose);
 
-        sampleSide = drive.trajectorySequenceBuilder(startPose)
-                .splineToConstantHeading(new Vector2d(-49,-47), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
-                    //servoWork.armDown();
-                    //servoWork.clawClosed();
-                    //servoWork.armUp();
-                })
-                .splineTo(new Vector2d(-53,-53), 5*PI/4)
-                .addDisplacementMarker(() -> {
-                    //servoWork.linearUpHigh();
-                    //servoWork.arm45();
-                    //servoWork.clawOpen();
-                    //servoWork.clawClosed();
-                    //servoWork.armUp();
-                    //servoWork.linearDownFullFromHigh();
-                })
-                .splineTo(new Vector2d(-55,-47), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
-                    //servoWork.armDown();
-                    //servoWork.clawClosed();
-                    //servoWork.armUp();
-                })
-                .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
-                .addDisplacementMarker(() -> {
-                    //servoWork.linearUpHigh();
-                    //servoWork.arm45();
-                    //servoWork.clawOpen();
-                    //servoWork.clawClosed();
-                    //servoWork.armUp();
-                    //servoWork.linearDownFullFromHigh();
-                })
-                .splineTo(new Vector2d(-57,-47), Math.toRadians(135))
-                .addDisplacementMarker(() -> {
-                    //servoWork.armDown();
-                    //servoWork.clawClosed();
-                    //servoWork.armUp();
-                })
-                .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
-                .addDisplacementMarker(() -> {
-                    //servoWork.linearUpHigh();
-                    //servoWork.arm45();
-                    //servoWork.clawOpen();
-                    //servoWork.clawClosed();
-                    //servoWork.armUp();
-                    //servoWork.linearDownFullFromHigh();
-                })
-//
-                .build();
-
-
         waitForStart();
 
-        if (!isStopRequested()) {
-            drive.followTrajectorySequence(sampleSide);
+        if (isStopRequested()) return;
+
+        while (!isStopRequested()) {
+            TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(-24,-64.5, Math.toRadians(90)))
+                    .splineToConstantHeading(new Vector2d(-48,-48), Math.toRadians(90))
+                    .addDisplacementMarker(() -> {
+                        //servoWork.armDown();
+                        //servoWork.clawClosed();
+                        //servoWork.armUp();
+                    })
+                    .splineTo(new Vector2d(-53,-53), 5*PI/4)
+                    .addDisplacementMarker(() -> {
+                        //servoWork.linearUpHigh();
+                        //servoWork.arm45();
+                        //servoWork.clawOpen();
+                        //servoWork.clawClosed();
+                        //servoWork.armUp();
+                        //servoWork.linearDownFullFromHigh();
+                    })
+                    .splineTo(new Vector2d(-60,-47), Math.toRadians(90))
+                    .addDisplacementMarker(() -> {
+                        //servoWork.armDown();
+                        //servoWork.clawClosed();
+                        //servoWork.armUp();
+                    })
+                    .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
+                    .addDisplacementMarker(() -> {
+                        //servoWork.linearUpHigh();
+                        //servoWork.arm45();
+                        //servoWork.clawOpen();
+                        //servoWork.clawClosed();
+                        //servoWork.armUp();
+                        //servoWork.linearDownFullFromHigh();
+                    })
+                    .splineTo(new Vector2d(-56,-42), Math.toRadians(130))
+                    .addDisplacementMarker(() -> {
+                        //servoWork.armDown();
+                        //servoWork.clawClosed();
+                        //servoWork.armUp();
+                    })
+                    .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
+                    .addDisplacementMarker(() -> {
+                        //servoWork.linearUpHigh();
+                        //servoWork.arm45();
+                        //servoWork.clawOpen();
+                        //servoWork.clawClosed();
+                        //servoWork.armUp();
+                        //servoWork.linearDownFullFromHigh();
+                    })
+//
+                    .build();
+            drive.followTrajectorySequence(trajSeq);
+            requestOpModeStop();
         }
     }
 }

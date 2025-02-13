@@ -30,7 +30,7 @@ public class AutonomousFinalSpecimen extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(24, -64.5, 0);
+        Pose2d startPose = new Pose2d(24, -64.5, Math.toRadians(90));
 
         drive.setPoseEstimate(startPose);
 
@@ -43,7 +43,7 @@ public class AutonomousFinalSpecimen extends LinearOpMode {
                 .forward(5)
                 .turn(-PI/2)
                 .forward(3)
-                .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(180))
 //                .turn(PI/2)
 //                .forward(3)
 //                .addDisplacementMarker(() -> {
@@ -62,7 +62,7 @@ public class AutonomousFinalSpecimen extends LinearOpMode {
 //                .strafeRight(5)
 //                .forward(5)
 //                .addDisplacementMarker(() -> {
-//                    servos.armDown();
+//                    servos.armSpecimen();
 //                    servos.clawClosed();
 //                    servos.armUp();
 //                })
