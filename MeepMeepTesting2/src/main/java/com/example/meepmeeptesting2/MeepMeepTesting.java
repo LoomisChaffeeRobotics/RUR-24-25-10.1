@@ -17,38 +17,40 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(56.85543109255018, 56.85543109255018, 5.12, 3.6680923285425253, 13.46)
+                .setConstraints(56.85543109255018, 56.85543109255018, 4.7, 3.6680923285425253, 13.46)
 
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24 , -60, Math.toRadians(90)))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24 , -64.5, Math.toRadians(90)))
                         .forward(5)
                         .turn(-PI/2)
                         .forward(3)
-                        .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(180))
                         .turn(PI/2)
                         .forward(3)
                         .addDisplacementMarker(() -> {
-//                            servos.linearUpSubmersible();
-                            //servos.clawOpen();
-                            //servos.linearDownFullFromSubermsible();
+//                          servos.linearUpSubmersible();
+//                          servos.clawOpen();
                         })
                         .back(3)
+                        .addDisplacementMarker(() -> {
+//                          servos.linearDownFullFromSubmersible();
+                        })
                         //We might make another trajectory right here in order to re-adjust the pose of the robot
-                        .splineToConstantHeading(new Vector2d(24,-50),Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(24,-50),Math.toRadians(-90))
                         .turn(-PI/2)
                         .strafeRight(5)
                         .forward(5)
                         .addDisplacementMarker(() -> {
-                            //servos.armDown();
-                            //servos.clawClosed();
-                            //servos.armUp();
+        //                    servos.armSpecimen();
+        //                    servos.clawClosed();
+        //                    servos.armUp();
                         })
-                        .splineToConstantHeading(new Vector2d(-5,-38), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(-5,-38), Math.toRadians(180))
                         .turn(PI/2)
                         .forward(5)
                         .addDisplacementMarker(() -> {
-                            //servos.linearUpSubmersible();
-                            //servos.clawOpen();
-                            //servos.linearDownFullFromSubmersible();
+        //                    servos.linearUpSubmersible();
+        //                    servos.clawOpen();
+        //                    servos.linearDownFullFromSubmersible();
                         })
                         .build());
 

@@ -22,7 +22,7 @@ public class SplineTest extends LinearOpMode {
         if (isStopRequested()) return;
 
         Trajectory traj = drive.trajectoryBuilder(new Pose2d(24,-64.5,Math.toRadians(0)))
-                .splineTo(new Vector2d(5, -36), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(5, -36), Math.toRadians(180))
                 .build();
 
         drive.followTrajectory(traj);
