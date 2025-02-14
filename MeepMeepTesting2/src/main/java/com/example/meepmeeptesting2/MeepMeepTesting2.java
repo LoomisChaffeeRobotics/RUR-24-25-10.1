@@ -22,10 +22,11 @@ public class MeepMeepTesting2 {
                         .splineToConstantHeading(new Vector2d(-48,-48), Math.toRadians(90))
                         .addDisplacementMarker(() -> {
                             //servoWork.armDown();
-                            //servoWork.clawClosed();
+//                            servoWork.clawClosed();
                             //servoWork.armUp();
                         })
-                        .splineTo(new Vector2d(-53,-53), 5*PI/4)
+                        .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                        .turn(Math.toRadians(135))
                         .addDisplacementMarker(() -> {
                             //servoWork.linearUpHigh();
                             //servoWork.arm45();
@@ -34,13 +35,15 @@ public class MeepMeepTesting2 {
                             //servoWork.armUp();
                             //servoWork.linearDownFullFromHigh();
                         })
-                        .splineTo(new Vector2d(-60,-47), Math.toRadians(90))
+                        .splineToConstantHeading(new Vector2d(-53,-47), Math.toRadians(90))
+                        .turn(Math.toRadians(-135))
                         .addDisplacementMarker(() -> {
                             //servoWork.armDown();
                             //servoWork.clawClosed();
                             //servoWork.armUp();
                         })
-                        .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
+                        .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                        .turn(Math.toRadians(135))
                         .addDisplacementMarker(() -> {
                             //servoWork.linearUpHigh();
                             //servoWork.arm45();
@@ -49,13 +52,15 @@ public class MeepMeepTesting2 {
                             //servoWork.armUp();
                             //servoWork.linearDownFullFromHigh();
                         })
-                        .splineTo(new Vector2d(-56,-42), Math.toRadians(130))
+                        .splineToConstantHeading(new Vector2d(-56,-42), Math.toRadians(90))
+                        .turn(Math.toRadians(-95))
                         .addDisplacementMarker(() -> {
                             //servoWork.armDown();
                             //servoWork.clawClosed();
                             //servoWork.armUp();
                         })
-                        .splineTo(new Vector2d(-53,-53), Math.toRadians(225))
+                        .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                        .turn(Math.toRadians(95))
                         .addDisplacementMarker(() -> {
                             //servoWork.linearUpHigh();
                             //servoWork.arm45();

@@ -28,9 +28,10 @@ public class servoWork {
     public double armDownPercent;
     enum armState {
         UP,
-        HALF,
+        SUBMERSIBLE_EXIT,
         SPECIMEN,
         SAMPLE,
+        HALF,
         NULL
     }
     armState armDowning = armState.UP;
@@ -69,7 +70,7 @@ public class servoWork {
             armDownPercent = Math.min(armDownPercent+0.02,1);
         } else if (armDowning == armState.UP){
             armDownPercent = Math.max(armDownPercent-0.02,0);
-        } else if (armDowning == armState.HALF) { // used for getting out of submersible when facing chambers
+        } else if (armDowning == armState.SUBMERSIBLE_EXIT) { // used for getting out of submersible when facing chambers
             if(armDownPercent <= .75){
                 armDownPercent = Math.min(0.75,armDownPercent+0.02);
             } else {
@@ -88,8 +89,8 @@ public class servoWork {
 //                armDownPercent = Math.min(-0.15,armDownPercent-0.01);
 //            }
         }
-        ArmL.setPosition(0.3187*(1-armDownPercent)+(0.6761*armDownPercent));
-        ArmR.setPosition(0.3206*(1-armDownPercent)+(0.0672*armDownPercent));
+        ArmL.setPosition(0.4187*(1-armDownPercent)+(0.7161*armDownPercent));
+        ArmR.setPosition(0.2206*(1-armDownPercent)+(0.06*armDownPercent));
 
     }
     public void armSpecimen(){
@@ -97,8 +98,11 @@ public class servoWork {
         armTogged = true;
 
     }
-    public void arm45(){
+    public void arm45(){ //only used for auto
         armDowning = armState.HALF;
+    }
+    public void armSubmersible(){
+        armDowning = armState.SUBMERSIBLE_EXIT;
     }
     public void armHang() {
         armDowning = armState.UP;

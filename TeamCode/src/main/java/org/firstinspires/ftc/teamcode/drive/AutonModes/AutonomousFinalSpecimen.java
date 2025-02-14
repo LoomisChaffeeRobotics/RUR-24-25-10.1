@@ -37,7 +37,10 @@ public class AutonomousFinalSpecimen extends LinearOpMode {
         waitForStart();
 
         if (isStopRequested()) return;
-
+        while (opModeIsActive()) {
+            drive.update();
+            servos.armUpdate();
+        }
         while (!isStopRequested()) {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                 .forward(5)
