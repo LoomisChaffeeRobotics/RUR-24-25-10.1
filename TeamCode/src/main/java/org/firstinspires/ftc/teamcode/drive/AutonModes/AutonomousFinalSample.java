@@ -33,69 +33,68 @@ public class AutonomousFinalSample extends LinearOpMode {
         servos = new servoWork();
         servos.init(hardwareMap);
         Pose2d startPose = new Pose2d(-24, -64.5, Math.toRadians(90));
-
+        TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(-24,-64.5, Math.toRadians(90)))
+                .splineToConstantHeading(new Vector2d(-48,-48), Math.toRadians(90))
+                .addDisplacementMarker(() -> {
+                    servos.armDown();
+                    servos.clawToggle();
+                    servos.armUp();
+                })
+                .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                .turn(Math.toRadians(135))
+                .addDisplacementMarker(() -> {
+                    //servoWork.linearUpHigh();
+                    servos.arm45();
+                    servos.clawToggle();
+                    servos.armUp();
+                    //servoWork.linearDownFullFromHigh();
+                })
+                .splineToConstantHeading(new Vector2d(-56,-47), Math.toRadians(90))
+                .turn(Math.toRadians(-135))
+                .addDisplacementMarker(() -> {
+                    servos.armDown();
+                    servos.clawToggle();
+                    servos.armUp();
+                })
+                .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                .turn(Math.toRadians(135))
+                .addDisplacementMarker(() -> {
+                    //servoWork.linearUpHigh();
+                    servos.arm45();
+                    servos.clawToggle();
+                    servos.armUp();
+                    //servoWork.linearDownFullFromHigh();
+                })
+                .splineToConstantHeading(new Vector2d(-56,-42), Math.toRadians(90))
+                .turn(Math.toRadians(-95))
+                .addDisplacementMarker(() -> {
+                    servos.armDown();
+                    servos.clawToggle();
+                    servos.armUp();
+                })
+                .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                .turn(Math.toRadians(95))
+                .addDisplacementMarker(() -> {
+                    //servoWork.linearUpHigh();
+                    servos.arm45();
+                    servos.clawToggle();
+                    servos.armUp();
+                    //servoWork.linearDownFullFromHigh();
+                })
+//
+                .build();
         drive.setPoseEstimate(startPose);
 
         waitForStart();
-        servos.clawOpen();
-        servos.armUp();
         if (isStopRequested()) return;
         while (!isStopRequested()) {
-            TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(-24,-64.5, Math.toRadians(90)))
-                    .splineToConstantHeading(new Vector2d(-48,-48), Math.toRadians(90))
-                    .addDisplacementMarker(() -> {
-                        servos.armDown();
-                        servos.clawToggle();
-                        servos.armUp();
-                    })
-                    .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
-                    .turn(Math.toRadians(135))
-                    .addDisplacementMarker(() -> {
-                        //servoWork.linearUpHigh();
-                        servos.arm45();
-                        servos.clawToggle();
-                        servos.armUp();
-                        //servoWork.linearDownFullFromHigh();
-                    })
-                    .splineToConstantHeading(new Vector2d(-56,-47), Math.toRadians(90))
-                    .turn(Math.toRadians(-135))
-                    .addDisplacementMarker(() -> {
-                        servos.armDown();
-                        servos.clawToggle();
-                        servos.armUp();
-                    })
-                    .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
-                    .turn(Math.toRadians(135))
-                    .addDisplacementMarker(() -> {
-                        //servoWork.linearUpHigh();
-                        servos.arm45();
-                        servos.clawToggle();
-                        servos.armUp();
-                        //servoWork.linearDownFullFromHigh();
-                    })
-                    .splineToConstantHeading(new Vector2d(-56,-42), Math.toRadians(90))
-                    .turn(Math.toRadians(-95))
-                    .addDisplacementMarker(() -> {
-                        servos.armDown();
-                        servos.clawToggle();
-                        servos.armUp();
-                    })
-                    .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
-                    .turn(Math.toRadians(95))
-                    .addDisplacementMarker(() -> {
-                        //servoWork.linearUpHigh();
-                        servos.arm45();
-                        servos.clawToggle();
-                        servos.armUp();
-                        //servoWork.linearDownFullFromHigh();
-                    })
-//
-                    .build();
+
             drive.followTrajectorySequenceAsync(trajSeq);
             servos.armUpdate();
 
 
         }
+
     }
 }
 

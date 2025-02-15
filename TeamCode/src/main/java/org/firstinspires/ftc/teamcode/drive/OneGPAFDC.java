@@ -22,7 +22,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.List;
 
 @TeleOp
-public class IGPAFDC extends OpMode {
+public class OneGPAFDC extends OpMode {
     servoWork servos;
     IMU imu;
     boolean inited = false;
