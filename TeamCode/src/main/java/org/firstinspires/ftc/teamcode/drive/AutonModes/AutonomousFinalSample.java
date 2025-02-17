@@ -37,7 +37,7 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(-48,-48), Math.toRadians(90))
                 .addDisplacementMarker(() -> {
                     servos.armDown();
-                    servos.clawToggle();
+                    servos.clawClosed(); // need to be open/closed not toggle
                     servos.armUp();
                 })
                 .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
@@ -45,7 +45,7 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .addDisplacementMarker(() -> {
                     //servoWork.linearUpHigh();
                     servos.arm45();
-                    servos.clawToggle();
+                    servos.clawOpen();
                     servos.armUp();
                     //servoWork.linearDownFullFromHigh();
                 })
@@ -84,13 +84,14 @@ public class AutonomousFinalSample extends LinearOpMode {
 //
                 .build();
         drive.setPoseEstimate(startPose);
+        drive.followTrajectorySequenceAsync(trajSeq);
 
         waitForStart();
         if (isStopRequested()) return;
         while (!isStopRequested()) {
 
-            drive.followTrajectorySequenceAsync(trajSeq);
-            servos.armUpdate();
+            drive.update(); // this is here
+//            servos.armUpdate();
 
 
         }

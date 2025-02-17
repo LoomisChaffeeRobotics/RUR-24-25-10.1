@@ -26,6 +26,12 @@ public class servoWork {
     double LRP = 0; //linear slide power, LRP because Millen named that
     IMU imu;
     public double armDownPercent;
+
+    public ElapsedTime getElapsedTime() {
+        return elapsedTime;
+    }
+    ElapsedTime timer = new ElapsedTime();
+
     enum armState {
         UP,
         SUBMERSIBLE_EXIT,
@@ -53,6 +59,15 @@ public class servoWork {
         linearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         linearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    boolean timerTestStart = false;
+    public double timerTestStart(){
+        if (!timerTestStart){
+            timer.reset();
+            timerTestStart = true;
+        }
+        return timer.time();
     }
     public void TilterHangMoment() {
         Tilter.setPower(1);

@@ -8,13 +8,15 @@ public class testServoWork extends OpMode {
     servoWork servos;
     @Override
     public void init() {
+        servos = new servoWork();
         servos.init(hardwareMap);
     }
 
     @Override
     public void loop() {
         if(gamepad1.a){
-            servos.armUp();
+            telemetry.addData("timer", servos.timerTestStart());
+            telemetry.update();
         }
         if(gamepad1.b){
             servos.armDown();
