@@ -26,10 +26,11 @@ public class servoWork {
     double LRP = 0; //linear slide power, LRP because Millen named that
     IMU imu;
     public double armDownPercent;
+    public double armDownPrevious = 0;
 
 
 
-    enum armState {
+    public enum armState {
         UP,
         SUBMERSIBLE_EXIT,
         SPECIMEN,
@@ -37,7 +38,7 @@ public class servoWork {
         HALF,
         NULL
     }
-    armState armDowning = armState.UP;
+    public armState armDowning = armState.UP;
 
 
     //    SampleMecanumDrive drive;
@@ -80,6 +81,7 @@ public class servoWork {
     public void armUpdate(){
         if (armDowning == armState.SAMPLE){
             armDownPercent = Math.min(armDownPercent+0.02,1);
+
         } else if (armDowning == armState.UP){
             armDownPercent = Math.max(armDownPercent-0.02,0);
         } else if (armDowning == armState.SUBMERSIBLE_EXIT) { // used for getting out of submersible when facing chambers
@@ -101,9 +103,51 @@ public class servoWork {
 //                armDownPercent = Math.min(-0.15,armDownPercent-0.01);
 //            }
         }
-        ArmL.setPosition(0.3522*(1-armDownPercent)+(0.6594*armDownPercent));
-        ArmR.setPosition(0.3239*(1-armDownPercent)+(0.015*armDownPercent));
+        ArmL.setPosition(0.3883*(1-armDownPercent)+(0.6594*armDownPercent));
+        ArmR.setPosition(0.29*(1-armDownPercent)+(0.015*armDownPercent));
+    }
+    public void waitAuto(double seconds){
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        while (timer.seconds() < seconds) {
 
+        }
+    }
+    public void armUpdateAuto(){
+        if (armDowning == armState.SAMPLE){
+            armDownPercent = Math.min(armDownPercent+0.01,1);
+
+        } else if (armDowning == armState.UP){
+            armDownPercent = Math.max(armDownPercent-0.01,0);
+        } else if (armDowning == armState.SUBMERSIBLE_EXIT) { // used for getting out of submersible when facing chambers
+            if(armDownPercent <= .75){
+                armDownPercent = Math.min(0.75,armDownPercent+0.01);
+            } else {
+                armDownPercent = Math.max(0.75,armDownPercent-0.01);
+            }
+        } else if (armDowning == armState.SPECIMEN) { //specimen
+            if(armDownPercent <= .94){
+                armDownPercent = Math.min(0.94,armDownPercent+0.01);
+            } else {
+                armDownPercent = Math.max(0.94,armDownPercent-0.01);
+            }
+
+//            TODO: delete this.
+//        } else if (armDowning == armState.?) {
+//            if(armDownPercent <= -.15){
+//                armDownPercent = Math.min(-0.15,armDownPercent-0.01);
+//            }
+        }
+        ArmL.setPosition(0.3883*(1-armDownPercent)+(0.6594*armDownPercent));
+        ArmR.setPosition(0.29*(1-armDownPercent)+(0.015*armDownPercent));
+    }
+    public boolean isArmRunning() {
+        if (armDownPrevious==armDownPercent){
+            armDownPrevious = armDownPercent;
+            return false;
+        }
+        armDownPrevious = armDownPercent;
+        return true;
     }
     public void armSpecimen(){
         armDowning = armState.SPECIMEN;

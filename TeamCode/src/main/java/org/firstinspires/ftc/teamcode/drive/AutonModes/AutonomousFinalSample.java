@@ -36,49 +36,68 @@ public class AutonomousFinalSample extends LinearOpMode {
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(-24,-64.5, Math.toRadians(90)))
                 .splineToConstantHeading(new Vector2d(-48,-48), Math.toRadians(90))
                 .addDisplacementMarker(() -> {
+                    servos.clawOpen();
                     servos.armDown();
+                    update();
                     servos.clawClosed(); // need to be open/closed not toggle
+                    servos.waitAuto(0.5);
                     servos.armUp();
+                    update();
                 })
-                .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
                 .turn(Math.toRadians(135))
                 .addDisplacementMarker(() -> {
                     //servoWork.linearUpHigh();
                     servos.arm45();
+                    update();
                     servos.clawOpen();
+                    servos.waitAuto(0.5);
                     servos.armUp();
+                    update();
                     //servoWork.linearDownFullFromHigh();
                 })
                 .splineToConstantHeading(new Vector2d(-56,-47), Math.toRadians(90))
                 .turn(Math.toRadians(-135))
                 .addDisplacementMarker(() -> {
                     servos.armDown();
-                    servos.clawToggle();
+                    update();
+                    servos.clawClosed();
+                    servos.waitAuto(0.5);
                     servos.armUp();
+                    update();
                 })
-                .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
                 .turn(Math.toRadians(135))
                 .addDisplacementMarker(() -> {
                     //servoWork.linearUpHigh();
                     servos.arm45();
-                    servos.clawToggle();
+                    update();
+                    servos.clawOpen();
+                    servos.waitAuto(0.5);
                     servos.armUp();
+                    update();
                     //servoWork.linearDownFullFromHigh();
                 })
                 .splineToConstantHeading(new Vector2d(-56,-42), Math.toRadians(90))
                 .turn(Math.toRadians(-95))
                 .addDisplacementMarker(() -> {
                     servos.armDown();
-                    servos.clawToggle();
+                    update();
+                    servos.clawClosed();
+                    servos.waitAuto(0.5);
                     servos.armUp();
+                    update();
                 })
-                .splineToConstantHeading(new Vector2d(-53,-53), Math.toRadians(45))
+                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
                 .turn(Math.toRadians(95))
                 .addDisplacementMarker(() -> {
-                    //servoWork.linearUpHigh();
+                            //servoWork.linearUpHigh();
                     servos.arm45();
-                    servos.clawToggle();
+                    update();
+                    servos.clawOpen();
+                    servos.waitAuto(0.5);
                     servos.armUp();
+                    update();
                     //servoWork.linearDownFullFromHigh();
                 })
 //
@@ -86,16 +105,26 @@ public class AutonomousFinalSample extends LinearOpMode {
         drive.setPoseEstimate(startPose);
         drive.followTrajectorySequenceAsync(trajSeq);
 
+
         waitForStart();
+
+
         if (isStopRequested()) return;
-        while (!isStopRequested()) {
+        while (opModeIsActive()) {
 
             drive.update(); // this is here
-//            servos.armUpdate();
+            telemetry.addData("armState", servos.armDowning);
+            telemetry.addData("armUpdate", servos.isArmRunning());
+            telemetry.addData("poseEstimate", drive.getPoseEstimate());
+            telemetry.update();
 
 
         }
 
+    }
+    void update(){
+        servos.armUpdate();
+        while (servos.isArmRunning()) { servos.armUpdateAuto();}
     }
 }
 
