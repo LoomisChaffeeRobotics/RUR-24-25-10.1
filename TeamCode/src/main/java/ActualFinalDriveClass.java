@@ -37,6 +37,7 @@ public class ActualFinalDriveClass extends OpMode {
             5, -5, 5.5, 0);
     private YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
             180, -90, 0, 0);
+    double angleOffset = 0;
 
     @Override
     public void init() {
@@ -104,6 +105,10 @@ public class ActualFinalDriveClass extends OpMode {
         }
         if (gamepad1.dpad_up) {
             servos.armUp();
+        }
+        if (gamepad2.dpad_down){
+            double newHeading = cameraPoseUpdate().getHeading();
+            angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
         }
 
 
