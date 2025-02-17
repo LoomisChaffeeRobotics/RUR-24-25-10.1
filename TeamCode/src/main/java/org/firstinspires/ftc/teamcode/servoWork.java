@@ -27,10 +27,7 @@ public class servoWork {
     IMU imu;
     public double armDownPercent;
 
-    public ElapsedTime getElapsedTime() {
-        return elapsedTime;
-    }
-    ElapsedTime timer = new ElapsedTime();
+
 
     enum armState {
         UP,
@@ -64,10 +61,10 @@ public class servoWork {
     boolean timerTestStart = false;
     public double timerTestStart(){
         if (!timerTestStart){
-            timer.reset();
+            elapsedTime.reset();
             timerTestStart = true;
         }
-        return timer.time();
+        return elapsedTime.time();
     }
     public void TilterHangMoment() {
         Tilter.setPower(1);
@@ -104,8 +101,8 @@ public class servoWork {
 //                armDownPercent = Math.min(-0.15,armDownPercent-0.01);
 //            }
         }
-        ArmL.setPosition(0.4187*(1-armDownPercent)+(0.7161*armDownPercent));
-        ArmR.setPosition(0.2206*(1-armDownPercent)+(0.06*armDownPercent));
+        ArmL.setPosition(0.3522*(1-armDownPercent)+(0.6594*armDownPercent));
+        ArmR.setPosition(0.3239*(1-armDownPercent)+(0.015*armDownPercent));
 
     }
     public void armSpecimen(){
@@ -220,7 +217,7 @@ public class servoWork {
         Extender.setPower(0);
     }
     public void armDoubleManual(double amount) {
-        ArmL.setPosition(ArmL.getPosition()+amount);
+        ArmL.setPosition(ArmL.getPosition()-amount);
         ArmR.setPosition(ArmR.getPosition()+amount);
     }
 
