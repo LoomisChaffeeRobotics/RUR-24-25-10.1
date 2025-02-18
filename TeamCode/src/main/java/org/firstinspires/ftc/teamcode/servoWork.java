@@ -78,6 +78,14 @@ public class servoWork {
         armDowning = armState.SAMPLE;
         armTogged = true;
     }
+    public void armUpAuto(){
+        ArmL.setPosition(0.3883);
+        ArmR.setPosition(0.29);
+    }
+    public void armDownAuto(){
+        ArmL.setPosition(0.6744);
+        ArmR.setPosition(0.);
+    }
     public void armUpdate(){
         if (armDowning == armState.SAMPLE){
             armDownPercent = Math.min(armDownPercent+0.02,1);
