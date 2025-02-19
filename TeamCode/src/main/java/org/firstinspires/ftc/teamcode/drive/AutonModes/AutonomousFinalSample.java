@@ -27,6 +27,9 @@ public class AutonomousFinalSample extends LinearOpMode {
     TrajectorySequence specimenSide;
     TrajectorySequence specimenSide2; //post localization
 
+    final double upTime = 2.17d;
+    final double downTime = 1.7d;
+
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -43,10 +46,10 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .addTemporalMarker(3.33, () -> {
                     servos.clawClosed(); // need to be open/closed not toggle
                 })
-//                .waitSeconds(0.5)
-//                .addDisplacementMarker(() -> {
-//                    servos.armUpAuto();
-//                })
+                .waitSeconds(0.5)
+                .addDisplacementMarker(() -> {
+                    servos.armUpAuto();
+                })
 //                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
 //                .turn(Math.toRadians(135))
 //                .addDisplacementMarker(() -> {
