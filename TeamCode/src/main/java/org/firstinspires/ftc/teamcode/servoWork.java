@@ -192,14 +192,16 @@ public class servoWork {
     }
     public void linearUpHigh(){
         elapsedTime.reset();
-        while(elapsedTime.time() < 1) {
+        while(elapsedTime.time() < 2.17) { //NEEDS TO BE WHILE
             linearLeft.setPower(1);
             linearRight.setPower(1);
         }
-        linearLeft.setPower(0);
-        linearRight.setPower(0);
+        linearLeft.setPower(0.12);
+        linearRight.setPower(0.12);
 
     }
+    // TODO make these while loops and not if statements.
+    // while loops don't need to be in loops/ better for auto
     public void linearDownALittleBit(){
         elapsedTime.reset();
         if(elapsedTime.time() < 0.12) {
@@ -222,13 +224,14 @@ public class servoWork {
     }
     public void linearDownFullFromHigh(){
         elapsedTime.reset();
-        if(elapsedTime.time() < 1.6) {
+        while(elapsedTime.time() < 1.6) {
             linearLeft.setPower(-1);
             linearRight.setPower(-1);
-        } else {
-            linearLeft.setPower(0);
-            linearRight.setPower(0);
-        }
+        } 
+
+        linearLeft.setPower(0);
+        linearRight.setPower(0);
+
     }
     public void clawOpen(){
         Claw.setPosition(1);
