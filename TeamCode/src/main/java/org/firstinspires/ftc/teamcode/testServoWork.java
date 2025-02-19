@@ -15,11 +15,10 @@ public class testServoWork extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.a){
-            telemetry.addData("timer", servos.timerTestStart());
-            telemetry.update();
+            servos.linearUpHigh();
         }
         if(gamepad1.b){
-            servos.armDown();
+            servos.linearDownFullFromHigh();
         }
         if(gamepad1.x){
             servos.clawOpen();
@@ -36,6 +35,6 @@ public class testServoWork extends OpMode {
         if(gamepad1.dpad_right){
             servos.extenderNeutral();
         }
-
+        telemetry.addData("time ", servos.elapsedTime.time());
     }
 }

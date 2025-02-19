@@ -112,6 +112,7 @@ public class servoWork {
         while (timer.seconds() < seconds) {
 
         }
+
     }
     public void armUpdateAuto(){
         if (armDowning == armState.SAMPLE){
@@ -191,13 +192,13 @@ public class servoWork {
     }
     public void linearUpHigh(){
         elapsedTime.reset();
-        if(elapsedTime.time() < 2.5) {
+        while(elapsedTime.time() < 1) {
             linearLeft.setPower(1);
             linearRight.setPower(1);
-        } else {
-            linearLeft.setPower(0.12);
-            linearRight.setPower(0.12);
         }
+        linearLeft.setPower(0);
+        linearRight.setPower(0);
+
     }
     public void linearDownALittleBit(){
         elapsedTime.reset();

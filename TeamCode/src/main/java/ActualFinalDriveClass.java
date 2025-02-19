@@ -98,17 +98,15 @@ public class ActualFinalDriveClass extends OpMode {
             rbdepressed = false;
         }
         if (gamepad1.start) {
-            imu.resetYaw();
+            double newHeading = cameraPoseUpdate(); // returns heading for some reason.
+            angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
         }
         if (gamepad2.start) {
-            imu.resetYaw();
+            double newHeading = cameraPoseUpdate();
+            angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
         }
         if (gamepad1.dpad_up) {
             servos.armUp();
-        }
-        if (gamepad2.dpad_down){
-            double newHeading = cameraPoseUpdate().getHeading();
-            angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
         }
 
 
@@ -132,6 +130,8 @@ public class ActualFinalDriveClass extends OpMode {
             servos.tiltTilt(0d);
         }
 
+
+
         servos.liftLift(gamepad1.right_trigger - gamepad1.left_trigger+0.12);
 
         double speedFactor = Math.min(1.3 - gamepad2.left_trigger, 1); // so driver can slow down
@@ -150,13 +150,14 @@ public class ActualFinalDriveClass extends OpMode {
         double frontRightPower = speedFactor * (rotY - rotX - rx) / denominator;
         double backRightPower = speedFactor * (rotY + rotX - rx) / denominator;
         drive.setMotorPowers(frontLeftPower, backLeftPower, backRightPower, frontRightPower);
-        telemetry.addData("thing that Dylan wants: ", speedFactor);
+        telemetry.addData("thing that Dylan wants: ", x);
         telemetry.update();
     }
 
-    public Pose2d cameraPoseUpdate() {
+    public double cameraPoseUpdate() {
         List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
         Pose2d poseRobot = new Pose2d(0, 0, 0);
+        double headingNew =5;
         if (!currentDetections.isEmpty()) {
             AprilTagDetection aprilTag1 = currentDetections.get(0);
             Pose3D cameraPos = aprilTag1.robotPose; // hopefully in inches
@@ -167,6 +168,7 @@ public class ActualFinalDriveClass extends OpMode {
             telemetry.addData("aprilY ", aprilTag1.metadata.fieldPosition.getData()[1]);
             double x = cameraPos.getPosition().x;
             double y = cameraPos.getPosition().y;
+            headingNew =  cameraPos.getOrientation().getYaw();
             poseRobot = new Pose2d(
                     x, y, heading
             );
@@ -174,7 +176,7 @@ public class ActualFinalDriveClass extends OpMode {
             telemetry.update();
         }
         telemetry.addData("poseRobot: ", poseRobot);
-        return poseRobot;
+        return(headingNew);
     }
 }
 //
