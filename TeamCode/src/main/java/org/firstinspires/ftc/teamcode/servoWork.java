@@ -232,7 +232,7 @@ public class servoWork {
     }
     public void linearDownFullFromHigh(){
         elapsedTime.reset();
-        while(elapsedTime.time() < 1.6) {
+        while(elapsedTime.time() < 1.7) {
             linearLeft.setPower(-1);
             linearRight.setPower(-1);
         } 
