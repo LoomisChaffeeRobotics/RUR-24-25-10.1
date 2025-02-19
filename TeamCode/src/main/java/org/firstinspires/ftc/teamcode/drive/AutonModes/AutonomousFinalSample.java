@@ -34,72 +34,75 @@ public class AutonomousFinalSample extends LinearOpMode {
         servos.init(hardwareMap);
         Pose2d startPose = new Pose2d(-24, -64.5, Math.toRadians(90));
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(-24,-64.5, Math.toRadians(90)))
-                .splineToConstantHeading(new Vector2d(-48,-48), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
+                .splineToConstantHeading(new Vector2d(-49,-47), Math.toRadians(90))
+                .addTemporalMarker(1.54, () -> {
                     servos.clawOpen();
-                    servos.armDown();
-                    update();
+                    servos.armDownAuto();
+                })
+                .waitSeconds(1.79)
+                .addTemporalMarker(3.33, () -> {
                     servos.clawClosed(); // need to be open/closed not toggle
-                    servos.waitAuto(0.5);
-                    servos.armUp();
-                    update();
                 })
-                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
-                .turn(Math.toRadians(135))
-                .addDisplacementMarker(() -> {
-                    //servoWork.linearUpHigh();
-                    servos.arm45();
-                    update();
-                    servos.clawOpen();
-                    servos.waitAuto(0.5);
-                    servos.armUp();
-                    update();
-                    //servoWork.linearDownFullFromHigh();
-                })
-                .splineToConstantHeading(new Vector2d(-56,-47), Math.toRadians(90))
-                .turn(Math.toRadians(-135))
-                .addDisplacementMarker(() -> {
-                    servos.armDown();
-                    update();
-                    servos.clawClosed();
-                    servos.waitAuto(0.5);
-                    servos.armUp();
-                    update();
-                })
-                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
-                .turn(Math.toRadians(135))
-                .addDisplacementMarker(() -> {
-                    //servoWork.linearUpHigh();
-                    servos.arm45();
-                    update();
-                    servos.clawOpen();
-                    servos.waitAuto(0.5);
-                    servos.armUp();
-                    update();
-                    //servoWork.linearDownFullFromHigh();
-                })
-                .splineToConstantHeading(new Vector2d(-56,-42), Math.toRadians(90))
-                .turn(Math.toRadians(-95))
-                .addDisplacementMarker(() -> {
-                    servos.armDown();
-                    update();
-                    servos.clawClosed();
-                    servos.waitAuto(0.5);
-                    servos.armUp();
-                    update();
-                })
-                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
-                .turn(Math.toRadians(95))
-                .addDisplacementMarker(() -> {
-                            //servoWork.linearUpHigh();
-                    servos.arm45();
-                    update();
-                    servos.clawOpen();
-                    servos.waitAuto(0.5);
-                    servos.armUp();
-                    update();
-                    //servoWork.linearDownFullFromHigh();
-                })
+//                .waitSeconds(0.5)
+//                .addDisplacementMarker(() -> {
+//                    servos.armUpAuto();
+//                })
+//                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
+//                .turn(Math.toRadians(135))
+//                .addDisplacementMarker(() -> {
+//                    //servoWork.linearUpHigh();
+//                    servos.arm45();
+//                    update();
+//                    servos.clawOpen();
+//                    servos.waitAuto(0.5);
+//                    servos.armUp();
+//                    update();
+//                    //servoWork.linearDownFullFromHigh();
+//                })
+//                .splineToConstantHeading(new Vector2d(-56,-47), Math.toRadians(90))
+//                .turn(Math.toRadians(-135))
+//                .addDisplacementMarker(() -> {
+//                    servos.armDownAuto();
+//                    update();
+//                    servos.clawClosed();
+//                    servos.waitAuto(0.5);
+//                    servos.armUp();
+//                    update();
+//                })
+//                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
+//                .turn(Math.toRadians(135))
+//                .addDisplacementMarker(() -> {
+//                    //servoWork.linearUpHigh();
+//                    servos.arm45();
+//                    update();
+//                    servos.clawOpen();
+//                    servos.waitAuto(0.5);
+//                    servos.armUp();
+//                    update();
+//                    //servoWork.linearDownFullFromHigh();
+//                })
+//                .splineToConstantHeading(new Vector2d(-56,-42), Math.toRadians(90))
+//                .turn(Math.toRadians(-95))
+//                .addDisplacementMarker(() -> {
+//                    servos.armDownAuto();
+//                    update();
+//                    servos.clawClosed();
+//                    servos.waitAuto(0.5);
+//                    servos.armUp();
+//                    update();
+//                })
+//                .splineToConstantHeading(new Vector2d(-55,-55), Math.toRadians(45))
+//                .turn(Math.toRadians(95))
+//                .addDisplacementMarker(() -> {
+//                            //servoWork.linearUpHigh();
+//                    servos.arm45();
+//                    update();
+//                    servos.clawOpen();
+//                    servos.waitAuto(0.5);
+//                    servos.armUp();
+//                    update();
+//                    //servoWork.linearDownFullFromHigh();
+//                })
 //
                 .build();
         drive.setPoseEstimate(startPose);
@@ -124,7 +127,10 @@ public class AutonomousFinalSample extends LinearOpMode {
     }
     void update(){
         servos.armUpdate();
-        while (servos.isArmRunning()) { servos.armUpdateAuto();}
-    }
+        while (servos.isArmRunning()) {
+            servos.armUpdate();
+        }
+        }
+
 }
 
