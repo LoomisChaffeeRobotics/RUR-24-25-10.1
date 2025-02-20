@@ -13,11 +13,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.servoWork;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
+
 @Autonomous
 @Config
 
 public class AutonomousFinalSample extends LinearOpMode {
     IMU imu;
+    TrajectorySequenceBuilder TrajectorySequenceBuilder;
     ElapsedTime timer;
     ElapsedTime timer2;
     SampleMecanumDrive drive;
@@ -37,115 +40,114 @@ public class AutonomousFinalSample extends LinearOpMode {
         servos.init(hardwareMap);
         Pose2d startPose = new Pose2d(-24, -64.5, Math.toRadians(90));
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(-24,-64.5, Math.toRadians(90)))
-                .splineToConstantHeading(new Vector2d(-50,-47), Math.toRadians(90))
-                .addTemporalMarker(1.34, () -> {
+                .lineTo(new Vector2d(-50,-46))
+                .addTemporalMarker(() -> {
                     servos.clawOpen();
                     servos.armDownAuto();
                 })
-                .waitSeconds(1.79)
-                .addTemporalMarker(3.13, () -> {
+                .waitSeconds(1.2)
+                .addTemporalMarker(() -> {
                     servos.clawClosed(); // need to be open/closed not toggle
                 })
                 .waitSeconds(0.67)
-                .addTemporalMarker(3.80, () -> {
+                .addTemporalMarker(() -> {
                     servos.armUpAuto();
                 })
-                .splineToConstantHeading(new Vector2d(-56,-58), Math.toRadians(45))
-                .turn(Math.toRadians(135))
-                .addTemporalMarker(6.80, () -> {
+                .waitSeconds(0.7)
+                .lineToLinearHeading(new Pose2d(-53.5,-55.5, Math.toRadians(225)))
+                .addTemporalMarker(() -> {
                     servos.linearPower(1);
                 })
                 .waitSeconds(upTime)
-                .addTemporalMarker(8.97, () -> {
+                .addTemporalMarker(() -> {
                     servos.linearPower(0.12);
                 })
-                .addTemporalMarker(9.3, () -> {
+                .addTemporalMarker(() -> {
                     servos.arm45Auto();
                 })
-                .waitSeconds(1.5)
-                .addTemporalMarker(10.8, () -> {
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
                     servos.clawOpen();
                     servos.armUpAuto();
                     servos.linearPower(-1);
                 })
                 .waitSeconds(downTime)
-                .addTemporalMarker(13.26, () -> {
+                .addTemporalMarker(() -> {
                     servos.linearPower(0);
                 })
-                .splineToConstantHeading(new Vector2d(-61,-48.5), Math.toRadians(90))
+                .lineToSplineHeading(new Pose2d(-59,-46, Math.toRadians(90)))
+                .addTemporalMarker(() -> {
+                    servos.armDownAuto();
+                })
+                .waitSeconds(1.2)
+                .addTemporalMarker( () -> {
+                    servos.clawClosed();
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    servos.armUpAuto();
+                })
+                .waitSeconds(1)
+                .lineToSplineHeading(new Pose2d(-53.5,-55.5, Math.toRadians(225)))
+                .addTemporalMarker(() -> {
+                    servos.linearPower(1);
+                })
+                .waitSeconds(upTime)
+                .addTemporalMarker(() -> {
+                    servos.linearPower(0.12);
+                })
+                .addTemporalMarker(() -> {
+                    servos.arm45Auto();
+                })
+                .waitSeconds(1.2)
+                .addTemporalMarker(() -> {
+                    servos.clawOpen();
+                    servos.armUpAuto();
+                    servos.linearPower(-1);
+                })
+                .waitSeconds(downTime)
+                .addTemporalMarker(() -> {
+                    servos.linearPower(0);
+                })
                 .turn(Math.toRadians(-135))
-                .addTemporalMarker(14.98, () -> {
-                    servos.armDownAuto();
-                })
-                .waitSeconds(1.5)
-                .addTemporalMarker(16.48, () -> {
-                    servos.clawClosed();
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(17.48, () -> {
-                    servos.armUpAuto();
-                })
-                .waitSeconds(1)
-                .splineToConstantHeading(new Vector2d(-54,-56), Math.toRadians(45))
-                .turn(Math.toRadians(135))
-                .addTemporalMarker(22.37, () -> {
-                    servos.linearPower(1);
-                })
-                .waitSeconds(upTime)
-                .addTemporalMarker(24.54, () -> {
-                    servos.linearPower(0.12);
-                })
-                .addTemporalMarker(24.8, () -> {
-                    servos.arm45Auto();
-                })
-                .waitSeconds(1.5)
-                .addTemporalMarker(26.3, () -> {
-                    servos.clawOpen();
-                    servos.armUpAuto();
-                    servos.linearPower(-1);
-                })
-                .waitSeconds(downTime)
-                .addTemporalMarker(29, () -> {
-                    servos.linearPower(0);
-                })
-                .splineToConstantHeading(new Vector2d(-59,-42.5), Math.toRadians(90))
-                .turn(Math.toRadians(-100))
-                .addTemporalMarker(30.5, () -> {
-                    servos.armDownAuto();
-                    servos.clawAuto();
-                })
-                .forward(3.5)
-                .addTemporalMarker(32, () -> {
-                    servos.clawClosed();
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(33, () -> {
-                    servos.armUpAuto();
-                })
-                .waitSeconds(3)
-                .splineToConstantHeading(new Vector2d(-51.5,-53.5), Math.toRadians(45))
-                .turn(Math.toRadians(100))
-                .strafeRight(3)
-                .addTemporalMarker(38, () -> {
-                    servos.linearPower(1);
-                })
-                .waitSeconds(upTime)
-                .addTemporalMarker(40.17, () -> {
-                            servos.linearPower(0.12);
-                })
-                .addTemporalMarker(40.5, () -> {
-                    servos.arm45Auto();
-                })
-                .waitSeconds(1.5)
-                .addTemporalMarker(42, () -> {
-                    servos.clawOpen();
-                    servos.armUpAuto();
-                    servos.linearPower(-1);
-                })
-                .waitSeconds(downTime)
-                .addTemporalMarker(44, () -> {
-                    servos.linearPower(0);
-                })
+//                .splineToConstantHeading(new Vector2d(-59,-42.5), Math.toRadians(90))
+//                .turn(Math.toRadians(-100))
+//                .addTemporalMarker(30.5, () -> {
+//                    servos.armDownAuto();
+//                    servos.clawAuto();
+//                })
+//                .forward(3.5)
+//                .addTemporalMarker(32, () -> {
+//                    servos.clawClosed();
+//                })
+//                .waitSeconds(1)
+//                .addTemporalMarker(33, () -> {
+//                    servos.armUpAuto();
+//                })
+//                .waitSeconds(3)
+//                .splineToConstantHeading(new Vector2d(-51.5,-53.5), Math.toRadians(45))
+//                .turn(Math.toRadians(100))
+//                .strafeRight(3)
+//                .addTemporalMarker(38, () -> {
+//                    servos.linearPower(1);
+//                })
+//                .waitSeconds(upTime)
+//                .addTemporalMarker(40.17, () -> {
+//                            servos.linearPower(0.12);
+//                })
+//                .addTemporalMarker(40.5, () -> {
+//                    servos.arm45Auto();
+//                })
+//                .waitSeconds(1.5)
+//                .addTemporalMarker(42, () -> {
+//                    servos.clawOpen();
+//                    servos.armUpAuto();
+//                    servos.linearPower(-1);
+//                })
+//                .waitSeconds(downTime)
+//                .addTemporalMarker(44, () -> {
+//                    servos.linearPower(0);
+//                })
 //
                 .build();
         drive.setPoseEstimate(startPose);

@@ -59,7 +59,7 @@ public class TrajectorySequenceBuilder {
 
     private TrajectoryBuilder currentTrajectoryBuilder;
 
-    private double currentDuration;
+    public double currentDuration;
     private double currentDisplacement;
 
     private double lastDurationTraj;
