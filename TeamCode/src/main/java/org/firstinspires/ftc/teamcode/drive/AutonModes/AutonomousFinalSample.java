@@ -41,15 +41,15 @@ public class AutonomousFinalSample extends LinearOpMode {
         Pose2d startPose = new Pose2d(-24, -64.5, Math.toRadians(90));
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(-24,-64.5, Math.toRadians(90)))
                 .lineTo(new Vector2d(-50,-46))
-                .addTemporalMarker(() -> {
+                .addTemporalMarker(0.7, () -> {
                     servos.clawOpen();
                     servos.armDownAuto();
                 })
-                .waitSeconds(1.2)
+                .waitSeconds(0.3)
                 .addTemporalMarker(() -> {
                     servos.clawClosed(); // need to be open/closed not toggle
                 })
-                .waitSeconds(0.67)
+                .waitSeconds(0.3)
                 .addTemporalMarker(() -> {
                     servos.armUpAuto();
                 })
@@ -58,14 +58,14 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     servos.linearPower(1);
                 })
-                .waitSeconds(upTime)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     servos.linearPower(0.12);
                 })
                 .addTemporalMarker(() -> {
                     servos.arm45Auto();
                 })
-                .waitSeconds(1)
+                .waitSeconds(0.7)
                 .addTemporalMarker(() -> {
                     servos.clawOpen();
                     servos.armUpAuto();
@@ -79,11 +79,11 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     servos.armDownAuto();
                 })
-                .waitSeconds(1.2)
+                .waitSeconds(0.6)
                 .addTemporalMarker( () -> {
                     servos.clawClosed();
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.3)
                 .addTemporalMarker(() -> {
                     servos.armUpAuto();
                 })
@@ -99,7 +99,7 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     servos.arm45Auto();
                 })
-                .waitSeconds(1.2)
+                .waitSeconds(0.7)
                 .addTemporalMarker(() -> {
                     servos.clawOpen();
                     servos.armUpAuto();
@@ -109,46 +109,41 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     servos.linearPower(0);
                 })
-                .turn(Math.toRadians(-135))
-//                .splineToConstantHeading(new Vector2d(-59,-42.5), Math.toRadians(90))
-//                .turn(Math.toRadians(-100))
-//                .addTemporalMarker(30.5, () -> {
-//                    servos.armDownAuto();
-//                    servos.clawAuto();
-//                })
-//                .forward(3.5)
-//                .addTemporalMarker(32, () -> {
-//                    servos.clawClosed();
-//                })
-//                .waitSeconds(1)
-//                .addTemporalMarker(33, () -> {
-//                    servos.armUpAuto();
-//                })
-//                .waitSeconds(3)
-//                .splineToConstantHeading(new Vector2d(-51.5,-53.5), Math.toRadians(45))
-//                .turn(Math.toRadians(100))
-//                .strafeRight(3)
-//                .addTemporalMarker(38, () -> {
-//                    servos.linearPower(1);
-//                })
-//                .waitSeconds(upTime)
-//                .addTemporalMarker(40.17, () -> {
-//                            servos.linearPower(0.12);
-//                })
-//                .addTemporalMarker(40.5, () -> {
-//                    servos.arm45Auto();
-//                })
-//                .waitSeconds(1.5)
-//                .addTemporalMarker(42, () -> {
-//                    servos.clawOpen();
-//                    servos.armUpAuto();
-//                    servos.linearPower(-1);
-//                })
-//                .waitSeconds(downTime)
-//                .addTemporalMarker(44, () -> {
-//                    servos.linearPower(0);
-//                })
-//
+                .lineToLinearHeading(new Pose2d(-58,-43.5, Math.toRadians(130)))
+                .addTemporalMarker(() -> {
+                    servos.armDownAuto();
+                    servos.clawAuto();
+                })
+                .forward(2)
+                .waitSeconds(0.2)
+                .addTemporalMarker(() -> {
+                    servos.clawClosed();
+                })
+                .waitSeconds(0.3)
+                .addTemporalMarker(() -> {
+                    servos.armUpAuto();
+                })
+                .waitSeconds(0.8)
+                .lineToLinearHeading(new Pose2d(-53.5,-53.5, Math.toRadians(225)))
+                .addTemporalMarker(() -> {
+                    servos.linearPower(1);
+                })
+                .waitSeconds(upTime)
+                .addTemporalMarker(() -> {
+                    servos.linearPower(0.12);
+                    servos.arm45Auto();
+                })
+                .waitSeconds(0.6)
+                .addTemporalMarker(() -> {
+                    servos.clawOpen();
+                    servos.armUpAuto();
+                    servos.linearPower(-1);
+                })
+                .waitSeconds(downTime)
+                .addTemporalMarker(() -> {
+                    servos.linearPower(0);
+                })
+
                 .build();
         drive.setPoseEstimate(startPose);
         drive.followTrajectorySequenceAsync(trajSeq);

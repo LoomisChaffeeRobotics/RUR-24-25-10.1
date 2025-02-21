@@ -22,6 +22,7 @@ import java.util.List;
 
 @TeleOp
 public class ActualFinalDriveClass extends OpMode {
+    Pose3D cameraPos;
     servoWork servos;
     IMU imu;
     boolean inited = false;
@@ -98,10 +99,12 @@ public class ActualFinalDriveClass extends OpMode {
             rbdepressed = false;
         }
         if (gamepad1.start) {
+            imu.resetYaw();
             double newHeading = cameraPoseUpdate(); // returns heading for some reason.
             angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
         }
         if (gamepad2.start) {
+            imu.resetYaw();
             double newHeading = cameraPoseUpdate();
             angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
         }
@@ -160,7 +163,7 @@ public class ActualFinalDriveClass extends OpMode {
         double headingNew =5;
         if (!currentDetections.isEmpty()) {
             AprilTagDetection aprilTag1 = currentDetections.get(0);
-            Pose3D cameraPos = aprilTag1.robotPose; // hopefully in inches
+            cameraPos = aprilTag1.robotPose; // hopefully in inches
             double heading = Math.toRadians(cameraPos.getOrientation().getYaw() + 90);
             telemetry.addData("heading ", Math.toDegrees(heading));
             telemetry.addData("initial heading ", cameraPos.getOrientation().getYaw());
