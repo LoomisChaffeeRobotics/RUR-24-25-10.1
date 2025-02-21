@@ -38,7 +38,7 @@ public class ActualFinalDriveClass extends OpMode {
             5, -5, 5.5, 0);
     private YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
             180, -90, 0, 0);
-    double angleOffset = 0;
+    double angleOffset = Math.toRadians(225);
 
     @Override
     public void init() {
@@ -100,13 +100,11 @@ public class ActualFinalDriveClass extends OpMode {
         }
         if (gamepad1.start) {
             imu.resetYaw();
-            double newHeading = cameraPoseUpdate(); // returns heading for some reason.
-            angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
+            angleOffset = 0;
         }
         if (gamepad2.start) {
             imu.resetYaw();
-            double newHeading = cameraPoseUpdate();
-            angleOffset = newHeading - imu.getRobotYawPitchRollAngles().getYaw();
+            angleOffset = 0;
         }
         if (gamepad1.dpad_up) {
             servos.armUp();
@@ -142,7 +140,7 @@ public class ActualFinalDriveClass extends OpMode {
         double y = -gamepad2.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad2.left_stick_x; //dylan is my bf // If your going to write my name, bother to capitalize it. - Dylan // It's "you're" not "your" - Colin
         double rx = gamepad1.right_stick_x *.3 + gamepad2.right_stick_x;
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) + angleOffset;
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         rotX = rotX * 1.096024278; //counteract for imperfect strafing
