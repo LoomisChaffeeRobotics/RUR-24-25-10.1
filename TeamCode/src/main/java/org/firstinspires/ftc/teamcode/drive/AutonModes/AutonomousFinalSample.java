@@ -115,7 +115,7 @@ public class AutonomousFinalSample extends LinearOpMode {
                     servos.clawAuto();
                 })
                 .forward(2)
-                .waitSeconds(0.2)
+                .waitSeconds(0.4)
                 .addTemporalMarker(() -> {
                     servos.clawClosed();
                 })
@@ -124,7 +124,7 @@ public class AutonomousFinalSample extends LinearOpMode {
                     servos.armUpAuto();
                 })
                 .waitSeconds(0.8)
-                .lineToLinearHeading(new Pose2d(-53.5,-53.5, Math.toRadians(225)))
+                .lineToLinearHeading(new Pose2d(-54.25,-54.25, Math.toRadians(225)))
                 .addTemporalMarker(() -> {
                     servos.linearPower(1);
                 })
@@ -143,6 +143,7 @@ public class AutonomousFinalSample extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     servos.linearPower(0);
                 })
+                .turn(Math.toRadians(-135))
 
                 .build();
         drive.setPoseEstimate(startPose);
