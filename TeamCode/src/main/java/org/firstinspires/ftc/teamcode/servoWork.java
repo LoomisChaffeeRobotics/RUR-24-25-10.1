@@ -83,16 +83,16 @@ public class servoWork {
         armTogged = true;
     }
     public void armUpAuto(){
-        ArmL.setPosition(0.3883);
-        ArmR.setPosition(0.29);
+        ArmL.setPosition(0.2578);
+        ArmR.setPosition(0.4878);
     }
     public void arm45Auto(){
-        ArmL.setPosition(0.4844);
-        ArmR.setPosition(0.1967);
+        ArmL.setPosition(0.33085);
+        ArmR.setPosition(0.42085);
     }
     public void armDownAuto(){
-        ArmL.setPosition(0.6744);
-        ArmR.setPosition(0);
+        ArmL.setPosition(0.5039);
+        ArmR.setPosition(0.2539);
     }
     public void armUpdate(){
         if (armDowning == armState.SAMPLE){
@@ -119,8 +119,8 @@ public class servoWork {
 //                armDownPercent = Math.min(-0.15,armDownPercent-0.01);
 //            }
         }
-        ArmL.setPosition(0.3883*(1-armDownPercent)+(0.6594*armDownPercent));
-        ArmR.setPosition(0.29*(1-armDownPercent)+(0.015*armDownPercent));
+        ArmL.setPosition(0.2578*(1-armDownPercent)+(0.5039*armDownPercent));
+        ArmR.setPosition(0.3878*(1-armDownPercent)+(0.2539*armDownPercent));
     }
     public void waitAuto(double seconds){
         ElapsedTime timer = new ElapsedTime();
@@ -155,8 +155,8 @@ public class servoWork {
 //                armDownPercent = Math.min(-0.15,armDownPercent-0.01);
 //            }
         }
-        ArmL.setPosition(0.3883*(1-armDownPercent)+(0.6594*armDownPercent));
-        ArmR.setPosition(0.29*(1-armDownPercent)+(0.015*armDownPercent));
+        ArmL.setPosition(0.3089*(1-armDownPercent)+(0.57*armDownPercent));
+        ArmR.setPosition(0.3711*(1-armDownPercent)+(0.115*armDownPercent));
     }
     public boolean isArmRunning() {
         if (armDownPrevious==armDownPercent){
@@ -262,7 +262,7 @@ public class servoWork {
         clawTogged = false;
     }
     public void clawAuto(){
-        Claw.setPosition(0.5978);
+        Claw.setPosition(0.6478);
     }
     public void clawToggle(){
         if (clawTogged){
