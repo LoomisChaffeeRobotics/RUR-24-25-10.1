@@ -144,7 +144,10 @@ public class AutonomousFinalSample extends LinearOpMode {
 //                    servos.linearPower(0);
 //                })
                 .turn(Math.toRadians(-135))
-ync(trajSeq);
+
+                .build();
+        drive.setPoseEstimate(startPose);
+        drive.followTrajectorySequenceAsync(trajSeq);
 
 
         waitForStart();
